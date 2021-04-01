@@ -1,0 +1,9 @@
+ul{
+    max-width: 80%;
+    margin: 10px 20px;
+    list-style-type: none;
+}
+.poster{
+    height: 275px;
+    width: 200px;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediaScout</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename = 'css/index.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Trending</h1>
+    {% for item in trending_all_week %}
+    <ul>
+      <img
+        class="poster"
+        src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}"
+      />
+      <div>Name: {{ item["title"] }}</div>
+      <div>Description: {{ item["overview"] }}</div>
+      <div>Release Date: {{item["release_date"] }}</div>
+      <div>Rating: {{ item["vote_average"] }}</div>
+      <div>
+        Adult Supervision Required: {% if item["adult"] == true %} Yes {% else
+        %} No {% endif %}
+      </div>
+    </ul>
+    {% endfor %}
+  </body>
+</html>

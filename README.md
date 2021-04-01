@@ -1,2 +1,2 @@
-# find-movies
+# MediaScout
 A movie finder and recommender app.
