@@ -9,8 +9,9 @@ movie_find = MovieFinder()
 # main page
 @app.route('/')
 def index():
-    trending_all_week = movie_find.get_trending()
-    return render_template('home.html', trending_all_week=trending_all_week)
+    trending_movie_week = movie_find.get_trending_movies()
+    trending_tv_week = movie_find.get_trending_shows()
+    return render_template('home.html', trending_movies=trending_movie_week, trending_shows=trending_tv_week)
 
 
 if __name__ == '__main__':

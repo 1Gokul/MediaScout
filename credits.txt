@@ -1,3 +1,13 @@
 Fonts taken from:
 https://www.fontshare.com/fonts/satoshi
 https://www.fontshare.com/fonts/cabinet-grotesk
+
+
+<!-- <div>Name: {{ item["title"] }}</div>
+    <div>Description: {{ item["overview"] }}</div>
+    <div>Release Date: {{item["release_date"] }}</div>
+    <div>Rating: {{ item["vote_average"] }}</div>
+    <div>
+        Adult Supervision Required: {% if item["adult"] == true %} Yes {% else
+%} No {% endif %}
+    </div> -->

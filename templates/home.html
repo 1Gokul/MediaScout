@@ -2,20 +2,29 @@
 
 {% block body %}
 
-<h1>Trending</h1>
+<div class="scroller-display my-5">
+    <h1>Trending Movies</h1>
+    <div class="scrolling-wrapper">
+        {% for item in trending_movies %}
 
-{% for item in trending_all_week %}
-<div class="my-5">
-    <img class="poster" loading=lazy src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}">
-    <div>Name: {{ item["title"] }}</div>
-    <div>Description: {{ item["overview"] }}</div>
-    <div>Release Date: {{item["release_date"] }}</div>
-    <div>Rating: {{ item["vote_average"] }}</div>
-    <div>
-        Adult Supervision Required: {% if item["adult"] == true %} Yes {% else
-%} No {% endif %}
+        <div class="card"><img class="poster" loading=lazy
+                src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}">
+        </div>
+
+        {% endfor %}
     </div>
 </div>
-{% endfor %}
 
+<div class="scroller-display my-5"></div>
+<h1>Trending Shows</h1>
+<div class="scrolling-wrapper">
+    {% for item in trending_shows %}
+
+    <div class="card"><img class="poster" loading=lazy
+            src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}">
+    </div>
+
+    {% endfor %}
+</div>
+</div>
 {% endblock %}

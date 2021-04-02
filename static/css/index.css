@@ -3,6 +3,7 @@ body {
     font-family: Satoshi, sans-serif;
     font-size: 16;
     font-weight: normal;
+    scroll-behavior: smooth;
 }
 
 @font-face {
@@ -51,7 +52,7 @@ h1 {
     list-style-type: none;
 } */
 .poster {
-    height: 275px;
+    height: 290px;
     width: 200px;
     margin: 10px 0;
     transition: filter linear 0.2s;
@@ -66,12 +67,30 @@ main>.container {
 }
 
 .form-control:focus {
-    background-color: #171A21 !important;
-    outline-color: #F7F7FF !important;
+    color: #F7F7FF;
+    background-color: #171A21;
 }
 
 .form-control:focus+.search-submit {
     color: #F7F7FF !important;
 }
+
+.scrolling-wrapper {
+    margin: 15px 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.card {
+    background-color: #171A21;
+    margin: 0 10px;
+    display: inline-block;
+}
+
+.card img{
+    border-radius: 10px;
+}
+
 
 @media only screen and (max-width: 600px) {}
