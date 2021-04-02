@@ -1,2 +1,2 @@
 # MediaScout
-A movie finder and recommender app.
+A movie finder and recommender web app.
