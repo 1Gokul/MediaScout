@@ -30,8 +30,8 @@ h1 {
     background-color: #171A21;
 }
 
-.bluish-bg {
-    background-color: #183B62;
+.darker-bg {
+    background-color: #171A21;
 }
 
 .navbar {
@@ -65,10 +65,9 @@ main>.container {
     padding: 100px 15px;
 }
 
-.search-bar:focus {
-    background-color: #F7F7FF !important;
-    transition: background-color linear 0.2s;
-    box-shadow: wheat !important;
+.form-control:focus {
+    background-color: #171A21 !important;
+    outline-color: #F7F7FF !important;
 }
 
 .form-control:focus+.search-submit {
