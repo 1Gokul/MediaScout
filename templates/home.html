@@ -13,35 +13,37 @@
 <!-- Flickity HTML init -->
 <div class="carousel" data-flickity='{ "wrapAround": true, "autoPlay": 5000, "lazyLoad": true }'>
     {% for item in spotlight %}
-    <div class="gallery-cell"><a href="https://www.google.com">
-        <div class="desktop-backdrop">
-            
-            <img src="https://image.tmdb.org/t/p/original/{{ item['backdrop_path'] }}">
-        </div>
-        <div class="mobile-backdrop">
-            <img src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}">
-        </div>
+    <div class="gallery-cell">
+        <a href="https://www.google.com">
+            <div class="desktop-backdrop">
 
-        {% if item["media_type"] == "movie" %}
-        {% set title =  "title" %}
-        {% set date =  "release_date" %}
-        {% else %}
-        {% set title =  "name" %}
-        {% set date =  "first_air_date" %}
-        {% endif %}
+                <img src="https://image.tmdb.org/t/p/original/{{ item['backdrop_path'] }}">
+            </div>
+            <div class="mobile-backdrop">
+                <img src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}">
+            </div>
 
-        <span class="carousel-image-caption">
-
-            <h1>{{ item[title] }}</h1>
-            <h5 class="carousel-image-overview mb-3">{{ item["overview"] }}</h5>
-            {% for inneritem, val in item.items() %}
-            {% if inneritem == date %}
-            <h4><i class="fas fa-calendar"></i>{{ val.split("-")[0] }}</h4>
+            {% if item["media_type"] == "movie" %}
+            {% set title =  "title" %}
+            {% set date =  "release_date" %}
+            {% else %}
+            {% set title =  "name" %}
+            {% set date =  "first_air_date" %}
             {% endif %}
-            {% endfor %}
 
-            <h4><i class="fas fa-star-half-alt"></i>{{ item["vote_average"] }}</h4>
-        </span></a>
+            <span class="carousel-image-caption">
+
+                <h1>{{ item[title] }}</h1>
+                <h5 class="carousel-image-overview mb-3">{{ item["overview"] }}</h5>
+                {% for inneritem, val in item.items() %}
+                {% if inneritem == date %}
+                <h4><i class="fas fa-calendar"></i>{{ val.split("-")[0] }}</h4>
+                {% endif %}
+                {% endfor %}
+
+                <h4><i class="fas fa-star-half-alt"></i>{{ item["vote_average"] }}</h4>
+            </span>
+        </a>
     </div>
     {% endfor %}
 

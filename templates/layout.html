@@ -37,10 +37,11 @@
                 </a>
 
                 <!-- Toggle button -->
-                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars text-white"></i>
+                <button id="navbar-toggler" class="navbar-toggler collapsed text-white" type="button"
+                    data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    onclick="toggle_icon()">
+                    <i class="fas fa-bars"></i>
                 </button>
 
                 <!-- Collapsible wrapper -->
@@ -92,6 +93,17 @@
 
     <!-- JavaScript-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.4.0/mdb.min.js"></script>
+
+    <script>
+        function toggle_icon() {
+            let navbarToggler = document.getElementById("navbar-toggler");
+            if (navbarToggler.classList.contains("collapsed")) {
+                navbarToggler.innerHTML = '<i class="fas fa-bars">';
+            } else {
+                navbarToggler.innerHTML = '<i class="fas fa-times"></i>';
+            }
+        }
+    </script>
 
     {% block script %}
     {% endblock %}
