@@ -7,7 +7,6 @@
     <meta name="description" content="" />
     <title>MediaScout</title>
 
-    <!-- Bootstrap core CSS -->
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.4.0/mdb.min.css" rel="stylesheet" />
 
@@ -19,6 +18,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
         integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
         crossorigin="anonymous" />
+
+
+    {% block head %}
+    {% endblock %}
+
 </head>
 
 <body class="d-flex flex-column h-100 text-white dark-bg">
@@ -36,7 +40,7 @@
                 <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
                     data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
+                    <i class="fas fa-bars text-white"></i>
                 </button>
 
                 <!-- Collapsible wrapper -->
@@ -88,6 +92,9 @@
 
     <!-- JavaScript-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.4.0/mdb.min.js"></script>
+
+    {% block script %}
+    {% endblock %}
 </body>
 
 </html>

@@ -1,9 +1,41 @@
 {% extends "layout.html" %}
 
+{% block head %}
+
+<!-- CSS -->
+<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+
+{% endblock %}
+
 {% block body %}
 
+<!-- Flickity HTML init -->
+<div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": true, "autoPlay": 5000, "lazyLoad": true }'>
+    {% for item in trending_movies %}
+    <div class="gallery-cell">
+        <div class="desktop-backdrop">
+            <img src="https://image.tmdb.org/t/p/original/{{ item['backdrop_path'] }}">
+        </div>
+        <div class="mobile-backdrop">
+            <img src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}">
+        </div>
+        
+        <span class="carousel-image-caption">
+            <h1>{{ item["title"] }}</h1>
+            <h4><i class="fas fa-calendar"></i>{{ item["release_date"].split('-')[0] }}</h4>
+            <h4><i class="fas fa-star-half-alt"></i>{{ item["vote_average"] }}</h4>
+        </span>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+
+
 <div class="scroller-display my-5">
-    <h1>Trending Movies</h1>
+    <h1>Movie Spotlight</h1>
     <div class="scrolling-wrapper">
         {% for item in trending_movies %}
 
@@ -16,7 +48,7 @@
 </div>
 
 <div class="scroller-display my-5"></div>
-<h1>Trending Shows</h1>
+<h1>Trending on TV</h1>
 <div class="scrolling-wrapper">
     {% for item in trending_shows %}
 
@@ -27,4 +59,11 @@
     {% endfor %}
 </div>
 </div>
+{% endblock %}
+
+
+{% block script %}
+<!-- JavaScript -->
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
 {% endblock %}
