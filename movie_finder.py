@@ -15,10 +15,12 @@ class MovieFinder:
 
     def get_trending_shows(self):
         response = requests.get(
-            f"https://api.themoviedb.org/3/trending/tv/week?api_key={self.api_key}")
+            f"https://api.themoviedb.org/3/trending/tv/week?api_key={self.api_key}"
+        )
         return response.json()["results"]
 
     def get_spotlight(self):
         response = requests.get(
-            f"https://api.themoviedb.org/3/trending/all/day?api_key={self.api_key}")
+            f"https://api.themoviedb.org/3/trending/all/day?api_key={self.api_key}"
+        )
         return response.json()["results"]

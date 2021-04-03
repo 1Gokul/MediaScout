@@ -134,6 +134,11 @@ main>.container {
     filter: brightness(60%);
 }
 
+.gallery-cell a{
+    text-decoration: none;
+    color: #F7F7FF;
+}
+
 .scrolling-wrapper {
     margin: 15px 0;
     overflow-x: scroll;
@@ -189,11 +194,7 @@ main>.container {
     background: white;
 }
 
-
-
-
-
-
+/* For mobile devices */
 @media only screen and (max-width: 600px) {
 
     .mobile-backdrop {
@@ -204,17 +205,20 @@ main>.container {
         display: none;
     }
 
-    .carousel{
+    .carousel {
         height: 50vh;
     }
 
-  
+    .carousel-image-overview {
+        display: none;
+    }
 
     .carousel-image-caption {
         margin: 0 0 20px 10px;
     }
 
-    .flickity-page-dots, .flickity-prev-next-button {
+    .flickity-page-dots,
+    .flickity-prev-next-button {
         display: none;
     }
 }
