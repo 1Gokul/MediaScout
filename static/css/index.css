@@ -128,6 +128,7 @@ main>.container {
 }
 
 .gallery-cell img {
+    object-fit: fit;
     height: 100%;
     width: 100%;
     filter: brightness(60%);
@@ -151,7 +152,7 @@ main>.container {
 }
 
 .carousel-image-caption {
-    padding: 40px;
+    margin: 40px;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -203,13 +204,17 @@ main>.container {
         display: none;
     }
 
-    .carousel-image-caption {
-        margin: 0;
-        bottom: 0;
-        padding: 0;
+    .carousel{
+        height: 50vh;
     }
 
-    .flickity-page-dots {
+  
+
+    .carousel-image-caption {
+        margin: 0 0 20px 10px;
+    }
+
+    .flickity-page-dots, .flickity-prev-next-button {
         display: none;
     }
 }
