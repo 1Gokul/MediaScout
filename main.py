@@ -18,5 +18,19 @@ def index():
                            spotlight=spotlight)
 
 
+@app.route('/movie-home')
+def movie_home():
+    now_playing_movies = movie_find.get_now_playing_movies()
+    upcoming_movies = movie_find.get_upcoming_movies()
+    popular_movies = movie_find.get_popular_movies()
+    top_rated_movies = movie_find.get_top_rated_movies()
+
+    return render_template('movie_home.html',
+                           now_playing_movies=now_playing_movies,
+                           upcoming_movies=upcoming_movies,
+                           popular_movies=popular_movies,
+                           top_rated_movies=top_rated_movies)
+
+
 if __name__ == '__main__':
     app.run(debug=True, threaded=True)

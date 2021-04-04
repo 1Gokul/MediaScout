@@ -20,3 +20,15 @@ class MovieFinder:
 
     def get_spotlight(self):
         return self.get_info("https://api.themoviedb.org/3/trending/all/day")
+
+    def get_now_playing_movies(self):
+        return self.get_info("https://api.themoviedb.org/3/movie/now_playing")
+
+    def get_upcoming_movies(self):
+        return self.get_info("https://api.themoviedb.org/3/movie/upcoming")
+
+    def get_popular_movies(self):
+        return self.get_info("https://api.themoviedb.org/3/movie/popular")
+
+    def get_top_rated_movies(self):
+        return self.get_info("https://api.themoviedb.org/3/movie/top_rated")

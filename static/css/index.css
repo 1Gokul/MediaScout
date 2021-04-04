@@ -25,7 +25,10 @@ body {
     font-style: normal;
 }
 
-h1 {
+.carousel-image-caption h1,
+.carousel-image-caption h2,
+.scroller-display h1,
+.carousel-small h1 {
     font-weight: bold;
 }
 
@@ -66,6 +69,15 @@ h1 {
     background-size: 20px;
 }
 
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #c2c2c2;
+}
+
+.navbar-dark .navbar-nav .nav-link.active:hover {
+    color: #c8e0fc;
+}
+
+
 .mobile-backdrop {
     display: none;
 }
@@ -100,12 +112,17 @@ main>.container {
     color: #F7F7FF !important;
 }
 
-.carousel {
+.carousel-large {
     margin: 0 auto;
     width: 80vw;
     height: 80vh;
 }
 
+.carousel-small {
+    margin: 0 auto;
+    width: 60vw;
+    height: 60vh;
+}
 
 /* big buttons, no circle */
 .flickity-prev-next-button {
@@ -155,6 +172,13 @@ main>.container {
     border-radius: 10px;
 }
 
+.top-right-notif-text {
+    color: gray;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 .carousel-image-caption {
     margin: 40px;
     position: absolute;
@@ -167,7 +191,8 @@ main>.container {
     margin-right: 10px;
 }
 
-.carousel-image-caption h4 {
+.carousel-image-caption h4,
+.carousel-image-caption h5:not(.carousel-image-overview) {
     display: inline;
     margin-right: 10px;
 }
@@ -211,6 +236,7 @@ main>.container {
     width: 16px;
 }
 
+
 /* For mobile devices */
 @media only screen and (max-width: 600px) {
 
@@ -222,8 +248,10 @@ main>.container {
         display: none;
     }
 
-    .carousel {
+    .carousel-large,
+    .carousel-small {
         height: 50vh;
+        width: 80vw;
     }
 
     .carousel-image-overview {

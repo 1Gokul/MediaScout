@@ -1,56 +1,52 @@
-{% extends "layout.html" %}
-
-{% block head %}
+{% extends "layout.html" %} {% block head %}
 
 <!-- CSS -->
-<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
 
-
-{% endblock %}
-
-{% block body %}
+{% endblock %} {% block body %}
 
 <!-- Flickity HTML init -->
-<div class="carousel" data-flickity='{ "wrapAround": true, "autoPlay": 5000, "lazyLoad": true }'>
+<div class="carousel-large" data-flickity='{ "wrapAround": true, "autoPlay": 5000, "lazyLoad": true }'>
     {% for item in spotlight %}
     <div class="gallery-cell">
-        <a href="https://www.google.com">
-            <div class="desktop-backdrop">
+        {% if item['backdrop_path'] == "None" %}
+        <div class="top-right-notif-text">No Image Available</div>
+        {% else %}
+        <div class="desktop-backdrop">
+            <img src="https://image.tmdb.org/t/p/w1280/{{ item['backdrop_path'] }}" />
+        </div>
+        <div class="mobile-backdrop">
+            <img src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
+        </div>
+        {% endif %}
 
-                <img src="https://image.tmdb.org/t/p/original/{{ item['backdrop_path'] }}">
-            </div>
-            <div class="mobile-backdrop">
-                <img src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}">
-            </div>
+        {% if item["media_type"] == "movie" %}
+        {% set title = "title" %}
+        {% set date = "release_date" %}
+        {% else %}
+        {% set title = "name" %}
+        {% set date = "first_air_date" %}
+        {% endif %}
 
-            {% if item["media_type"] == "movie" %}
-            {% set title =  "title" %}
-            {% set date =  "release_date" %}
-            {% else %}
-            {% set title =  "name" %}
-            {% set date =  "first_air_date" %}
-            {% endif %}
+        <span class="carousel-image-caption">
+            <h1>{{ item[title] }}</h1>
+            <h5 class="carousel-image-overview mb-3">{{ item["overview"] }}</h5>
+            {% for inneritem, val in item.items() %} {% if inneritem == date %}
+            <h4><i class="fas fa-calendar"></i>{{ val.split("-")[0] }}</h4>
+            {% endif %} {% endfor %}
 
-            <span class="carousel-image-caption">
-
-                <h1>{{ item[title] }}</h1>
-                <h5 class="carousel-image-overview mb-3">{{ item["overview"] }}</h5>
-                {% for inneritem, val in item.items() %}
-                {% if inneritem == date %}
-                <h4><i class="fas fa-calendar"></i>{{ val.split("-")[0] }}</h4>
+            <h4><i class="fas fa-star-half-alt"></i>
+                {% if item["vote_average"] == 0 %}
+                N/A
+                {% else %}
+                {{ item["vote_average"] }}
                 {% endif %}
-                {% endfor %}
-
-                <h4><i class="fas fa-star-half-alt"></i>{{ item["vote_average"] }}</h4>
-            </span>
+            </h4>
+        </span>
         </a>
     </div>
     {% endfor %}
-
 </div>
-
-
-
 
 <div class="scroller-display my-5">
     <h1>Movie Spotlight</h1>
@@ -58,52 +54,30 @@
         data-flickity='{ "cellAlign": "left", "lazyLoad": true,"freeScroll": true, "contain": true, "pageDots": false  }'>
         {% for item in trending_movies %}
 
-        <div class="card"><img class="poster" src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}">
+        <div class="card">
+            <img class="poster" src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}" />
         </div>
 
         {% endfor %}
-
     </div>
 </div>
 
-<div class="scroller-display my-5"></div>
-<h1>Trending on TV</h1>
-<div class="scrolling-wrapper" data-flickity='{ "cellAlign": "left", "lazyLoad": true  }'>
-    {% for item in trending_shows %}
+<div class="scroller-display my-5">
+    <h1>Trending on TV</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{ "cellAlign": "left", "lazyLoad": true,"freeScroll": true, "contain": true, "pageDots": false  }'>
+        {% for item in trending_shows %}
 
-    <div class="card"><img class="poster" src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}">
+        <div class="card">
+            <img class="poster" src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}" />
+        </div>
+
+        {% endfor %}
     </div>
-
-    {% endfor %}
 </div>
-</div>
-{% endblock %}
+{% endblock %} {% block script %}
 
-
-{% block script %}
 <!-- JavaScript -->
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-
-<!-- <script>
-    let scrollerLeftArrow = document.querySelectorAll(".scroller-leftarrow");
-
-    scrollerLeftArrow.forEach(function (elem) {
-        elem.addEventListener("click", function () {
-            console.log(this.parentNode);
-            
-            this.parentNode.scrollLeft += 20;
-        });
-    });
-
-    let scrollerRightArrow = document.querySelectorAll(".scroller-rightarrow");
-
-    scrollerRightArrow.forEach(function (elem) {
-        elem.addEventListener("click", function () {
-            console.log(this.parentNode);
-            
-            this.parentNode.scrollLeft += 20;
-        });
-    });
-</script> -->
 
 {% endblock %}
