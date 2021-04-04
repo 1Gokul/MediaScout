@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 from movie_finder import MovieFinder
 
 app = Flask(__name__)
@@ -31,9 +31,11 @@ def movie_home():
                            popular_movies=popular_movies,
                            top_rated_movies=top_rated_movies)
 
-@app.route('/movie-details/id=<id>')
-def get_movie_detail(id):
+
+@app.route('/movie-details')
+def get_movie_detail():
     return render_template("movie-detail.html")
+
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True)
