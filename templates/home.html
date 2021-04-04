@@ -9,40 +9,42 @@
 <div class="carousel-large" data-flickity='{ "wrapAround": true, "autoPlay": 5000, "lazyLoad": true }'>
     {% for item in spotlight %}
     <div class="gallery-cell">
-        {% if item['backdrop_path'] == "None" %}
-        <div class="top-right-notif-text">No Image Available</div>
-        {% else %}
-        <div class="desktop-backdrop">
-            <img src="https://image.tmdb.org/t/p/w1280/{{ item['backdrop_path'] }}" />
-        </div>
-        <div class="mobile-backdrop">
-            <img src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
-        </div>
-        {% endif %}
 
-        {% if item["media_type"] == "movie" %}
-        {% set title = "title" %}
-        {% set date = "release_date" %}
-        {% else %}
-        {% set title = "name" %}
-        {% set date = "first_air_date" %}
-        {% endif %}
+        <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+            {% if item['backdrop_path'] == "None" %}
+            <div class="top-right-notif-text">No Image Available</div>
+            {% else %}
+            <div class="desktop-backdrop">
+                <img src="https://image.tmdb.org/t/p/w780/{{ item['backdrop_path'] }}" />
+            </div>
+            <div class="mobile-backdrop">
+                <img src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
+            </div>
+            {% endif %}
 
-        <span class="carousel-image-caption">
-            <h1>{{ item[title] }}</h1>
-            <h5 class="carousel-image-overview mb-3">{{ item["overview"] }}</h5>
-            {% for inneritem, val in item.items() %} {% if inneritem == date %}
-            <h4><i class="fas fa-calendar"></i>{{ val.split("-")[0] }}</h4>
-            {% endif %} {% endfor %}
+            {% if item["media_type"] == "movie" %}
+            {% set title = "title" %}
+            {% set date = "release_date" %}
+            {% else %}
+            {% set title = "name" %}
+            {% set date = "first_air_date" %}
+            {% endif %}
 
-            <h4><i class="fas fa-star-half-alt"></i>
-                {% if item["vote_average"] == 0 %}
-                N/A
-                {% else %}
-                {{ item["vote_average"] }}
-                {% endif %}
-            </h4>
-        </span>
+            <span class="carousel-image-caption">
+                <h1>{{ item[title] }}</h1>
+                <h5 class="carousel-image-overview mb-3">{{ item["overview"] }}</h5>
+                {% for inneritem, val in item.items() %} {% if inneritem == date %}
+                <h4><i class="fas fa-calendar"></i>{{ val.split("-")[0] }}</h4>
+                {% endif %} {% endfor %}
+
+                <h4><i class="fas fa-star-half-alt"></i>
+                    {% if item["vote_average"] == 0 %}
+                    N/A
+                    {% else %}
+                    {{ item["vote_average"] }}
+                    {% endif %}
+                </h4>
+            </span>
         </a>
     </div>
     {% endfor %}
@@ -55,7 +57,10 @@
         {% for item in trending_movies %}
 
         <div class="card">
-            <img class="poster" src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}" />
+            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+                <img class="poster" src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
+            </a>
+
         </div>
 
         {% endfor %}
@@ -69,7 +74,10 @@
         {% for item in trending_shows %}
 
         <div class="card">
-            <img class="poster" src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}" />
+            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+                <img class="poster" src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
+            </a>
+
         </div>
 
         {% endfor %}

@@ -31,6 +31,9 @@ def movie_home():
                            popular_movies=popular_movies,
                            top_rated_movies=top_rated_movies)
 
+@app.route('/movie-details/id=<id>')
+def get_movie_detail(id):
+    return render_template("movie-detail.html")
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True)

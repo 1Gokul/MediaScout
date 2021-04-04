@@ -9,7 +9,7 @@
 <div class="carousel-small" data-flickity='{ "wrapAround": true, "autoPlay": 5000, "lazyLoad": true }'>
     {% for item in now_playing_movies %}
     <div class="gallery-cell">
-        <a href="https://www.google.com">
+        <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
             {% if item['backdrop_path'] == None %}
             <h4 class="top-right-notif-text">No Image Available</h4>
             {% else %}
@@ -51,7 +51,10 @@
         {% for item in upcoming_movies %}
 
         <div class="card">
-            <img class="poster" src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
+            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+                <img class="poster" src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
+            </a>
+
         </div>
 
         {% endfor %}
@@ -64,7 +67,10 @@
         {% for item in top_rated_movies %}
 
         <div class="card">
-            <img class="poster" src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
+            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+                <img class="poster" src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
+            </a>
+
         </div>
 
         {% endfor %}
@@ -74,9 +80,10 @@
     <h1>Popular</h1>
     <div class="scrolling-wrapper" data-flickity='{ "cellAlign": "left", "lazyLoad": true  }'>
         {% for item in popular_movies %}
-
         <div class="card">
-            <img class="poster" src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
+            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+                <img class="poster" src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
+            </a>
         </div>
 
         {% endfor %}
