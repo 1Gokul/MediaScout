@@ -54,24 +54,24 @@
 
 <div class="scroller-display my-5">
     <h1>Movie Spotlight</h1>
-    <div class="scrolling-wrapper">
+    <div class="scrolling-wrapper"
+        data-flickity='{ "cellAlign": "left", "lazyLoad": true,"freeScroll": true, "contain": true, "pageDots": false  }'>
         {% for item in trending_movies %}
 
-        <div class="card"><img class="poster" loading=lazy
-                src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}">
+        <div class="card"><img class="poster" src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}">
         </div>
 
         {% endfor %}
+
     </div>
 </div>
 
 <div class="scroller-display my-5"></div>
 <h1>Trending on TV</h1>
-<div class="scrolling-wrapper">
+<div class="scrolling-wrapper" data-flickity='{ "cellAlign": "left", "lazyLoad": true  }'>
     {% for item in trending_shows %}
 
-    <div class="card"><img class="poster" loading=lazy
-            src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}">
+    <div class="card"><img class="poster" src="https://image.tmdb.org/t/p/original/{{ item['poster_path'] }}">
     </div>
 
     {% endfor %}
@@ -83,5 +83,27 @@
 {% block script %}
 <!-- JavaScript -->
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+<!-- <script>
+    let scrollerLeftArrow = document.querySelectorAll(".scroller-leftarrow");
+
+    scrollerLeftArrow.forEach(function (elem) {
+        elem.addEventListener("click", function () {
+            console.log(this.parentNode);
+            
+            this.parentNode.scrollLeft += 20;
+        });
+    });
+
+    let scrollerRightArrow = document.querySelectorAll(".scroller-rightarrow");
+
+    scrollerRightArrow.forEach(function (elem) {
+        elem.addEventListener("click", function () {
+            console.log(this.parentNode);
+            
+            this.parentNode.scrollLeft += 20;
+        });
+    });
+</script> -->
 
 {% endblock %}

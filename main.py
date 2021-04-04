@@ -12,7 +12,10 @@ def index():
     trending_movie_week = movie_find.get_trending_movies()
     trending_tv_week = movie_find.get_trending_shows()
     spotlight = movie_find.get_spotlight()
-    return render_template('home.html', trending_movies=trending_movie_week, trending_shows=trending_tv_week, spotlight = spotlight)
+    return render_template('home.html',
+                           trending_movies=trending_movie_week,
+                           trending_shows=trending_tv_week,
+                           spotlight=spotlight)
 
 
 if __name__ == '__main__':

@@ -7,20 +7,16 @@ class MovieFinder:
     def __init__(self):
         self.api_key = os.environ.get("MOVIEDB_API_KEY")
 
-    def get_trending_movies(self):
-        response = requests.get(
-            f"https://api.themoviedb.org/3/trending/movie/week?api_key={self.api_key}"
-        )
+    def get_info(self, url):
+        response = requests.get(f"{url}?api_key={self.api_key}")
         return response.json()["results"]
+
+    def get_trending_movies(self):
+        return self.get_info(
+            "https://api.themoviedb.org/3/trending/movie/week")
 
     def get_trending_shows(self):
-        response = requests.get(
-            f"https://api.themoviedb.org/3/trending/tv/week?api_key={self.api_key}"
-        )
-        return response.json()["results"]
+        return self.get_info("https://api.themoviedb.org/3/trending/tv/week")
 
     def get_spotlight(self):
-        response = requests.get(
-            f"https://api.themoviedb.org/3/trending/all/day?api_key={self.api_key}"
-        )
-        return response.json()["results"]
+        return self.get_info("https://api.themoviedb.org/3/trending/all/day")

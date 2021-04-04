@@ -134,16 +134,15 @@ main>.container {
     filter: brightness(60%);
 }
 
-.gallery-cell a{
+.gallery-cell a {
     text-decoration: none;
     color: #F7F7FF;
 }
 
 .scrolling-wrapper {
     margin: 15px 0;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 20px;
 }
 
 .card {
@@ -192,6 +191,24 @@ main>.container {
 /* fill-in selected dot */
 .flickity-page-dots .dot.is-selected {
     background: white;
+}
+
+.scroller-leftarrow {
+    cursor: pointer;
+    padding: 0 10px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 16px;
+}
+
+.scroller-rightarrow {
+    cursor: pointer;
+    padding: 0 10px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 16px;
 }
 
 /* For mobile devices */
