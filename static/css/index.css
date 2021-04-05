@@ -188,13 +188,13 @@ main>.container {
 }
 
 .carousel-image-caption i {
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .carousel-image-caption h4,
 .carousel-image-caption h5:not(.carousel-image-overview) {
     display: inline;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 
