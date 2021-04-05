@@ -7,9 +7,9 @@
 
 <!-- Flickity HTML init -->
 <div class="carousel-small" data-flickity='{ "wrapAround": true, "autoPlay": 5000, "lazyLoad": true }'>
-    {% for item in now_playing_movies %}
+    {% for item in shows_on_the_air %}
     <div class="gallery-cell">
-        <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+        <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
             {% if item['backdrop_path'] == None %}
             <h4 class="top-right-notif-text">No Image Available</h4>
             {% else %}
@@ -23,15 +23,15 @@
 
             <span class="carousel-image-caption">
                 <h2>
-                    {{ item["original_title"] }}
-                    {% if (item["original_language"] != "en") and (item["original_title"] != item["title"]) %}
-                    &nbsp;({{ item["title"] }})
+                    {{ item["original_name"] }}
+                    {% if (item["original_language"] != "en") and (item["original_name"] != item["name"]) %}
+                    &nbsp;({{ item["name"] }})
                     {% endif %}
                 </h2>
                 <h5 class="carousel-image-overview mb-3">{{ item["overview"]|truncate(250,true) }}</h5>
 
                 {% for inneritem, val in item.items() %}
-                {% if inneritem == "release_date" %}
+                {% if inneritem == "first_air_date" %}
                 <h5><i class="fas fa-calendar"></i>{{ val.split("-")[0] }}</h5>
                 {% endif %}
                 {% endfor %}
@@ -50,13 +50,13 @@
 </div>
 
 <div class="scroller-display my-5">
-    <h1>Upcoming</h1>
+    <h1>On The Air</h1>
     <div class="scrolling-wrapper"
         data-flickity='{ "cellAlign": "left", "lazyLoad": true,"freeScroll": true, "contain": true, "pageDots": false  }'>
-        {% for item in upcoming_movies %}
+        {% for item in shows_airing_today %}
 
         <div class="card">
-            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
                 <img class="poster" src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
             </a>
 
@@ -69,10 +69,10 @@
 <div class="scroller-display my-5">
     <h1>Top Rated</h1>
     <div class="scrolling-wrapper" data-flickity='{ "cellAlign": "left", "lazyLoad": true  }'>
-        {% for item in top_rated_movies %}
+        {% for item in top_rated_shows %}
 
         <div class="card">
-            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
                 <img class="poster" src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
             </a>
 
@@ -84,9 +84,9 @@
 <div class="scroller-display my-5">
     <h1>Popular</h1>
     <div class="scrolling-wrapper" data-flickity='{ "cellAlign": "left", "lazyLoad": true  }'>
-        {% for item in popular_movies %}
+        {% for item in popular_shows %}
         <div class="card">
-            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
                 <img class="poster" src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
             </a>
         </div>

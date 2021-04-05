@@ -15,7 +15,7 @@
             <div class="top-right-notif-text">No Image Available</div>
             {% else %}
             <div class="desktop-backdrop">
-                <img src="https://image.tmdb.org/t/p/w780/{{ item['backdrop_path'] }}" />
+                <img src="https://image.tmdb.org/t/p/w1280/{{ item['backdrop_path'] }}" />
             </div>
             <div class="mobile-backdrop">
                 <img src="https://image.tmdb.org/t/p/w300/{{ item['poster_path'] }}" />
@@ -31,8 +31,13 @@
             {% endif %}
 
             <span class="carousel-image-caption">
-                <h1>{{ item[title] }}</h1>
-                <h5 class="carousel-image-overview mb-3">{{ item["overview"] }}</h5>
+                <h1>
+                    {{ item["original_" ~ title] }}
+                    {% if (item["original_language"] != "en") and (item["original_" ~ title] != item[title]) %}
+                    &nbsp;({{ item[title] }})
+                    {% endif %}
+                </h1>
+                <h5 class="carousel-image-overview mb-3">{{ item["overview"]|truncate(250,true) }}</h5>
                 {% for inneritem, val in item.items() %} {% if inneritem == date %}
                 <h4><i class="fas fa-calendar"></i>{{ val.split("-")[0] }}</h4>
                 {% endif %} {% endfor %}
