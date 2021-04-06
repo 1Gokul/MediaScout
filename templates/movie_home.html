@@ -1,101 +1,95 @@
 {% extends "layout.html" %} {% block head %}
 
-<!-- CSS -->
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/flickity@2/dist/flickity.min.css"
-/>
+<!-- Flickity CSS -->
+<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
 
 {% endblock %} {% block body %}
 
-<!-- Flickity HTML init -->
-<div
-  class="carousel-small"
-  data-flickity='{ "wrapAround": true, "autoPlay": 5000, "lazyLoad": true }'
->
-  {% for item in now_playing_movies %}
-  <div class="gallery-cell">
-    <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
-      {% if item['backdrop'] == None %}
-      <h4 class="top-right-notif-text">No Image Available</h4>
-      {% else %}
-      <div class="desktop-backdrop">
-        <img src="{{ item['backdrop'] }}" />
-      </div>
-      <div class="mobile-backdrop">
-        <img src="{{ item['poster'] }}" />
-      </div>
-      {% endif %}
+<!-- Small Movie Carousel -->
+<div class="carousel-small" data-flickity='{ "wrapAround": true, "autoPlay": 5000, "lazyLoad": true }'>
+    {% for item in now_playing_movies %}
+    <div class="gallery-cell">
+        <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+            {% if item['backdrop'] == None %}
+            <h4 class="top-right-notif-text">No Image Available</h4>
+            {% else %}
+            <div class="desktop-backdrop">
+                <img src="{{ item['backdrop'] }}" />
+            </div>
+            <div class="mobile-backdrop">
+                <img src="{{ item['poster'] }}" />
+            </div>
+            {% endif %}
 
-      <span class="carousel-image-caption">
-        <h2>{{ item["full_title"] }}</h2>
-        <h5 class="carousel-image-overview mb-3">{{ item["description"] }}</h5>
+            <span class="carousel-image-caption">
+                <h2>{{ item["full_title"] }}</h2>
+                <h5 class="carousel-image-overview mb-3">{{ item["description"] }}</h5>
 
-        <h5><i class="fas fa-calendar"></i>{{ item["date"] }}</h5>
+                <h5><i class="fas fa-calendar"></i>{{ item["date"] }}</h5>
 
-        <h5>
-          <i class="fas fa-star-half-alt"></i>
-          {{ item["rating"]}}
-        </h5>
-      </span>
-    </a>
-  </div>
-  {% endfor %}
+                <h5>
+                    <i class="fas fa-star-half-alt"></i>
+                    {{ item["rating"]}}
+                </h5>
+            </span>
+        </a>
+    </div>
+    {% endfor %}
 </div>
 
+<!-- Smaller carousel with posters -->
 <div class="scroller-display my-5">
-  <h1>On The Air</h1>
-  <div
-    class="scrolling-wrapper"
-    data-flickity='{ "cellAlign": "left", "lazyLoad": true,"freeScroll": true, "contain": true, "pageDots": false  }'
-  >
-    {% for item in upcoming_movies %}
+    <h1>On The Air</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{ "cellAlign": "left", "lazyLoad": true,"freeScroll": true, "contain": true, "pageDots": false  }'>
+        {% for item in upcoming_movies %}
 
-    <div class="card">
-      <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
-        <img class="poster" src="{{ item['poster'] }}" />
-      </a>
+        <div class="card">
+            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+                <img class="poster" src="{{ item['poster'] }}" />
+            </a>
+        </div>
+
+        {% endfor %}
     </div>
-
-    {% endfor %}
-  </div>
 </div>
 
+<!-- Smaller carousel with posters -->
 <div class="scroller-display my-5">
-  <h1>Top Rated</h1>
-  <div
-    class="scrolling-wrapper"
-    data-flickity='{ "lazyLoad": true, "freeScroll": true, "contain": true, "pageDots": false  }'
-  >
-    {% for item in top_rated_movies %}
+    <h1>Top Rated</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{ "lazyLoad": true, "freeScroll": true, "contain": true, "pageDots": false  }'>
+        {% for item in top_rated_movies %}
 
-    <div class="card">
-      <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
-        <img class="poster" src="{{ item['poster'] }}" />
-      </a>
+        <div class="card">
+            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+                <img class="poster" src="{{ item['poster'] }}" />
+            </a>
+        </div>
+
+        {% endfor %}
     </div>
-
-    {% endfor %}
-  </div>
 </div>
-<div class="scroller-display my-5">
-  <h1>Popular</h1>
-  <div
-    class="scrolling-wrapper"
-    data-flickity='{ "lazyLoad": true, "freeScroll": true, "contain": true, "pageDots": false }'
-  >
-    {% for item in popular_movies %}
-    <div class="card">
-      <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
-        <img class="poster" src="{{ item['poster'] }}" />
-      </a>
-    </div>
 
-    {% endfor %}
-  </div>
+<!-- Smaller carousel with posters -->
+<div class="scroller-display my-5">
+    <h1>Popular</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{ "lazyLoad": true, "freeScroll": true, "contain": true, "pageDots": false }'>
+        {% for item in popular_movies %}
+        <div class="card">
+            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+                <img class="poster" src="{{ item['poster'] }}" />
+            </a>
+        </div>
+
+        {% endfor %}
+    </div>
 </div>
 {% endblock %} {% block script %}
-<!-- JavaScript -->
+
+
+<!-- Flickity JavaScript -->
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
 {% endblock %}
