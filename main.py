@@ -16,7 +16,7 @@ def index():
         "home.html",
         trending_movies=trending_movie_week,
         trending_shows=trending_tv_week,
-        spotlight=spotlight,
+        spotlight=spotlight
     )
 
 
@@ -33,7 +33,7 @@ def movie_home():
         now_playing_movies=now_playing_movies,
         upcoming_movies=upcoming_movies,
         popular_movies=popular_movies,
-        top_rated_movies=top_rated_movies,
+        top_rated_movies=top_rated_movies
     )
 
 
@@ -50,7 +50,7 @@ def tv_home():
         shows_on_the_air=shows_on_the_air,
         shows_airing_today=shows_airing_today,
         popular_shows=popular_shows,
-        top_rated_shows=top_rated_shows,
+        top_rated_shows=top_rated_shows
     )
 
 

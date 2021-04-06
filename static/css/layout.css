@@ -69,11 +69,11 @@ body {
     background-size: 20px;
 }
 
-.navbar-dark .navbar-nav .nav-link.active {
+.navbar-dark .navbar-nav .nav-link.active, .footer a {
     color: #c2c2c2;
 }
 
-.navbar-dark .navbar-nav .nav-link.active:hover {
+.navbar-dark .navbar-nav .nav-link.active:hover, .footer a:hover {
     color: #c8e0fc;
 }
 
@@ -236,6 +236,17 @@ main>.container {
     width: 16px;
 }
 
+.footer ul{
+    list-style-type: none;
+}
+
+.footer ul li{
+    display: inline-block;
+    margin: 0 15px;
+}
+
+
+
 
 /* For mobile devices */
 @media only screen and (max-width: 600px) {
@@ -265,5 +276,10 @@ main>.container {
     .flickity-page-dots,
     .flickity-prev-next-button {
         display: none;
+    }
+
+    .footer ul li{
+        display: block;
+        margin: 15px 5px;
     }
 }
