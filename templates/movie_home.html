@@ -25,7 +25,10 @@
                 <h2>{{ item["full_title"] }}</h2>
                 <h5 class="carousel-image-overview mb-3">{{ item["description"] }}</h5>
 
-                <h5><i class="fas fa-calendar"></i>{{ item["date"] }}</h5>
+                <h5>
+                    <i class="fas fa-calendar"></i>
+                    {{ item["date"] }}
+                </h5>
 
                 <h5>
                     <i class="fas fa-star-half-alt"></i>
@@ -41,9 +44,26 @@
 <div class="scroller-display my-5">
     <h1>On The Air</h1>
     <div class="scrolling-wrapper"
-        data-flickity='{ "cellAlign": "left", "lazyLoad": true,"freeScroll": true, "contain": true, "pageDots": false  }'>
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
         {% for item in upcoming_movies %}
 
+        <div class="card">
+            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+                <img class="poster" src="{{ item['poster'] }}" />
+            </a>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+
+
+<!-- Smaller carousel with posters -->
+<div class="scroller-display my-5">
+    <h1>Documentaries</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+        {% for item in documentary_movies %}
         <div class="card">
             <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
                 <img class="poster" src="{{ item['poster'] }}" />
@@ -58,7 +78,7 @@
 <div class="scroller-display my-5">
     <h1>Top Rated</h1>
     <div class="scrolling-wrapper"
-        data-flickity='{ "lazyLoad": true, "freeScroll": true, "contain": true, "pageDots": false  }'>
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
         {% for item in top_rated_movies %}
 
         <div class="card">
@@ -75,7 +95,7 @@
 <div class="scroller-display my-5">
     <h1>Popular</h1>
     <div class="scrolling-wrapper"
-        data-flickity='{ "lazyLoad": true, "freeScroll": true, "contain": true, "pageDots": false }'>
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
         {% for item in popular_movies %}
         <div class="card">
             <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
@@ -86,6 +106,7 @@
         {% endfor %}
     </div>
 </div>
+
 {% endblock %} {% block script %}
 
 

@@ -125,15 +125,15 @@ main>.container {
 }
 
 /* big buttons, no circle */
-.flickity-prev-next-button {
-    width: 100px;
-    height: 100px;
+.flickity-prev-next-button{
+    width: 75px !important;
+    height: 75px !important;
     background: transparent !important;
 }
 
 /* arrow color */
 .flickity-prev-next-button .arrow {
-    fill: white;
+    fill: #F7F7FF;
 }
 
 
@@ -218,23 +218,6 @@ main>.container {
     background: white;
 }
 
-.scroller-leftarrow {
-    cursor: pointer;
-    padding: 0 10px;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 16px;
-}
-
-.scroller-rightarrow {
-    cursor: pointer;
-    padding: 0 10px;
-    position: absolute;
-    top: 50%;
-    right: 0;
-    width: 16px;
-}
 
 .footer ul{
     list-style-type: none;
