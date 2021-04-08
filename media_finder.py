@@ -47,74 +47,30 @@ class MediaFinder:
 
     def get_general_info(self, url: str, additional_args: str = "", media_type=None):
         """ Gets info from the api and returns a simplified dict of the data. """
+
         response = requests.get(f"{url}?api_key={self.api_key}{additional_args}")
         return simplify_response(response.json()["results"], media_type)
 
-    # For the homepage
-
-    def get_trending_movies(self):
-        return self.get_general_info("https://api.themoviedb.org/3/trending/movie/week")
-
-    def get_trending_shows(self):
-        return self.get_general_info("https://api.themoviedb.org/3/trending/tv/week")
-
-    def get_spotlight(self):
-        return self.get_general_info("https://api.themoviedb.org/3/trending/all/day")
-
-    # For movies
-
-    def get_now_playing_movies(self):
-        return self.get_general_info(
-            "https://api.themoviedb.org/3/movie/now_playing", media_type="movie"
-        )
-
-    def get_upcoming_movies(self):
-        return self.get_general_info(
-            "https://api.themoviedb.org/3/movie/upcoming", media_type="movie"
-        )
-
-    def get_popular_movies(self):
-        return self.get_general_info(
-            "https://api.themoviedb.org/3/movie/popular", media_type="movie"
-        )
-
-    def get_top_rated_movies(self):
-        return self.get_general_info(
-            "https://api.themoviedb.org/3/movie/top_rated", media_type="movie"
-        )
-
-    # For TV
-
-    def get_shows_airing_today(self):
-        return self.get_general_info(
-            "https://api.themoviedb.org/3/tv/airing_today", media_type="tv"
-        )
-
-    def get_shows_on_the_air(self):
-        return self.get_general_info(
-            "https://api.themoviedb.org/3/tv/on_the_air", media_type="tv"
-        )
-
-    def get_popular_shows(self):
-        return self.get_general_info(
-            "https://api.themoviedb.org/3/tv/popular", media_type="tv"
-        )
-
-    def get_top_rated_shows(self):
-        return self.get_general_info(
-            "https://api.themoviedb.org/3/tv/top_rated", media_type="tv"
-        )
-
     def discover_by_genre(self, media_type, genre):
+        """ Returns the info from TMDB's discover section. """
+
         return self.get_general_info(
             f"https://api.themoviedb.org/3/discover/{media_type}",
             additional_args=f"&without_keywords=158436|6593|7344|18321|195997|445|11530|190115|206574|199723&with_genres={GENRES[genre]}&sort_by=popularity.desc&include_video=false",
             media_type=media_type,
         )
 
+    def info_by_category(self, category_after, media_type, category_before=None):
+        """ Returns the information on media of a particular category like 'trending' or 'popular'. """
+
+        return self.get_general_info(
+            f"https://api.themoviedb.org/3{ ('/' + category_before) if category_before else ''}/{media_type}/{category_after}",
+            media_type=media_type,
+        )
+
 
 def simplify_response(response_dict: dict, media_type):
-    """ Returns a simplified version of the response with only the basic info of the movies and shows."""
+    """ Returns a simplified version of the response with only the basic info of the movies and shows. Used mainly for the large and small carousels. """
 
     simplified_response = []
     media_title = ""
@@ -125,7 +81,7 @@ def simplify_response(response_dict: dict, media_type):
         media_item_data = {}
 
         # Set the dictionary's key names depending on the type of media
-        if media_type == None:
+        if media_type == None or media_type == "all":
             m_type = media_item["media_type"]
 
         else:
