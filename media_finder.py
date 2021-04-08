@@ -132,10 +132,15 @@ def simplify_response(response_dict: dict, media_type):
             "N/A" if media_item["vote_average"] == 0 else media_item["vote_average"]
         )
 
-        # Add a backdrop
-        media_item_data[
-            "backdrop"
-        ] = f"https://image.tmdb.org/t/p/w{BACKDROP_SIZE}/{media_item['backdrop_path']}"
+        # If there is no backdrop image, add the default one.
+        if media_item["backdrop_path"] == None:
+            media_item_data["backdrop"] = url_for(
+                "static", filename="img/no_backdrop.png"
+            )
+        else:
+            media_item_data[
+                "backdrop"
+            ] = f"https://image.tmdb.org/t/p/w{BACKDROP_SIZE}/{media_item['backdrop_path']}"
 
         # If there is no poster image, add the default one.
         if media_item["poster_path"] == None:
