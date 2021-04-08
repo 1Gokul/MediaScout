@@ -14,10 +14,10 @@
             <div class="top-right-notif-text">No Image Available</div>
             {% else %}
             <div class="desktop-backdrop">
-                <img src="{{ item['backdrop'] }}" />
+                <img loading=lazy src="{{ item['backdrop'] }}" />
             </div>
             <div class="mobile-backdrop">
-                <img src="{{ item['poster'] }}" />
+                <img loading=lazy src="{{ item['poster'] }}" />
             </div>
             {% endif %}
 
@@ -48,7 +48,7 @@
 
         <div class="card">
             <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
-                <img class="poster" src="{{ item['poster'] }}" />
+                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
             </a>
         </div>
 
@@ -65,7 +65,7 @@
 
         <div class="card">
             <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
-                <img class="poster" src="{{ item['poster'] }}" />
+                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
             </a>
         </div>
 
@@ -83,7 +83,7 @@
 
         <div class="card">
             <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
-                <img class="poster" src="{{ item['poster'] }}" />
+                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
             </a>
         </div>
 
@@ -99,7 +99,7 @@
 
         <div class="card">
             <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
-                <img class="poster" src="{{ item['poster'] }}" />
+                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
             </a>
         </div>
 
@@ -116,7 +116,7 @@
 
         <div class="card">
             <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
-                <img class="poster" src="{{ item['poster'] }}" />
+                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
             </a>
         </div>
 

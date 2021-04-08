@@ -42,7 +42,10 @@ body {
 
 .navbar {
     font-size: large;
+}
 
+.navbar-dark {
+    border-bottom: 3px solid #c0c0c0;
 }
 
 .navbar-brand img {
@@ -69,11 +72,13 @@ body {
     background-size: 20px;
 }
 
-.navbar-dark .navbar-nav .nav-link.active, .footer a {
+.navbar-dark .navbar-nav .nav-link.active,
+.footer a {
     color: #c2c2c2;
 }
 
-.navbar-dark .navbar-nav .nav-link.active:hover, .footer a:hover {
+.navbar-dark .navbar-nav .nav-link.active:hover,
+.footer a:hover {
     color: #c8e0fc;
 }
 
@@ -125,7 +130,7 @@ main>.container {
 }
 
 /* big buttons, no circle */
-.flickity-prev-next-button{
+.flickity-prev-next-button {
     width: 75px !important;
     height: 75px !important;
     background: transparent !important;
@@ -219,11 +224,11 @@ main>.container {
 }
 
 
-.footer ul{
+.footer ul {
     list-style-type: none;
 }
 
-.footer ul li{
+.footer ul li {
     display: inline-block;
     margin: 0 15px;
 }
@@ -261,7 +266,7 @@ main>.container {
         display: none;
     }
 
-    .footer ul li{
+    .footer ul li {
         display: block;
         margin: 15px 5px;
     }

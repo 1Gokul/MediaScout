@@ -162,10 +162,14 @@ def simplify_response(response_dict: dict, media_type):
         )
 
         # Add the release/air date
-        date_list = media_item[media_date_name].split("-")
-        media_item_data[
-            "date"
-        ] = f"{MONTHS[int(date_list[1]) - 1]} {date_list[2]}, {date_list[0]}"
+        try:
+            date_list = media_item[media_date_name].split("-")
+        except KeyError:
+            media_item_data["date"] = "Unavailable"
+        else:
+            media_item_data[
+                "date"
+            ] = f"{MONTHS[int(date_list[1]) - 1]} {date_list[2]}, {date_list[0]}"
 
         # Add the rating
         media_item_data["rating"] = (

@@ -20,48 +20,25 @@ def index():
         trending_movies=trending_movie_week,
         trending_shows=trending_tv_week,
         spotlight=spotlight,
-        crime_shows = crime_shows,
-        war_politics_shows = war_politics_shows,
-        family_movies = family_movies
+        crime_shows=crime_shows,
+        war_politics_shows=war_politics_shows,
+        family_movies=family_movies,
     )
 
 
 # movie homepage
 @app.route("/movie-home")
 def movie_home():
-    now_playing_movies = media_find.get_now_playing_movies()
-    upcoming_movies = media_find.get_upcoming_movies()
-    popular_movies = media_find.get_popular_movies()
-    top_rated_movies = media_find.get_top_rated_movies()
-    documentary_movies = media_find.discover_by_genre("movie", "Documentary")
-    print(documentary_movies)
-    return render_template(
-        "movie-home.html",
-        now_playing_movies=now_playing_movies,
-        upcoming_movies=upcoming_movies,
-        popular_movies=popular_movies,
-        top_rated_movies=top_rated_movies,
-        documentary_movies=documentary_movies,
-    )
+    movie_info = get_movie_home_info()
+    return render_template("movie-home.html", movie_info=movie_info)
 
 
 # tv homepage
 @app.route("/tv-home")
 def tv_home():
-    shows_on_the_air = media_find.get_shows_on_the_air()
-    shows_airing_today = media_find.get_shows_airing_today()
-    popular_shows = media_find.get_popular_shows()
-    top_rated_shows = media_find.get_top_rated_shows()
-    documentary_shows = media_find.discover_by_genre("tv", "Documentary")
+    tv_info = get_tv_home_info()
 
-    return render_template(
-        "tv-home.html",
-        shows_on_the_air=shows_on_the_air,
-        shows_airing_today=shows_airing_today,
-        popular_shows=popular_shows,
-        top_rated_shows=top_rated_shows,
-        documentary_shows=documentary_shows,
-    )
+    return render_template("tv-home.html", tv_info=tv_info)
 
 
 # movie details page
@@ -74,6 +51,42 @@ def get_movie_detail():
 @app.route("/tv-show-details")
 def get_tv_show_detail():
     return render_template("tv-show-detail.html")
+
+
+def get_tv_home_info():
+    info_dict = {
+        "shows_on_the_air": media_find.get_shows_on_the_air(),
+        "shows_airing_today": media_find.get_shows_airing_today(),
+        "popular_shows": media_find.get_popular_shows(),
+        "top_rated_shows": media_find.get_top_rated_shows(),
+        "documentary_shows": media_find.discover_by_genre("tv", "Documentary"),
+        "animated_shows": media_find.discover_by_genre("tv", "Animation"),
+        "action_adventure_shows": media_find.discover_by_genre(
+            "tv", "Action & Adventure"
+        ),
+        "kids_shows": media_find.discover_by_genre("tv", "Kids"),
+        "mystery_shows": media_find.discover_by_genre("tv", "Mystery"),
+        "reality_shows": media_find.discover_by_genre("tv", "Reality"),
+    }
+
+    return info_dict
+
+
+def get_movie_home_info():
+    info_dict = {
+        "now_playing_movies": media_find.get_now_playing_movies(),
+        "upcoming_movies": media_find.get_upcoming_movies(),
+        "top_rated_movies": media_find.get_top_rated_movies(),
+        "popular_movies": media_find.get_popular_movies(),
+        "documentary_movies": media_find.discover_by_genre("movie", "Documentary"),
+        "comedy_movies": media_find.discover_by_genre("movie", "Comedy"),
+        "mystery_movies": media_find.discover_by_genre("movie", "Mystery"),
+        "western_movies": media_find.discover_by_genre("movie", "Western"),
+        "drama_movies": media_find.discover_by_genre("movie", "Drama"),
+        "crime_movies": media_find.discover_by_genre("movie", "Crime"),
+    }
+
+    return info_dict
 
 
 if __name__ == "__main__":

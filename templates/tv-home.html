@@ -9,17 +9,17 @@
 
 <!-- Small TV Show Carousel  -->
 <div class="carousel-small" data-flickity='{ "wrapAround": true, "autoPlay": 5000, "lazyLoad": true }'>
-    {% for item in shows_on_the_air %}
+    {% for item in tv_info["shows_on_the_air"] %}
     <div class="gallery-cell">
         <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
             {% if item['backdrop'] == None %}
             <h4 class="top-right-notif-text">No Image Available</h4>
             {% else %}
             <div class="desktop-backdrop">
-                <img src="{{ item['backdrop'] }}" />
+                <img loading=lazy src="{{ item['backdrop'] }}" />
             </div>
             <div class="mobile-backdrop">
-                <img src="{{ item['poster'] }}" />
+                <img loading=lazy src="{{ item['poster'] }}" />
             </div>
             {% endif %}
 
@@ -47,11 +47,11 @@
     <h1>On The Air</h1>
     <div class="scrolling-wrapper"
         data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
-        {% for item in shows_airing_today %}
+        {% for item in tv_info["shows_airing_today"] %}
 
         <div class="card">
             <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
-                <img class="poster" src="{{ item['poster'] }}" />
+                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
             </a>
         </div>
 
@@ -63,10 +63,10 @@
     <h1>Documentaries</h1>
     <div class="scrolling-wrapper"
         data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
-        {% for item in documentary_shows %}
+        {% for item in tv_info["documentary_shows"] %}
         <div class="card">
             <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
-                <img class="poster" src="{{ item['poster'] }}" />
+                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
             </a>
         </div>
 
@@ -77,12 +77,13 @@
 <!-- Smaller carousel with posters -->
 <div class="scroller-display my-5">
     <h1>Top Rated</h1>
-    <div class="scrolling-wrapper" data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
-        {% for item in top_rated_shows %}
+    <div class="scrolling-wrapper"
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+        {% for item in tv_info["top_rated_shows"] %}
 
         <div class="card">
             <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
-                <img class="poster" src="{{ item['poster'] }}" />
+                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
             </a>
         </div>
 
@@ -93,10 +94,66 @@
     <h1>Popular</h1>
     <div class="scrolling-wrapper"
         data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
-        {% for item in popular_shows %}
+        {% for item in tv_info["popular_shows"] %}
         <div class="card">
             <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
-                <img class="poster" src="{{ item['poster'] }}" />
+                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
+            </a>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+<div class="scroller-display my-5">
+    <h1>Animated</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+        {% for item in tv_info["animated_shows"] %}
+        <div class="card">
+            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
+                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
+            </a>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+<div class="scroller-display my-5">
+    <h1>Action & Adventure</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+        {% for item in tv_info["action_adventure_shows"] %}
+        <div class="card">
+            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
+                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
+            </a>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+<div class="scroller-display my-5">
+    <h1>For Kids</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+        {% for item in tv_info["kids_shows"] %}
+        <div class="card">
+            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
+                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
+            </a>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+<div class="scroller-display my-5">
+    <h1>Reality Show</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+        {% for item in tv_info["reality_shows"] %}
+        <div class="card">
+            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
+                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
             </a>
         </div>
 
