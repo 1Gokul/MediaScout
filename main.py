@@ -12,11 +12,17 @@ def index():
     trending_movie_week = media_find.get_trending_movies()
     trending_tv_week = media_find.get_trending_shows()
     spotlight = media_find.get_spotlight()
+    crime_shows = media_find.discover_by_genre("tv", "Crime")
+    war_politics_shows = media_find.discover_by_genre("tv", "War & Politics")
+    family_movies = media_find.discover_by_genre("movie", "Family")
     return render_template(
         "home.html",
         trending_movies=trending_movie_week,
         trending_shows=trending_tv_week,
         spotlight=spotlight,
+        crime_shows = crime_shows,
+        war_politics_shows = war_politics_shows,
+        family_movies = family_movies
     )
 
 
@@ -30,7 +36,7 @@ def movie_home():
     documentary_movies = media_find.discover_by_genre("movie", "Documentary")
     print(documentary_movies)
     return render_template(
-        "movie_home.html",
+        "movie-home.html",
         now_playing_movies=now_playing_movies,
         upcoming_movies=upcoming_movies,
         popular_movies=popular_movies,
@@ -49,7 +55,7 @@ def tv_home():
     documentary_shows = media_find.discover_by_genre("tv", "Documentary")
 
     return render_template(
-        "tv_home.html",
+        "tv-home.html",
         shows_on_the_air=shows_on_the_air,
         shows_airing_today=shows_airing_today,
         popular_shows=popular_shows,

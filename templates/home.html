@@ -72,6 +72,57 @@
         {% endfor %}
     </div>
 </div>
+
+
+<!-- Smaller carousel with posters -->
+<div class="scroller-display my-5">
+    <h1>Crime Shows</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+        {% for item in crime_shows %}
+
+        <div class="card">
+            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+                <img class="poster" src="{{ item['poster'] }}" />
+            </a>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+<!-- Smaller carousel with posters -->
+<div class="scroller-display my-5">
+    <h1>Family Movies</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+        {% for item in family_movies %}
+
+        <div class="card">
+            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+                <img class="poster" src="{{ item['poster'] }}" />
+            </a>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Smaller carousel with posters -->
+<div class="scroller-display my-5">
+    <h1>War and Politics</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+        {% for item in war_politics_shows %}
+
+        <div class="card">
+            <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
+                <img class="poster" src="{{ item['poster'] }}" alt="{{ item['full_title"/>
+            </a>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
 {% endblock %} {% block script %}
 
 
