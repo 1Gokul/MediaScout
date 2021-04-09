@@ -45,7 +45,7 @@ body {
 }
 
 .navbar-dark {
-    border-bottom: 3px solid #c0c0c0;
+    background-color: #1f2033;
 }
 
 .navbar-brand img {
@@ -108,9 +108,13 @@ main>.container {
     padding: 100px 15px;
 }
 
+.form-control{
+    background-color: #1f2033;
+}
+
 .form-control:focus {
     color: #F7F7FF;
-    background-color: #171A21;
+    background-color: #1f2033;
 }
 
 .form-control:focus+.search-submit {

@@ -24,7 +24,6 @@ def movie_home():
 @app.route("/tv-home")
 def tv_home():
     tv_info = get_tv_home_info()
-
     return render_template("tv-home.html", tv_info=tv_info)
 
 
