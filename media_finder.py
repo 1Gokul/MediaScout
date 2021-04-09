@@ -39,7 +39,7 @@ GENRES = {
     "Western": 37,
 }
 
-BACKDROP_SIZE = 1280
+BACKDROP_SIZE = 632
 POSTER_SIZE = 300
 OVERVIEW_MAX_CHARS = 250
 
@@ -169,7 +169,7 @@ def simplify_response(response_dict: dict, media_type):
         else:
             item_data_to_add[
                 "backdrop"
-            ] = f"https://image.tmdb.org/t/p/w{BACKDROP_SIZE}/{media_item['backdrop_path']}"
+            ] = f"https://image.tmdb.org/t/p/h{BACKDROP_SIZE}/{media_item['backdrop_path']}"
 
         # If there is no poster image, add the default one.
         if media_item["poster_path"] == None:
