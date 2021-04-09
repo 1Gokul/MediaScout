@@ -73,12 +73,14 @@ body {
 }
 
 .navbar-dark .navbar-nav .nav-link.active,
-.footer a, .credits a {
+.footer a,
+.credits a {
     color: #c2c2c2;
 }
 
 .navbar-dark .navbar-nav .nav-link.active:hover,
-.footer a:hover, .credits a:hover {
+.footer a:hover,
+.credits a:hover {
     color: #c8e0fc;
 }
 
@@ -108,7 +110,7 @@ main>.container {
     padding: 100px 15px;
 }
 
-.form-control{
+.form-control {
     background-color: #1f2033;
 }
 
@@ -237,7 +239,7 @@ main>.container {
     margin: 0 15px;
 }
 
-.credits{
+.credits {
     font-size: larger;
 }
 

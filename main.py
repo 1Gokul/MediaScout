@@ -3,6 +3,7 @@ from media_finder import MediaFinder
 
 app = Flask(__name__)
 
+
 media_find = MediaFinder()
 
 
@@ -37,6 +38,7 @@ def get_movie_detail():
 @app.route("/tv-show-details")
 def get_tv_show_detail():
     return render_template("tv-show-detail.html")
+
 
 # credits page
 @app.route("/credits")
