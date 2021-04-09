@@ -38,6 +38,11 @@ def get_movie_detail():
 def get_tv_show_detail():
     return render_template("tv-show-detail.html")
 
+# credits page
+@app.route("/credits")
+def credit():
+    return render_template("credits.html")
+
 
 def get_main_home_info():
     info_dict = {

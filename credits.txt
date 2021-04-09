@@ -1,6 +1,0 @@
-Fonts taken from:
-https://www.fontshare.com/fonts/satoshi
-https://www.fontshare.com/fonts/cabinet-grotesk
-
-Data taken from TheMovieDB
-https://developers.themoviedb.org/3/getting-started/introduction

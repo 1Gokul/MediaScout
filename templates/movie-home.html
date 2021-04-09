@@ -7,16 +7,12 @@
     {% for item in movie_info["now_playing_movies"] %}
     <div class="gallery-cell">
         <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
-            {% if item['backdrop'] == None %}
-            <h4 class="top-right-notif-text">No Image Available</h4>
-            {% else %}
             <div class="desktop-backdrop">
                 <img loading="lazy" src="{{ item['backdrop'] }}" />
             </div>
             <div class="mobile-backdrop">
                 <img loading="lazy" src="{{ item['poster'] }}" />
             </div>
-            {% endif %}
 
             <span class="carousel-image-caption">
                 <h2>{{ item["full_title"] }}</h2>
@@ -36,6 +32,8 @@
     </div>
     {% endfor %}
 </div>
+
+<!-- Discover Section -->
 
 {{ small_poster_carousel("Upcoming", movie_info["upcoming_movies"]) }}
 {{ small_poster_carousel("Documentaries", movie_info["documentary_movies"]) }}

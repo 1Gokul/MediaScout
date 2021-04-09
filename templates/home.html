@@ -8,16 +8,12 @@
     {% for item in home_info["spotlight"] %}
     <div class="gallery-cell">
         <a href="{{ url_for('get_movie_detail', id = item['id']) }}">
-            {% if item['backdrop'] == "None" %}
-            <div class="top-right-notif-text">No Image Available</div>
-            {% else %}
             <div class="desktop-backdrop">
                 <img loading="lazy" src="{{ item['backdrop'] }}" />
             </div>
             <div class="mobile-backdrop">
                 <img loading="lazy" src="{{ item['poster'] }}" />
             </div>
-            {% endif %}
 
             <span class="carousel-image-caption">
                 <h1>{{ item["full_title"] }}</h1>
@@ -36,6 +32,9 @@
     </div>
     {% endfor %}
 </div>
+
+
+<!-- Discover Section -->
 
 {{ small_poster_carousel("Trending on TV", home_info["trending_shows_week"])}}
 {{ small_poster_carousel("Documentaries", home_info["documentary_movies"])}}
