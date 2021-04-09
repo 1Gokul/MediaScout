@@ -1,11 +1,7 @@
+{% from "macros.html" import small_poster_carousel %}
 {% extends "layout.html" %}
 
-{% block head %}
-
-<!-- Flickity CSS -->
-<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
-
-{% endblock %} {% block body %}
+{% block body %}
 
 <!-- Small TV Show Carousel  -->
 <div class="carousel-small" data-flickity='{ "wrapAround": true, "autoPlay": 5000, "lazyLoad": true }'>
@@ -42,128 +38,14 @@
     {% endfor %}
 </div>
 
-<!-- Smaller carousel with posters -->
-<div class="scroller-display my-5">
-    <h1>On The Air</h1>
-    <div class="scrolling-wrapper"
-        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
-        {% for item in tv_info["shows_airing_today"] %}
+{{ small_poster_carousel("On The Air", tv_info["shows_airing_today"]) }}
+{{ small_poster_carousel("Documentaries", tv_info["documentary_shows"]) }}
+{{ small_poster_carousel("Top Rated", tv_info["top_rated_shows"]) }}
+{{ small_poster_carousel("Popular", tv_info["popular_shows"]) }}
+{{ small_poster_carousel("Animated", tv_info["animated_shows"]) }}
+{{ small_poster_carousel("Action & Adventure", tv_info["action_adventure_shows"]) }}
+{{ small_poster_carousel("For Kids", tv_info["kids_shows"]) }}
+{{ small_poster_carousel("Reality Show", tv_info["reality_shows"]) }}
 
-        <div class="card">
-            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
-                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
-            </a>
-        </div>
-
-        {% endfor %}
-    </div>
-</div>
-
-<div class="scroller-display my-5">
-    <h1>Documentaries</h1>
-    <div class="scrolling-wrapper"
-        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
-        {% for item in tv_info["documentary_shows"] %}
-        <div class="card">
-            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
-                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
-            </a>
-        </div>
-
-        {% endfor %}
-    </div>
-</div>
-
-<!-- Smaller carousel with posters -->
-<div class="scroller-display my-5">
-    <h1>Top Rated</h1>
-    <div class="scrolling-wrapper"
-        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
-        {% for item in tv_info["top_rated_shows"] %}
-
-        <div class="card">
-            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
-                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
-            </a>
-        </div>
-
-        {% endfor %}
-    </div>
-</div>
-<div class="scroller-display my-5">
-    <h1>Popular</h1>
-    <div class="scrolling-wrapper"
-        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
-        {% for item in tv_info["popular_shows"] %}
-        <div class="card">
-            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
-                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
-            </a>
-        </div>
-
-        {% endfor %}
-    </div>
-</div>
-<div class="scroller-display my-5">
-    <h1>Animated</h1>
-    <div class="scrolling-wrapper"
-        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
-        {% for item in tv_info["animated_shows"] %}
-        <div class="card">
-            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
-                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
-            </a>
-        </div>
-
-        {% endfor %}
-    </div>
-</div>
-<div class="scroller-display my-5">
-    <h1>Action & Adventure</h1>
-    <div class="scrolling-wrapper"
-        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
-        {% for item in tv_info["action_adventure_shows"] %}
-        <div class="card">
-            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
-                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
-            </a>
-        </div>
-
-        {% endfor %}
-    </div>
-</div>
-<div class="scroller-display my-5">
-    <h1>For Kids</h1>
-    <div class="scrolling-wrapper"
-        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
-        {% for item in tv_info["kids_shows"] %}
-        <div class="card">
-            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
-                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
-            </a>
-        </div>
-
-        {% endfor %}
-    </div>
-</div>
-<div class="scroller-display my-5">
-    <h1>Reality Show</h1>
-    <div class="scrolling-wrapper"
-        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
-        {% for item in tv_info["reality_shows"] %}
-        <div class="card">
-            <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
-                <img loading=lazy class="poster" src="{{ item['poster'] }}" />
-            </a>
-        </div>
-
-        {% endfor %}
-    </div>
-</div>
-{% endblock %} {% block script %}
-
-
-<!-- Flickity JavaScript -->
-<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
 {% endblock %}

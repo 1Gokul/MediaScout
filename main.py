@@ -50,6 +50,7 @@ def get_main_home_info():
         "spotlight": media_find.info_by_category(
             category_before="trending", media_type="all", category_after="day"
         ),
+        "documentary_movies": media_find.discover_by_genre("movie", "Documentary"),
         "crime_shows": media_find.discover_by_genre("tv", "Crime"),
         "war_politics_shows": media_find.discover_by_genre("tv", "War & Politics"),
         "family_movies": media_find.discover_by_genre("movie", "Family"),
