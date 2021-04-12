@@ -1,4 +1,4 @@
-from __main__ import app
+from main import app
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import JSON
 from media_finder import MediaFinder
