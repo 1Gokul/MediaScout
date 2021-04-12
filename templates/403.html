@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div>
+
+    <span class="display-1 mx-2 my-2"><strong>403</strong></span>
+    <span class="lead pl-3"><code>Forbidden</code></span>
+</div>
+<div class="lead p-4">You are not supposed to be viewing this page. ◉_◉ <br>Are you lost? Click <a
+        href="{{ url_for('index') }}">here</a> to go back to the main page.</div>
+{% endblock %}

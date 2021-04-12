@@ -1,9 +1,7 @@
 import os
 import requests
 from flask import json, jsonify, url_for
-import requests_cache
 
-requests_cache.install_cache("mediascout_cache", backend="sqlite", expire_after=1800)
 
 MONTHS = [
     "Jan",
