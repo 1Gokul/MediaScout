@@ -5,7 +5,7 @@ from media_finder import MediaFinder
 import os
 
 # URL of the database
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL").replace("://", "ql://", 1)
 
 # Optional: But it silences the deprecation warning in the console.
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
