@@ -50,10 +50,12 @@ class MediaFinder:
         """ Gets info from the api and returns a simplified dict of the data. """
 
         response = requests.get(f"{url}?api_key={self.api_key}{additional_args}")
+
         return simplify_response(response.json()["results"], media_type)
 
-
-    def get_info_for_grid(self, url: str, additional_args: str = "", media_type="movie"):
+    def get_info_for_grid(
+        self, url: str, additional_args: str = "", media_type="movie"
+    ):
         """ Gets the info required for showing in the poster grids (i.e. only the poster, media ID and link)."""
 
         response = requests.get(
@@ -66,7 +68,7 @@ class MediaFinder:
 
             item_data_to_add = {
                 "id": media_item["id"],
-                "detail_link": url_for(f"get_{media_type}_detail", id=media_item["id"])
+                "detail_link": url_for(f"get_{media_type}_detail", id=media_item["id"]),
             }
 
             if media_item["poster_path"] == None:
@@ -99,15 +101,68 @@ class MediaFinder:
             media_type=media_type,
         )
 
+    def get_media_detailed_info(self, media_type, id):
+        """ Get detailed information about a movie or show. """
+        response = requests.get(
+            f"https://api.themoviedb.org/3/movie/{id}?api_key={self.api_key}&language=en-US&append_to_response=credits,similar"
+        ).json()
 
-def simplify_response(response_dict: dict, media_type):
+        # The simplify_response() function will help format and add the basic information of the media
+        simplified_response = simplify_response([response], media_type=media_type)[0]
+
+        # Adding additional info
+
+        simplified_response["tagline"] = response["tagline"]
+
+        simplified_response["description"] = response["overview"]
+
+        simplified_response["genres"] = ""
+
+        # Add no more than 2 genres
+        index = 0
+        for genre in response["genres"]:
+
+            simplified_response["genres"] += genre["name"]
+            index += 1
+
+            if index >= 2:
+                break
+            else:
+                simplified_response["genres"] += ", "
+
+        simplified_response["runtime"] = f"{response['runtime']} minutes"
+
+        simplified_response["media_status"] = response["status"]
+        simplified_response["language"] = response["spoken_languages"][0][
+            "english_name"
+        ]
+
+        simplified_response["production_companies"] = ""
+
+        for company in response["production_companies"]:
+            simplified_response["production_companies"] += company["name"]
+
+            if company != response["production_companies"][-1]:
+                simplified_response["production_companies"] += ", "
+
+        directors = []
+        for member in response["credits"]["crew"]:
+            if member["job"] == "Director":
+                directors.append(member["name"])
+
+        simplified_response["directors"] = ",".join(directors)
+
+        return simplified_response
+
+
+def simplify_response(response_list, media_type):
     """ Returns a simplified version of the response with only the basic info of the movies and shows. Used mainly for the large and small carousels. """
 
     simplified_response = []
     media_title = ""
     media_date_name = ""
 
-    for media_item in response_dict:
+    for media_item in response_list:
 
         item_data_to_add = {}
 
@@ -129,7 +184,9 @@ def simplify_response(response_dict: dict, media_type):
         item_data_to_add["id"] = media_item["id"]
 
         # The link to the media's detail page
-        item_data_to_add["detail_link"] = url_for(f"get_{m_type}_detail", id=media_item["id"])
+        item_data_to_add["detail_link"] = url_for(
+            f"get_{m_type}_detail", id=media_item["id"]
+        )
 
         # If the media is not in English, show the media's title in its original language first, followed by its English name in parantheses.
         if media_item["original_language"] != "en" and (

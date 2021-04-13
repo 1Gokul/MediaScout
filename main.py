@@ -7,6 +7,7 @@ app = Flask(__name__)
 from data_storage import DataStorage
 
 data_manager = DataStorage()
+media_finder = MediaFinder()
 
 
 # main page
@@ -33,7 +34,8 @@ def tv_home():
 # movie details page
 @app.route("/movie-details")
 def get_movie_detail():
-    return render_template("movie-detail.html")
+    movie_detail = media_finder.get_media_detailed_info("movie", request.args.get("id"))
+    return render_template("movie-detail.html", details=movie_detail)
 
 
 # tv show details page

@@ -28,15 +28,17 @@ body {
 .carousel-image-caption h1,
 .carousel-image-caption h2,
 .scroller-display h1,
-.carousel-small h1 {
+.carousel-small h1,
+.details-container h1 {
     font-weight: bold;
 }
 
-a{
+a {
     color: rgb(155, 175, 241);
     transition: all linear 0.2s;
 }
-a:hover{
+
+a:hover {
     color: rgb(87, 99, 138);
 }
 
@@ -82,7 +84,8 @@ a:hover{
 }
 
 
-.mobile-backdrop {
+.mobile-backdrop,
+.mobile-overview {
     display: none;
 }
 
@@ -191,14 +194,16 @@ main>.container {
     z-index: 5;
 }
 
-.carousel-image-caption i {
+.carousel-image-caption i,
+.overlay-details i {
     margin-right: 5px;
 }
 
 .carousel-image-caption h4,
-.carousel-image-caption h5:not(.carousel-image-overview) {
+.carousel-image-caption h5:not(.carousel-image-overview),
+.overlay-details h5:not(.tagline) {
     display: inline;
-    margin-right: 20px;
+    margin-right: 40px;
 }
 
 
@@ -236,17 +241,74 @@ main>.container {
     font-size: larger;
 }
 
+.details-container {}
+
+
+.banner,
+.banner-image {
+
+    position: relative;
+    height: 500px;
+    width: 100%;
+}
+
+.banner-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    filter: brightness(40%);
+}
+
+
+.overlay-poster {
+    margin: 40px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 5;
+
+}
+
+.overlay-poster img {
+    border-radius: 20px;
+    height: 400px;
+}
+
+.overlay-details {
+    width: 70%;
+    margin: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
+.desktop-overview,
+.mobile-overview, .text-size-large {
+    font-size: large;
+}
+
+.text-slightly-muted {
+    color: rgb(161, 161, 161);
+}
 
 
 /* For mobile devices */
 @media only screen and (max-width: 600px) {
 
-    .mobile-backdrop {
+    .mobile-backdrop,
+    .mobile-overview {
         display: block;
     }
 
-    .desktop-backdrop {
+    .desktop-backdrop,
+    .desktop-overview,
+    .overlay-poster {
         display: none;
+    }
+
+    .banner, .banner-image{
+        height: 500px;
     }
 
     .carousel-large,
@@ -261,6 +323,12 @@ main>.container {
 
     .carousel-image-caption {
         margin: 0 0 20px 10px;
+    }
+
+
+    .overlay-details h5:not(.tagline) {
+        display: block;
+        margin: 20px 0;
     }
 
     .flickity-page-dots,
