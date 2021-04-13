@@ -7,7 +7,7 @@
 <div class="carousel-small" data-flickity='{ "wrapAround": true, "autoPlay": 5000, "lazyLoad": true }'>
     {% for item in tv_info["shows_on_the_air"] %}
     <div class="gallery-cell">
-        <a href="{{ url_for('get_tv_show_detail', id = item['id']) }}">
+        <a href="{{ item['detail_link'] }}">
             <div class="desktop-backdrop">
                 <img loading=lazy src="{{ item['backdrop'] }}" />
             </div>

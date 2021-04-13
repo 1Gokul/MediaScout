@@ -38,7 +38,7 @@ def get_movie_detail():
 
 # tv show details page
 @app.route("/tv-show-details")
-def get_tv_show_detail():
+def get_tv_detail():
     return render_template("tv-show-detail.html")
 
 
@@ -70,4 +70,4 @@ def forbidden(error):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

@@ -52,18 +52,22 @@ class MediaFinder:
         response = requests.get(f"{url}?api_key={self.api_key}{additional_args}")
         return simplify_response(response.json()["results"], media_type)
 
-    def get_info_for_grid(self, url: str, additional_args: str = "", media_type=None):
-        """ Gets the info required for showing in the poster grids (i.e. only the poster and movie ID)."""
+
+    def get_info_for_grid(self, url: str, additional_args: str = "", media_type="movie"):
+        """ Gets the info required for showing in the poster grids (i.e. only the poster, media ID and link)."""
 
         response = requests.get(
             f"{url}?api_key={self.api_key}{additional_args}"
         ).json()["results"]
 
-        info_dict = []
+        info_list = []
 
         for media_item in response:
 
-            item_data_to_add = {"id": media_item["id"]}
+            item_data_to_add = {
+                "id": media_item["id"],
+                "detail_link": url_for(f"get_{media_type}_detail", id=media_item["id"])
+            }
 
             if media_item["poster_path"] == None:
                 item_data_to_add["poster"] = url_for(
@@ -74,9 +78,9 @@ class MediaFinder:
                     "poster"
                 ] = f"https://image.tmdb.org/t/p/w{POSTER_SIZE}/{media_item['poster_path']}"
 
-            info_dict.append(item_data_to_add)
+            info_list.append(item_data_to_add)
 
-        return info_dict
+        return info_list
 
     def discover_by_genre(self, media_type, genre):
         """ Returns the info from TMDB's discover section. """
@@ -121,8 +125,11 @@ def simplify_response(response_dict: dict, media_type):
             media_title = "name"
             media_date_name = "first_air_date"
 
-        # Add the movie's ID
+        # Add the media's ID
         item_data_to_add["id"] = media_item["id"]
+
+        # The link to the media's detail page
+        item_data_to_add["detail_link"] = url_for(f"get_{m_type}_detail", id=media_item["id"])
 
         # If the media is not in English, show the media's title in its original language first, followed by its English name in parantheses.
         if media_item["original_language"] != "en" and (
