@@ -5,7 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
-    <title>MediaScout</title>
+    <title>
+        MediaScout:
+        {% block title %}
+        {% endblock %}
+    </title>
 
     <!-- MDBootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.4.0/mdb.min.css" rel="stylesheet" />
@@ -37,7 +41,7 @@
             <!-- Container wrapper -->
             <div class="container-fluid">
                 <!-- Navbar brand -->
-                <a class="navbar-brand mx-lg-3" href="{{ url_for('index') }}" >
+                <a class="navbar-brand mx-lg-3" href="{{ url_for('index') }}">
                     <img src="{{ url_for('static', filename='img/mediascout_white_logo.png') }}">
                 </a>
 
@@ -68,8 +72,8 @@
                     <!-- Search form -->
                     <form class="d-flex input-group w-auto">
                         <div class="input-group">
-                            <input type="search" class="form-control" placeholder="Search (WIP)"
-                                aria-label="Search" aria-describedby="search-addon" />
+                            <input type="search" class="form-control" placeholder="Search (WIP)" aria-label="Search"
+                                aria-describedby="search-addon" />
                             <button type="button" class="btn border-0 search-submit"><i
                                     class="fas fa-lg fa-arrow-right"></i></button>
                         </div>
