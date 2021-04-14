@@ -71,7 +71,25 @@
         </p>
     </div>
 
-    <h1>Cast</h1>(WIP)
+    <h1>Cast</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+        {% for actor in details["cast"] %}
+        <div class="cast-card">
+            <a href="#">
+                <img loading="lazy" src="{{ actor['image'] }}" />
+                <div class="actor-name">
+                    <a href="#">{{ actor["name"]}}</a>
+                </div>
+                <div class="character-name">
+                    {{ actor["character"] }}
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+
     <h1>Similar</h1>(WIP)
 
 </div>

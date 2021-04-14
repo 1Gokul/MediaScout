@@ -39,6 +39,7 @@ GENRES = {
 
 BACKDROP_SIZE = 632
 POSTER_SIZE = 300
+ACTOR_POSTER_SIZE = 185
 OVERVIEW_MAX_CHARS = 250
 
 
@@ -150,9 +151,13 @@ class MediaFinder:
             if company != response["production_companies"][-1]:
                 simplified_response["production_companies"] += ", "
 
+        # Credits
+
+        # Crew
         directors = []
         composers = []
         writers = []
+
         for member in response["credits"]["crew"]:
             if member["job"] == "Director":
                 directors.append(member["name"])
@@ -170,6 +175,26 @@ class MediaFinder:
         simplified_response["writers"] = (
             ", ".join(writers) if len(writers) > 0 else "N/A"
         )
+
+        # Cast
+        cast = []
+        for actor in response["credits"]["cast"]:
+            actor_info = {}
+            actor_info["id"] = actor["id"]
+            actor_info["name"] = actor["name"]
+            actor_info["character"] = actor["character"]
+
+            # If there is no poster image, add the default one.
+            if actor["profile_path"] == None:
+                actor_info["image"] = url_for("static", filename="img/no_poster.png")
+            else:
+                actor_info[
+                    "image"
+                ] = f"https://image.tmdb.org/t/p/w{ACTOR_POSTER_SIZE}/{actor['profile_path']}"
+
+            cast.append(actor_info)
+
+        simplified_response["cast"] = cast
 
         return simplified_response
 

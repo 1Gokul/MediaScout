@@ -96,7 +96,28 @@ a:hover {
     transition: filter linear 0.2s;
 }
 
-.poster:hover {
+.cast-card{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    width: 150px;
+    margin: 10px 10px;
+}
+.cast-card img{
+    object-fit: fill;
+    border-radius: 10px;
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+.cast-card *{
+    display: block;
+}
+
+.poster:hover, .cast-card img:hover {
     filter: brightness(70%);
 }
 
