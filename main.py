@@ -41,7 +41,6 @@ def get_movie_detail():
 # tv show details page
 @app.route("/tv-show-details")
 def get_tv_detail():
-    print(request.args.get("id"))
     show_detail = media_finder.get_media_detailed_info("tv", request.args.get("id"))
     return render_template("tv-show-detail.html", details=show_detail)
 

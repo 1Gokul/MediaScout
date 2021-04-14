@@ -43,7 +43,7 @@ a:hover {
 }
 
 .dark-bg {
-    background-color: #000000;
+    background-color: #232931;
 }
 
 .navbar {
@@ -109,7 +109,7 @@ main>.container {
     color: #F7F7FF;
     border: none;
     border-radius: 0;
-    border-bottom: 2px solid #000000;
+    border-bottom: 2px solid #232931;
 }
 
 .form-control::placeholder {
@@ -127,7 +127,7 @@ main>.container {
 
 .form-control:focus {
     color: #F7F7FF;
-    background-color: #000000;
+    background-color: #232931;
 }
 
 .form-control:focus+.search-submit {
@@ -188,7 +188,7 @@ main>.container {
 }
 
 .card {
-    background-color: #000000;
+    background-color: #232931;
     margin: 0 10px;
     display: inline-block;
 }
@@ -267,6 +267,7 @@ main>.container {
     position: relative;
     height: 500px;
     width: 100%;
+    overflow-y: auto;
 }
 
 .banner-image img {

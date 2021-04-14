@@ -103,10 +103,9 @@ class MediaFinder:
 
     def get_media_detailed_info(self, media_type, id):
         """ Get detailed information about a movie or show. """
-        stri = f"https://api.themoviedb.org/3/{media_type}/{id}?api_key={self.api_key}&language=en-US&append_to_response=credits,similar"
-        response = requests.get(stri).json()
-        print(stri)
-        print(response)
+        response = requests.get(
+            f"https://api.themoviedb.org/3/{media_type}/{id}?api_key={self.api_key}&language=en-US&append_to_response=credits,similar"
+        ).json()
 
         # The simplify_response() function will help format and add the basic information of the media
         simplified_response = simplify_response([response], media_type=media_type)[0]
@@ -152,21 +151,21 @@ class MediaFinder:
                 simplified_response["production_companies"] += ", "
 
         directors = []
-        producers = []
+        composers = []
         writers = []
         for member in response["credits"]["crew"]:
             if member["job"] == "Director":
                 directors.append(member["name"])
-            elif member["job"] == "Producer" or member["job"] == "Executive Producer":
-                producers.append(member["name"])
+            elif member["job"] == "Original Music Composer":
+                composers.append(member["name"])
             elif member["job"] == "Story" or member["job"] == "Writer":
                 writers.append(member["name"])
 
         simplified_response["directors"] = (
             ", ".join(directors) if len(directors) > 0 else "N/A"
         )
-        simplified_response["producers"] = (
-            ", ".join(producers) if len(producers) > 0 else "N/A"
+        simplified_response["composers"] = (
+            ", ".join(composers) if len(composers) > 0 else "N/A"
         )
         simplified_response["writers"] = (
             ", ".join(writers) if len(writers) > 0 else "N/A"
