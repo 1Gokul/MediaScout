@@ -103,9 +103,10 @@ class MediaFinder:
 
     def get_media_detailed_info(self, media_type, id):
         """ Get detailed information about a movie or show. """
-        response = requests.get(
-            f"https://api.themoviedb.org/3/movie/{id}?api_key={self.api_key}&language=en-US&append_to_response=credits,similar"
-        ).json()
+        stri = f"https://api.themoviedb.org/3/{media_type}/{id}?api_key={self.api_key}&language=en-US&append_to_response=credits,similar"
+        response = requests.get(stri).json()
+        print(stri)
+        print(response)
 
         # The simplify_response() function will help format and add the basic information of the media
         simplified_response = simplify_response([response], media_type=media_type)[0]
@@ -125,12 +126,17 @@ class MediaFinder:
             simplified_response["genres"] += genre["name"]
             index += 1
 
-            if index >= 2:
+            if genre == response["genres"][-1] or index >= 2:
                 break
             else:
                 simplified_response["genres"] += ", "
 
-        simplified_response["runtime"] = f"{response['runtime']} minutes"
+        if media_type == "movie":
+            simplified_response["runtime"] = f"{response['runtime']} minutes"
+        else:
+            simplified_response[
+                "n_seasons"
+            ] = f"{response['number_of_seasons']} season{'s' if response['number_of_seasons'] > 1 else ''}"
 
         simplified_response["media_status"] = response["status"]
         simplified_response["language"] = response["spoken_languages"][0][
@@ -146,11 +152,25 @@ class MediaFinder:
                 simplified_response["production_companies"] += ", "
 
         directors = []
+        producers = []
+        writers = []
         for member in response["credits"]["crew"]:
             if member["job"] == "Director":
                 directors.append(member["name"])
+            elif member["job"] == "Producer" or member["job"] == "Executive Producer":
+                producers.append(member["name"])
+            elif member["job"] == "Story" or member["job"] == "Writer":
+                writers.append(member["name"])
 
-        simplified_response["directors"] = ",".join(directors)
+        simplified_response["directors"] = (
+            ", ".join(directors) if len(directors) > 0 else "N/A"
+        )
+        simplified_response["producers"] = (
+            ", ".join(producers) if len(producers) > 0 else "N/A"
+        )
+        simplified_response["writers"] = (
+            ", ".join(writers) if len(writers) > 0 else "N/A"
+        )
 
         return simplified_response
 

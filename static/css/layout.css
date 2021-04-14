@@ -34,28 +34,25 @@ body {
 }
 
 a {
-    color: rgb(155, 175, 241);
+    color: #c8e0fc;
     transition: all linear 0.2s;
 }
 
 a:hover {
-    color: rgb(87, 99, 138);
+    color: #525c75;
 }
 
 .dark-bg {
-    background-color: #171A21;
-}
-
-.darker-bg {
-    background-color: #171A21;
+    background-color: #000000;
 }
 
 .navbar {
     font-size: large;
+    border-radius: 0px 0px 10px 10px;
 }
 
 .navbar-dark {
-    background-color: #1f2033;
+    background-color: #505c75;
 }
 
 .navbar-brand img {
@@ -71,10 +68,13 @@ a:hover {
     padding: 0;
 }
 
-.navbar-dark .navbar-nav .nav-link.active,
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #F7F7FF;
+}
+
 .footer a,
 .credits a {
-    color: #c2c2c2;
+    color: #c8e0fc;
 }
 
 .navbar-dark .navbar-nav .nav-link.active:hover,
@@ -105,16 +105,34 @@ main>.container {
 }
 
 .form-control {
-    background-color: #1f2033;
+    background-color: #505c75;
+    color: #F7F7FF;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #000000;
+}
+
+.form-control::placeholder {
+    color: #cecece;
+}
+
+.search-submit {
+    box-shadow: none !important;
+    color: #505c75;
+}
+
+.form-control:hover {
+    background-color: #525c75;
 }
 
 .form-control:focus {
     color: #F7F7FF;
-    background-color: #1f2033;
+    background-color: #000000;
 }
 
 .form-control:focus+.search-submit {
     color: #F7F7FF !important;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .2), 0 4px 20px 0 rgba(0, 0, 0, .1) !important;
 }
 
 .carousel-large {
@@ -170,7 +188,7 @@ main>.container {
 }
 
 .card {
-    background-color: #171A21;
+    background-color: #000000;
     margin: 0 10px;
     display: inline-block;
 }
@@ -241,7 +259,6 @@ main>.container {
     font-size: larger;
 }
 
-.details-container {}
 
 
 .banner,
@@ -284,13 +301,19 @@ main>.container {
 }
 
 .desktop-overview,
-.mobile-overview, .text-size-large {
+.mobile-overview {
     font-size: large;
 }
 
 .text-slightly-muted {
     color: rgb(161, 161, 161);
 }
+
+.extra-details p {
+    margin: 20px 0;
+    font-size: large;
+}
+
 
 
 /* For mobile devices */
@@ -307,7 +330,8 @@ main>.container {
         display: none;
     }
 
-    .banner, .banner-image{
+    .banner,
+    .banner-image {
         height: 500px;
     }
 

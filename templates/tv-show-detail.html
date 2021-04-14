@@ -1,6 +1,75 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="display-3">TV Show Details (WIP)</div>
+<div class="details-container">
+    <div class="banner mb-5">
+        <div class="banner-image">
+            <img src="{{ details['backdrop'] }}">
+
+        </div>
+        <div class="overlay">
+            <div class="overlay-details">
+                <h1>{{ details["full_title"] }}</h1>
+                <h5 class="mb-5 text-slightly-muted tagline">{{ details["tagline"] }}</h5>
+                <h5>{{ details["genres"] }}</h5>
+                <h5>
+                    <i class="fas fa-calendar"></i>
+                    {{ details["date"] }}
+                </h5>
+                <h5>
+                    <i class="fas fa-star-half-alt"></i>
+                    {{ details["rating"] }}
+                </h5>
+                <h5>
+                    {{ details["n_seasons"] }}
+                </h5>
+                <p class="desktop-overview mt-5">
+                    {{ details["description"] }}
+                </p>
+            </div>
+            <div class="overlay-poster">
+                <img src="{{ details['poster'] }}">
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="extra-details my-5">
+
+        <p class="mobile-overview">
+            {{ details["description"] }}
+        </p>
+
+        <p>
+            <strong>Status: </strong>
+            {{ details["media_status"] }}
+        </p>
+        <p>
+            <strong>Language: </strong>
+            {{ details["language"] }}
+        </p>
+        <p>
+            <strong>Directors: </strong>
+            {{ details["directors"] }}
+        </p>
+        <p>
+            <strong>Producers: </strong>
+            {{ details["producers"] }}
+        </p>
+        <p>
+            <strong>Writers: </strong>
+            {{ details["writers"] }}
+        </p>
+        <p>
+            <strong>Production Companies: </strong>
+            {{ details["production_companies"] }}
+        </p>
+    </div>
+
+    <h1>Cast</h1>(WIP)
+    <h1>Similar</h1>(WIP)
+
+</div>
 
 {% endblock %}
