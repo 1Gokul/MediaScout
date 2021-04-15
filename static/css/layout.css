@@ -38,7 +38,7 @@ a {
 }
 
 a:hover {
-  color: #525c75;
+  color: #82bcff;
 }
 
 .dark-bg {
@@ -70,15 +70,8 @@ a:hover {
   color: #f7f7ff;
 }
 
-.footer a,
-.credits a {
-  color: #c8e0fc;
-}
-
-.navbar-dark .navbar-nav .nav-link.active:hover,
-.footer a:hover,
-.credits a:hover {
-  color: #c8e0fc;
+.navbar-dark .navbar-nav .nav-link.active:hover {
+  color: #82bcff;
 }
 
 .mobile-backdrop,
@@ -93,6 +86,12 @@ a:hover {
   transition: filter linear 0.2s;
 }
 
+.small-poster{
+    height: 300px;
+    margin: 10px;
+    transition: filter linear 0.2s;
+}
+
 .cast-card {
   align-items: center;
   justify-content: center;
@@ -101,13 +100,14 @@ a:hover {
   flex-direction: column;
   height: 350px;
   width: 150px;
-  margin: 10px 10px;
+  margin: 10px;
 }
-.cast-card img {
+.cast-card img, .small-poster img {
   object-fit: fill;
   border-radius: 10px;
   width: 150px;
   margin-bottom: 10px;
+  transition: filter linear 0.2s;
 }
 
 .cast-card * {
@@ -115,7 +115,7 @@ a:hover {
 }
 
 .poster:hover,
-.cast-card img:hover {
+.cast-card img:hover, .small-poster img:hover {
   filter: brightness(70%);
 }
 
@@ -200,7 +200,7 @@ main > .container {
 }
 
 .scrolling-wrapper {
-  margin: 15px 0;
+  margin: 10px 0;
   overflow: hidden;
   padding: 0 20px;
 }

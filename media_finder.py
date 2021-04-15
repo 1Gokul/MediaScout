@@ -184,6 +184,22 @@ class MediaFinder:
 
             cast.append(actor_info)
 
+        similar = []
+
+        for item in response["similar"]["results"]:
+            similar_item = {"id": item["id"]}
+
+            if item["poster_path"] == None:
+                similar_item["poster"] = url_for("static", filename="img/no_poster.png")
+            else:
+                similar_item[
+                    "poster"
+                ] = f"https://image.tmdb.org/t/p/w{POSTER_SIZE}/{item['poster_path']}"
+
+            similar.append(similar_item)
+
+        simplified_response["similar"] = similar
+
         simplified_response["cast"] = cast
 
         # Keywords

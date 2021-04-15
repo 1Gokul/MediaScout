@@ -91,7 +91,17 @@
     </div>
 
 
-    <h1>Similar</h1>(WIP)
+    <h1>Similar</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+        {% for item in details["similar"] %}
+        <div class="small-poster">
+            <a href="#">
+                <img loading="lazy" src="{{ item['poster'] }}" />
+            </a>
+        </div>
+        {% endfor %}
+    </div>
 
 </div>
 
