@@ -105,7 +105,7 @@ class MediaFinder:
     def get_media_detailed_info(self, media_type, id):
         """ Get detailed information about a movie or show. """
         response = requests.get(
-            f"https://api.themoviedb.org/3/{media_type}/{id}?api_key={self.api_key}&language=en-US&append_to_response=credits,similar"
+            f"https://api.themoviedb.org/3/{media_type}/{id}?api_key={self.api_key}&language=en-US&append_to_response=credits,similar,keywords"
         ).json()
 
         # The simplify_response() function will help format and add the basic information of the media
@@ -132,8 +132,10 @@ class MediaFinder:
                 simplified_response["genres"] += ", "
 
         if media_type == "movie":
+            keyword_key = "keywords"
             simplified_response["runtime"] = f"{response['runtime']} minutes"
         else:
+            keyword_key = "results"
             simplified_response[
                 "n_seasons"
             ] = f"{response['number_of_seasons']} season{'s' if response['number_of_seasons'] > 1 else ''}"
@@ -155,25 +157,13 @@ class MediaFinder:
 
         # Crew
         directors = []
-        composers = []
-        writers = []
 
         for member in response["credits"]["crew"]:
             if member["job"] == "Director":
                 directors.append(member["name"])
-            elif member["job"] == "Original Music Composer":
-                composers.append(member["name"])
-            elif member["job"] == "Story" or member["job"] == "Writer":
-                writers.append(member["name"])
 
         simplified_response["directors"] = (
             ", ".join(directors) if len(directors) > 0 else "N/A"
-        )
-        simplified_response["composers"] = (
-            ", ".join(composers) if len(composers) > 0 else "N/A"
-        )
-        simplified_response["writers"] = (
-            ", ".join(writers) if len(writers) > 0 else "N/A"
         )
 
         # Cast
@@ -195,6 +185,9 @@ class MediaFinder:
             cast.append(actor_info)
 
         simplified_response["cast"] = cast
+
+        # Keywords
+        simplified_response["keywords"] = response["keywords"][keyword_key]
 
         return simplified_response
 
