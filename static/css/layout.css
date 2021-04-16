@@ -394,6 +394,11 @@ main > .container {
     margin: 20px 0;
   }
 
+  .person-banner{
+      
+  grid-template-columns: 1fr;
+  }
+
   .flickity-page-dots,
   .flickity-prev-next-button {
     display: none;
