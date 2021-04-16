@@ -37,7 +37,7 @@ GENRES = {
     "Western": 37,
 }
 
-BACKDROP_SIZE = 632
+BACKDROP_SIZE = 780
 POSTER_SIZE = 300
 ACTOR_POSTER_SIZE = 185
 OVERVIEW_MAX_CHARS = 250
@@ -196,6 +196,10 @@ class MediaFinder:
                     "poster"
                 ] = f"https://image.tmdb.org/t/p/w{POSTER_SIZE}/{item['poster_path']}"
 
+            similar_item["detail_link"] = url_for(
+                f"get_{media_type}_detail", id=item["id"]
+            )
+
             similar.append(similar_item)
 
         simplified_response["similar"] = similar
@@ -284,7 +288,7 @@ def simplify_response(response_list, media_type):
         else:
             item_data_to_add[
                 "backdrop"
-            ] = f"https://image.tmdb.org/t/p/h{BACKDROP_SIZE}/{media_item['backdrop_path']}"
+            ] = f"https://image.tmdb.org/t/p/w{BACKDROP_SIZE}/{media_item['backdrop_path']}"
 
         # If there is no poster image, add the default one.
         if media_item["poster_path"] == None:

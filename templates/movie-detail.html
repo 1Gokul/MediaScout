@@ -96,7 +96,7 @@
         data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
         {% for item in details["similar"] %}
         <div class="small-poster">
-            <a href="#">
+            <a href="{{ item['detail_link'] }}">
                 <img loading="lazy" src="{{ item['poster'] }}" />
             </a>
         </div>
