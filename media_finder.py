@@ -220,7 +220,7 @@ class MediaFinder:
         """ Gets detailed information of a person. """
 
         response = requests.get(
-            f"https://api.themoviedb.org/3/person/{id}?api_key={self.api_key}&language=en-US&append_to_response=movie_credits,tv_credits"
+            f"https://api.themoviedb.org/3/person/{id}?api_key={self.api_key}&language=en-US&append_to_response=movie_credits,tv_credits,images"
         ).json()
 
         actor_info = {
@@ -237,7 +237,7 @@ class MediaFinder:
         else:
             actor_info[
                 "poster"
-            ] = f"https://image.tmdb.org/t/p/w{POSTER_SIZE}/{response['profile_path']}"
+            ] = f"https://image.tmdb.org/t/p/w{POSTER_SIZE}/{response['images']['profiles'][-1]['file_path']}"
 
         # Date of birth
         try:
@@ -263,29 +263,32 @@ class MediaFinder:
         movie_credits = []
 
         for credit in response["movie_credits"]["cast"]:
-            movie_credit = {
-                "title": credit["title"],
-                "year": credit["release_date"].split("-")[0],
-                "role": credit["character"]
-            }
+            movie_credit = {"title": credit["title"], "role": credit["character"]}
+
+            try:
+                movie_credit["year"] = credit["release_date"].split("-")[0]
+            except KeyError:
+                movie_credit["year"] = "N/A"
+
             movie_credits.append(movie_credit)
 
-        movie_credits = sorted(movie_credits, key=itemgetter("year")) 
+        movie_credits = sorted(movie_credits, key=itemgetter("year"))
         actor_info["movie_credits"] = movie_credits
-        
-        
+
         # TV Credits
         tv_credits = []
 
         for credit in response["tv_credits"]["cast"]:
-            tv_credit = {
-                "title": credit["name"],
-                "year": credit["first_air_date"].split("-")[0],
-                "role": credit["character"]
-            }
+            tv_credit = {"title": credit["name"], "role": credit["character"]}
+
+            try:
+                tv_credit["year"] = credit["first_air_date"].split("-")[0]
+            except KeyError:
+                tv_credit["year"] = "N/A"
+
             tv_credits.append(tv_credit)
 
-        tv_credits = sorted(tv_credits, key=itemgetter("year")) 
+        tv_credits = sorted(tv_credits, key=itemgetter("year"))
         actor_info["tv_credits"] = tv_credits
 
         # IMDB link
