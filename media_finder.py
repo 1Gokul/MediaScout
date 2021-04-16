@@ -1,6 +1,7 @@
 import os
 import requests
 from flask import json, jsonify, url_for
+from operator import itemgetter
 
 
 MONTHS = [
@@ -257,6 +258,38 @@ class MediaFinder:
             actor_info[
                 "date_of_death"
             ] = f"{MONTHS[int(date_list[1]) - 1]} {date_list[2]}, {date_list[0]}"
+
+        # Movie Credits
+        movie_credits = []
+
+        for credit in response["movie_credits"]["cast"]:
+            movie_credit = {
+                "title": credit["title"],
+                "year": credit["release_date"].split("-")[0],
+                "role": credit["character"]
+            }
+            movie_credits.append(movie_credit)
+
+        movie_credits = sorted(movie_credits, key=itemgetter("year")) 
+        actor_info["movie_credits"] = movie_credits
+        
+        
+        # TV Credits
+        tv_credits = []
+
+        for credit in response["tv_credits"]["cast"]:
+            tv_credit = {
+                "title": credit["name"],
+                "year": credit["first_air_date"].split("-")[0],
+                "role": credit["character"]
+            }
+            tv_credits.append(tv_credit)
+
+        tv_credits = sorted(tv_credits, key=itemgetter("year")) 
+        actor_info["tv_credits"] = tv_credits
+
+        # IMDB link
+        actor_info["imdb_link"] = f"https://www.imdb.com/name/{response['imdb_id']}"
 
         return actor_info
 
