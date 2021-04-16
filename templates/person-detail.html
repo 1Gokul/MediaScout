@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{{ details["full_name"] }}
+{% endblock %}
+
+{% block body %}
+<div class="details-container">
+    <div class="person-banner p-5 mb-5">
+
+        <div>
+
+            <img src="{{ details['poster'] }}">
+        </div>
+
+        <div>
+            <h1 class="my-3">{{ details["full_name"] }}</h1>
+            Born
+            <div class="px-5 mb-4">
+                <h5>{{ details["date_of_birth"] }}</h5>
+                <h5>{{ details["place_of_birth"] }}</h5>
+            </div>
+
+            {% if details["date_of_death"] != "N/A" %}
+            Died
+            <div class="px-5 mb-4">
+                <h5>{{ details["date_of_death"] }}</h5>
+            </div>
+            {% endif %}
+            Gender
+            <div class="px-5 mb-4">
+                <h5>
+                    {{ details["gender"] }}
+                </h5>
+            </div>
+            Department
+            <div class="px-5 mb-4">
+                <h5>
+                    {{ details["department"] }}
+                </h5>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <hr>
+    <div class="extra-details my-5">
+
+        <p>
+            {{ details["biography"] }}
+        </p>
+
+    </div>
+    <hr>
+
+    <h1>Cast</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+        {% for actor in details["cast"] %}
+        <div class="cast-card">
+            <a href="#">
+                <img loading="lazy" src="{{ actor['image'] }}" />
+                <div class="actor-name">
+                    <a href="#">{{ actor["name"]}}</a>
+                </div>
+                <div class="character-name">
+                    {{ actor["character"] }}
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+
+
+    <h1>Similar</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+        {% for item in details["similar"] %}
+        <div class="small-poster">
+            <a href="{{ item['detail_link'] }}">
+                <img loading="lazy" src="{{ item['poster'] }}" />
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

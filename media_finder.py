@@ -37,6 +37,9 @@ GENRES = {
     "Western": 37,
 }
 
+# Genders in the TMDB API
+TMDB_LISTED_GENDERS = ["N/A", "Female", "Male", "Non-Binary"]
+
 BACKDROP_SIZE = 780
 POSTER_SIZE = 300
 ACTOR_POSTER_SIZE = 185
@@ -173,6 +176,7 @@ class MediaFinder:
             actor_info["id"] = actor["id"]
             actor_info["name"] = actor["name"]
             actor_info["character"] = actor["character"]
+            actor_info["link"] = url_for("get_person_details", id=actor["id"])
 
             # If there is no poster image, add the default one.
             if actor["profile_path"] == None:
@@ -210,6 +214,51 @@ class MediaFinder:
         simplified_response["keywords"] = response["keywords"][keyword_key]
 
         return simplified_response
+
+    def get_person_detailed_info(self, id):
+        """ Gets detailed information of a person. """
+
+        response = requests.get(
+            f"https://api.themoviedb.org/3/person/{id}?api_key={self.api_key}&language=en-US&append_to_response=movie_credits,tv_credits"
+        ).json()
+
+        actor_info = {
+            "id": response["id"],
+            "full_name": response["name"],
+            "department": response["known_for_department"],
+            "gender": TMDB_LISTED_GENDERS[response["gender"]],
+            "place_of_birth": response["place_of_birth"],
+            "biography": response["biography"],
+        }
+
+        if response["profile_path"] == None:
+            actor_info["poster"] = url_for("static", filename="img/no_poster.png")
+        else:
+            actor_info[
+                "poster"
+            ] = f"https://image.tmdb.org/t/p/w{POSTER_SIZE}/{response['profile_path']}"
+
+        # Date of birth
+        try:
+            date_list = response["birthday"].split("-")
+        except KeyError:
+            actor_info["date_of_birth"] = "Unavailable"
+        else:
+            actor_info[
+                "date_of_birth"
+            ] = f"{MONTHS[int(date_list[1]) - 1]} {date_list[2]}, {date_list[0]}"
+
+        # Date of death
+        try:
+            date_list = response["deathday"].split("-")
+        except AttributeError:
+            actor_info["date_of_death"] = "N/A"
+        else:
+            actor_info[
+                "date_of_death"
+            ] = f"{MONTHS[int(date_list[1]) - 1]} {date_list[2]}, {date_list[0]}"
+
+        return actor_info
 
 
 def simplify_response(response_list, media_type):

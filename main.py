@@ -10,48 +10,55 @@ data_manager = DataStorage()
 media_finder = MediaFinder()
 
 
-# main page
+# Main page
 @app.route("/")
 def index():
     home_info = data_manager.load_info("main_home")
     return render_template("home.html", home_info=home_info)
 
 
-# movie homepage
+# Movie home page
 @app.route("/movie-home")
 def movie_home():
     movie_info = data_manager.load_info("movie_home")
     return render_template("movie-home.html", movie_info=movie_info)
 
 
-# tv homepage
+# Tv home page
 @app.route("/tv-home")
 def tv_home():
     tv_info = data_manager.load_info("tv_home")
     return render_template("tv-home.html", tv_info=tv_info)
 
 
-# movie details page
-@app.route("/movie-details")
+# Details of a Movie
+@app.route("/movie")
 def get_movie_detail():
     movie_detail = media_finder.get_media_detailed_info("movie", request.args.get("id"))
     return render_template("movie-detail.html", details=movie_detail)
 
 
-# tv show details page
-@app.route("/tv-show-details")
+# Details of a TV Show
+@app.route("/tv-show")
 def get_tv_detail():
     show_detail = media_finder.get_media_detailed_info("tv", request.args.get("id"))
     return render_template("tv-show-detail.html", details=show_detail)
 
 
-# credits page
+# Details of a person
+@app.route("/person")
+def get_person_details():
+    person_detail = media_finder.get_person_detailed_info(request.args.get("id"))
+    return render_template("person-detail.html", details=person_detail)
+
+
+# Credits page
 @app.route("/credits")
 def credit():
     return render_template("credits.html")
 
 
-# db updater
+# DB updater
 @app.route("/update-db/<code>")
 def update_db(code):
     if data_manager.update_all_info(code):
