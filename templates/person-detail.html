@@ -70,7 +70,7 @@
             {% for credit in details["movie_credits"] %}
             <tr>
                 <td>{{ credit["year"] }}</td>
-                <td>{{ credit["title"] }}</td>
+                <td><a href="{{ credit['link'] }}">{{ credit["title"] }}</a></td>
                 <td>{{ credit["role"] }}</td>
                 <td></td>
             </tr>
@@ -93,7 +93,7 @@
             {% for credit in details["tv_credits"] %}
             <tr>
                 <td>{{ credit["year"] }}</td>
-                <td>{{ credit["title"] }}</td>
+                <td><a href="{{ credit['link'] }}">{{ credit["title"] }}</a></td>
                 <td>{{ credit["role"] }}</td>
                 <td></td>
             </tr>
@@ -105,7 +105,7 @@
 
 
     <h2><a href="{{ details['imdb_link'] }}"><span class="badge rounded-pill bg-warning text-dark">Read more on
-                IMDB</span></a></h2>
+                IMDB<i class="fas fa-external-link-alt mx-2"></i></span></a></h2>
 
 </div>
 

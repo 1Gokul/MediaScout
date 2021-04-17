@@ -263,7 +263,11 @@ class MediaFinder:
         movie_credits = []
 
         for credit in response["movie_credits"]["cast"]:
-            movie_credit = {"title": credit["title"], "role": credit["character"]}
+            movie_credit = {
+                "link": url_for("get_movie_detail", id=credit["id"]),
+                "title": credit["title"],
+                "role": credit["character"],
+            }
 
             try:
                 movie_credit["year"] = credit["release_date"].split("-")[0]
@@ -279,7 +283,11 @@ class MediaFinder:
         tv_credits = []
 
         for credit in response["tv_credits"]["cast"]:
-            tv_credit = {"title": credit["name"], "role": credit["character"]}
+            tv_credit = {
+                "link": url_for("get_tv_detail", id=credit["id"]),
+                "title": credit["name"],
+                "role": credit["character"],
+            }
 
             try:
                 tv_credit["year"] = credit["first_air_date"].split("-")[0]

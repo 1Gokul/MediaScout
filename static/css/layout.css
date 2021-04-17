@@ -51,7 +51,7 @@ a:hover {
 }
 
 .navbar-dark {
-  background-color: #0f4c75;
+  background-color: #0e617c;
 }
 
 .navbar-brand img {
@@ -93,8 +93,8 @@ a:hover {
 }
 
 .cast-card {
-  align-items: center;
-  justify-content: center;
+  align-items: top;
+  justify-content: top;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -126,7 +126,7 @@ main > .container {
 }
 
 .form-control {
-  background-color: #0f4c75;
+  background-color: #0e617c;
   color: #f7f7ff;
   border: none;
   border-radius: 0;
@@ -140,11 +140,11 @@ main > .container {
 
 .search-submit {
   box-shadow: none !important;
-  color: #0f4c75;
+  color: #0e617c;
 }
 
 .form-control:hover {
-  background-color: #146fac;
+  background-color: #127191;
 }
 
 .form-control:focus {
@@ -154,7 +154,7 @@ main > .container {
 
 .form-control:focus + .search-submit {
   color: #f7f7ff !important;
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.2) !important;
 }
 
 .carousel-large {
@@ -345,13 +345,13 @@ main > .container {
   background: #aa4b6b; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
-    #3b8d99,
+    #0e617c,
     #6b6b83,
     #aa4b6b
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to right,
-    #3b8d99,
+    #0e617c,
     #6b6b83,
     #aa4b6b
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -394,9 +394,8 @@ main > .container {
     margin: 20px 0;
   }
 
-  .person-banner{
-      
-  grid-template-columns: 1fr;
+  .person-banner {
+    grid-template-columns: 1fr;
   }
 
   .flickity-page-dots,

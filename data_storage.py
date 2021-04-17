@@ -22,8 +22,6 @@ class Media(db.Model):
     page_data = db.Column(JSON)
 
 
-db.create_all()
-
 # MediaFinder Object
 media_finder = MediaFinder()
 
