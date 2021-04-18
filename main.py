@@ -47,7 +47,7 @@ def get_tv_detail():
 
 # Details of a person
 @app.route("/person")
-def get_person_details():
+def get_person_detail():
     person_detail = media_finder.get_person_detailed_info(request.args.get("id"))
     return render_template("person-detail.html", details=person_detail)
 
@@ -65,6 +65,21 @@ def update_db(code):
         return redirect(url_for("index"))
     else:
         abort(403)
+
+
+# Search
+@app.route("/search/<search_type>", methods=["GET", "POST"])
+def search(search_type):
+    if request.method == "POST":
+        search_results = media_finder.get_search_results(
+            request.form.get("query"), search_type
+        )
+        return render_template(
+            "search-results.html",
+            search_results=search_results,
+            query=request.form.get("query"),
+            search_type=search_type,
+        )
 
 
 # 404

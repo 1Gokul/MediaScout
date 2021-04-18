@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Search Results -
+{% endblock %}
+
+{% block body %}
+<div class="search-result-container">
+
+    <h2 class="mb-4">You searched for: <strong>{{ query }}</strong></h2>
+
+    {% for result in search_results %}
+    <a href="{{ result['detail_link'] }}">
+        <div class="search-result-box">
+
+            <div>
+                <img src="{{ result['poster'] }}">
+            </div>
+            <div>
+                <h2>{{ result["full_title"] }}</h2>
+                {% if result["date"] %}
+                {{ result["date"] }}
+                {% endif %}
+                <h5>{{ result["description"] }}</h5>
+            </div>
+        </div>
+    </a>
+
+    <hr>
+    {% endfor %}
+
+
+</div>
+
+{% endblock %}

@@ -41,7 +41,7 @@ GENRES = {
 # Genders in the TMDB API
 TMDB_LISTED_GENDERS = ["N/A", "Female", "Male", "Non-Binary"]
 
-BACKDROP_SIZE = 780
+BACKDROP_SIZE = 1280
 POSTER_SIZE = 300
 ACTOR_POSTER_SIZE = 185
 OVERVIEW_MAX_CHARS = 250
@@ -76,6 +76,7 @@ class MediaFinder:
                 "detail_link": url_for(f"get_{media_type}_detail", id=media_item["id"]),
             }
 
+            # If there is no poster image, add the default one.
             if media_item["poster_path"] == None:
                 item_data_to_add["poster"] = url_for(
                     "static", filename="img/no_poster.png"
@@ -112,11 +113,10 @@ class MediaFinder:
             f"https://api.themoviedb.org/3/{media_type}/{id}?api_key={self.api_key}&language=en-US&append_to_response=credits,similar,keywords"
         ).json()
 
-        # The simplify_response() function will help format and add the basic information of the media
+        # The simplify_response() function will help format and add the basic information of the media.
         simplified_response = simplify_response([response], media_type=media_type)[0]
 
         # Adding additional info
-
         simplified_response["tagline"] = response["tagline"]
 
         simplified_response["description"] = response["overview"]
@@ -135,20 +135,25 @@ class MediaFinder:
             else:
                 simplified_response["genres"] += ", "
 
+        # If a movie, show the duration
         if media_type == "movie":
             keyword_key = "keywords"
             simplified_response["runtime"] = f"{response['runtime']} minutes"
+
+        # else if a series, show the number of seasons.
         else:
             keyword_key = "results"
             simplified_response[
                 "n_seasons"
             ] = f"{response['number_of_seasons']} season{'s' if response['number_of_seasons'] > 1 else ''}"
 
+        # Spoken languages in the media
         simplified_response["media_status"] = response["status"]
         simplified_response["language"] = response["spoken_languages"][0][
             "english_name"
         ]
 
+        # Companies involved
         simplified_response["production_companies"] = ""
 
         for company in response["production_companies"]:
@@ -166,9 +171,7 @@ class MediaFinder:
             if member["job"] == "Director":
                 directors.append(member["name"])
 
-        simplified_response["directors"] = (
-            ", ".join(directors) if len(directors) > 0 else "N/A"
-        )
+        simplified_response["directors"] = ", ".join(directors) or "N/A"
 
         # Cast
         cast = []
@@ -177,7 +180,7 @@ class MediaFinder:
             actor_info["id"] = actor["id"]
             actor_info["name"] = actor["name"]
             actor_info["character"] = actor["character"]
-            actor_info["link"] = url_for("get_person_details", id=actor["id"])
+            actor_info["link"] = url_for("get_person_detail", id=actor["id"])
 
             # If there is no poster image, add the default one.
             if actor["profile_path"] == None:
@@ -188,6 +191,8 @@ class MediaFinder:
                 ] = f"https://image.tmdb.org/t/p/w{ACTOR_POSTER_SIZE}/{actor['profile_path']}"
 
             cast.append(actor_info)
+
+        # Similar movies/series
 
         similar = []
 
@@ -228,10 +233,11 @@ class MediaFinder:
             "full_name": response["name"],
             "department": response["known_for_department"],
             "gender": TMDB_LISTED_GENDERS[response["gender"]],
-            "place_of_birth": response["place_of_birth"],
+            "place_of_birth": response["place_of_birth"] or "N/A",
             "biography": response["biography"],
         }
 
+        # If there is no poster image, add the default one.
         if response["profile_path"] == None:
             actor_info["poster"] = url_for("static", filename="img/no_poster.png")
         else:
@@ -242,7 +248,7 @@ class MediaFinder:
         # Date of birth
         try:
             date_list = response["birthday"].split("-")
-        except KeyError:
+        except (KeyError, AttributeError):
             actor_info["date_of_birth"] = "Unavailable"
         else:
             actor_info[
@@ -252,7 +258,7 @@ class MediaFinder:
         # Date of death
         try:
             date_list = response["deathday"].split("-")
-        except AttributeError:
+        except (KeyError, AttributeError):
             actor_info["date_of_death"] = "N/A"
         else:
             actor_info[
@@ -271,7 +277,7 @@ class MediaFinder:
 
             try:
                 movie_credit["year"] = credit["release_date"].split("-")[0]
-            except KeyError:
+            except (KeyError, AttributeError):
                 movie_credit["year"] = "N/A"
 
             movie_credits.append(movie_credit)
@@ -291,7 +297,7 @@ class MediaFinder:
 
             try:
                 tv_credit["year"] = credit["first_air_date"].split("-")[0]
-            except KeyError:
+            except (KeyError, AttributeError):
                 tv_credit["year"] = "N/A"
 
             tv_credits.append(tv_credit)
@@ -304,9 +310,15 @@ class MediaFinder:
 
         return actor_info
 
+    def get_search_results(self, query, search_type):
+        response = requests.get(
+            f"https://api.themoviedb.org/3/search/{search_type}?api_key={self.api_key}&language=en-US&query={query}&page=1&include_adult=false"
+        ).json()
+        return simplify_response(response["results"])
 
-def simplify_response(response_list, media_type):
-    """ Returns a simplified version of the response with only the basic info of the movies and shows. Used mainly for the large and small carousels. """
+
+def simplify_response(response_list, media_type="all"):
+    """ Returns a simplified version of the response with only the basic info of the movies, shows or people. """
 
     simplified_response = []
     media_title = ""
@@ -317,18 +329,22 @@ def simplify_response(response_list, media_type):
         item_data_to_add = {}
 
         # Set the dictionary's key names depending on the type of media
-        if media_type == None or media_type == "all":
+        if media_type == "all":
             m_type = media_item["media_type"]
-
         else:
             m_type = media_type
 
         if m_type == "movie":
             media_title = "title"
             media_date_name = "release_date"
-        else:
+            poster_title = "poster_path"
+        elif m_type == "tv":
             media_title = "name"
             media_date_name = "first_air_date"
+            poster_title = "poster_path"
+        else:  # if the media_item is the info of a person
+            media_title = "name"
+            poster_title = "profile_path"
 
         # Add the media's ID
         item_data_to_add["id"] = media_item["id"]
@@ -338,58 +354,79 @@ def simplify_response(response_list, media_type):
             f"get_{m_type}_detail", id=media_item["id"]
         )
 
-        # If the media is not in English, show the media's title in its original language first, followed by its English name in parantheses.
-        if media_item["original_language"] != "en" and (
-            media_item["original_" + media_title] != media_item[media_title]
-        ):
-            item_data_to_add[
-                "full_title"
-            ] = f"{media_item['original_' + media_title]} ({media_item[media_title]})"
+        # If the media_item is a person, the description will be a short list of the movies/tv shows the person has been in.
+        # The title will be the person's name.
+        if m_type == "person":
+            seen_in_media = []
+            for item in media_item["known_for"]:
+                if media_item["known_for"].index(item) > 2:
+                    break
+                else:
+                    seen_in_media.append(
+                        item["title"] if item["media_type"] == "movie" else item["name"]
+                    )
 
-        # else, just show the normal title.
-        else:
+            description = f"Seen in {', '.join(seen_in_media)}"
+
             item_data_to_add["full_title"] = media_item[media_title]
 
+        # else, the description will be the overview of the media.
+        else:
+            description = media_item["overview"]
+
+            # If the media is not in English, show the media's title in its original language first, followed by its English name in parantheses.
+            if media_item["original_language"] != "en" and (
+                media_item["original_" + media_title] != media_item[media_title]
+            ):
+                item_data_to_add[
+                    "full_title"
+                ] = f"{media_item['original_' + media_title]} ({media_item[media_title]})"
+
+            # else, just show the normal title.
+            else:
+                item_data_to_add["full_title"] = media_item[media_title]
+
+            # Add the release/air date
+
+            try:
+                if media_item[media_date_name] != "":
+                    date_list = media_item[media_date_name].split("-")
+            except (KeyError, AttributeError):
+                item_data_to_add["date"] = "Unavailable"
+            else:
+                item_data_to_add[
+                    "date"
+                ] = f"{MONTHS[int(date_list[1]) - 1]} {date_list[2]}, {date_list[0]}"
+
+            # Add the rating
+            item_data_to_add["rating"] = (
+                "N/A" if media_item["vote_average"] == 0 else media_item["vote_average"]
+            )
+
+            # If there is no backdrop image, add the default one.
+            if media_item["backdrop_path"] == None:
+                item_data_to_add["backdrop"] = url_for(
+                    "static", filename="img/no_backdrop.png"
+                )
+            else:
+                item_data_to_add[
+                    "backdrop"
+                ] = f"https://image.tmdb.org/t/p/w{BACKDROP_SIZE}/{media_item['backdrop_path']}"
+
         # Add the desctiption and trim it to 250 characters (if larger).
-        description = media_item["overview"]
         item_data_to_add["description"] = (
             (description[:OVERVIEW_MAX_CHARS] + "...")
             if len(description) > (OVERVIEW_MAX_CHARS + 3)
             else description
         )
 
-        # Add the release/air date
-        try:
-            date_list = media_item[media_date_name].split("-")
-        except KeyError:
-            item_data_to_add["date"] = "Unavailable"
-        else:
-            item_data_to_add[
-                "date"
-            ] = f"{MONTHS[int(date_list[1]) - 1]} {date_list[2]}, {date_list[0]}"
-
-        # Add the rating
-        item_data_to_add["rating"] = (
-            "N/A" if media_item["vote_average"] == 0 else media_item["vote_average"]
-        )
-
-        # If there is no backdrop image, add the default one.
-        if media_item["backdrop_path"] == None:
-            item_data_to_add["backdrop"] = url_for(
-                "static", filename="img/no_backdrop.png"
-            )
-        else:
-            item_data_to_add[
-                "backdrop"
-            ] = f"https://image.tmdb.org/t/p/w{BACKDROP_SIZE}/{media_item['backdrop_path']}"
-
         # If there is no poster image, add the default one.
-        if media_item["poster_path"] == None:
+        if media_item[poster_title] == None:
             item_data_to_add["poster"] = url_for("static", filename="img/no_poster.png")
         else:
             item_data_to_add[
                 "poster"
-            ] = f"https://image.tmdb.org/t/p/w{POSTER_SIZE}/{media_item['poster_path']}"
+            ] = f"https://image.tmdb.org/t/p/w{POSTER_SIZE}/{media_item[poster_title]}"
 
         simplified_response.append(item_data_to_add)
 
