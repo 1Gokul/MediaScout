@@ -70,16 +70,24 @@ def update_db(code):
 # Search
 @app.route("/search/<search_type>", methods=["GET", "POST"])
 def search(search_type):
-    if request.method == "POST":
-        search_results = media_finder.get_search_results(
-            request.form.get("query"), search_type
+    if search_type == "all":
+        query = request.args.get("query")
+        search_results = media_finder.get_search_query_results(query)
+
+    elif search_type == "by-keywords":
+        query, search_results = media_finder.search_by_keyword(
+            request.args.get("query"), request.args.get("media_type")
         )
-        return render_template(
-            "search-results.html",
-            search_results=search_results,
-            query=request.form.get("query"),
-            search_type=search_type,
-        )
+
+    else:
+        abort(404)
+
+    return render_template(
+        "search-results.html",
+        search_results=search_results,
+        query=query,
+        search_type=search_type,
+    )
 
 
 # 404

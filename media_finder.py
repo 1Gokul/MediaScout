@@ -306,11 +306,23 @@ class MediaFinder:
 
         return actor_info
 
-    def get_search_results(self, query, search_type):
+    def get_search_query_results(self, query):
         response = requests.get(
-            f"https://api.themoviedb.org/3/search/{search_type}?api_key={self.api_key}&language=en-US&query={query}&page=1&include_adult=false"
+            f"https://api.themoviedb.org/3/search/multi?api_key={self.api_key}&language=en-US&query={query}&page=1&include_adult=false"
         ).json()
         return simplify_response(response["results"])
+
+    def search_by_keyword(self, keyword, media_type):
+        response = requests.get(
+            f"https://api.themoviedb.org/3/discover/{media_type}?api_key={self.api_key}&with_keywords={keyword}"
+        ).json()
+
+        # Get the name of the keyword
+        keyword_name = requests.get(
+            f"https://api.themoviedb.org/3/keyword/{keyword}?api_key={self.api_key}"
+        ).json()["name"]
+
+        return keyword_name, simplify_response(response["results"], media_type)
 
 
 def simplify_response(response_list, media_type="all"):

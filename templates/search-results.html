@@ -8,8 +8,8 @@ Search Results -
 <div class="search-result-container">
 
 
-
-    <form class="mb-5" action="{{ url_for('search', search_type='multi') }}" method="POST">
+    {% if search_type == "all" %}
+    <form class="mb-5" action="{{ url_for('search', search_type='multi') }}" method="GET">
         <div class="row">
             <div class="col-auto">
                 <h2>You searched for:</h2>
@@ -24,7 +24,10 @@ Search Results -
             </div>
         </div>
     </form>
+    {% elif search_type == "by-keywords" %}
+    <h2>Search by keyword: <strong>{{ query }}</strong> </h2>
 
+    {% endif %}
 
 
 

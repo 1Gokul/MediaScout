@@ -62,9 +62,9 @@
                         </li>
                     </ul>
 
-                    <form class="d-flex" action="{{ url_for('search', search_type='multi') }}" method="POST">
-                        <input type="search" name="query" class="form-control navbar-search me-2"
-                            placeholder="Search (WIP)" aria-label="Search" />
+                    <form class="d-flex" action="{{ url_for('search', search_type='all') }}" method="GET">
+                        <input type="search" name="query" class="form-control navbar-search me-2" placeholder="Search"
+                            aria-label="Search" />
                         <button type="submit" class="btn border-0 search-submit px-4 mx-2"><i
                                 class="fas fa-arrow-right"></i></button>
                     </form>

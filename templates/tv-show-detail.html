@@ -64,7 +64,7 @@
         <p>
             <strong>Keywords: </strong>
             {% for keyword in details["keywords"] %}
-            <a href="#">
+            <a href="{{ url_for('search', search_type='by-keywords', query=keyword['id'], media_type='tv') }}">
                 <span class="badge keyword text-dark">{{ keyword["name"] }}</span>
             </a>
             {% endfor %}
