@@ -128,7 +128,7 @@ main > .container {
   padding: 100px 15px;
 }
 
-.form-control {
+.navbar-search {
   background-color: #0e617c;
   color: #f7f7ff;
   border: none;
@@ -137,26 +137,27 @@ main > .container {
   transition: all 0.2s linear;
 }
 
-.form-control::placeholder {
+.navbar-search::placeholder {
   color: #cecece;
 }
 
 .search-submit {
   box-shadow: none !important;
-  color: #0e617c;
+  color: transparent !important;
 }
 
-.form-control:hover {
+.navbar-search:hover {
   background-color: #127191;
 }
 
-.form-control:focus {
+.navbar-search:focus {
   color: #f7f7ff;
   background-color: #232931;
 }
 
-.form-control:focus + .search-submit {
+.navbar-search:focus + .search-submit {
   color: #f7f7ff !important;
+  background: #232931;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.2) !important;
 }
 
@@ -363,7 +364,7 @@ main > .container {
 .search-result-box {
   display: grid;
   margin: 10px 0;
-  grid-template-columns: 1fr 6fr 3fr;
+  grid-template-columns: 1fr 5fr;
   gap: 20px;
 }
 .search-result-box div {
@@ -383,6 +384,21 @@ main > .container {
   color: #c8e0fc;
 }
 
+.result-search-bar {
+  background: #232931 !important;
+  color: #f7f7ff !important;
+  font-size: larger;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid #f7f7ff;
+  transition: all 0.2s linear;
+}
+
+.result-search-submit {
+  background: #0e617c;
+  color: #f7f7ff !important;
+}
+
 /* For mobile devices */
 @media only screen and (max-width: 600px) {
   .mobile-backdrop,
@@ -392,7 +408,8 @@ main > .container {
 
   .desktop-backdrop,
   .desktop-overview,
-  .overlay-poster {
+  .overlay-poster,
+  .result-image {
     display: none;
   }
 
@@ -418,6 +435,9 @@ main > .container {
   .overlay-details h5:not(.tagline) {
     display: block;
     margin: 20px 0;
+  }
+  .search-result-box {
+    grid-template-columns: 1fr;
   }
 
   .person-banner {

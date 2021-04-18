@@ -138,7 +138,7 @@ class MediaFinder:
         # If a movie, show the duration
         if media_type == "movie":
             keyword_key = "keywords"
-            simplified_response["runtime"] = f"{response['runtime']} minutes"
+            simplified_response["runtime"] = f"{response['runtime'] or 0} minutes"
 
         # else if a series, show the number of seasons.
         else:
@@ -149,18 +149,14 @@ class MediaFinder:
 
         # Spoken languages in the media
         simplified_response["media_status"] = response["status"]
-        simplified_response["language"] = response["spoken_languages"][0][
-            "english_name"
-        ]
+        simplified_response["language"] = ", ".join(
+            [language["english_name"] for language in response["spoken_languages"]]
+        )
 
         # Companies involved
-        simplified_response["production_companies"] = ""
-
-        for company in response["production_companies"]:
-            simplified_response["production_companies"] += company["name"]
-
-            if company != response["production_companies"][-1]:
-                simplified_response["production_companies"] += ", "
+        simplified_response["production_companies"] = ", ".join(
+            [company["name"] for company in response["production_companies"]]
+        )
 
         # Credits
 

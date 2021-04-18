@@ -7,13 +7,33 @@ Search Results -
 {% block body %}
 <div class="search-result-container">
 
-    <h2 class="mb-4">You searched for: <strong>{{ query }}</strong></h2>
+
+
+    <form class="mb-5" action="{{ url_for('search', search_type='multi') }}" method="POST">
+        <div class="row">
+            <div class="col-auto">
+                <h2>You searched for:</h2>
+            </div>
+            <div class="col-auto col-md-4">
+                <input type="search" name="query" class="form-control result-search-bar" value="{{ query }}"
+                    placeholder="It was '{{ query }}' in case you forget." aria-label="Search" />
+            </div>
+            <div class="col-auto col-md-4">
+                <button type="submit" class="btn border-0 result-search-submit px-5 my-4 my-md-0"><i
+                        class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </form>
+
+
+
 
     {% for result in search_results %}
+    <hr>
     <a href="{{ result['detail_link'] }}">
         <div class="search-result-box">
 
-            <div>
+            <div class="result-image">
                 <img src="{{ result['poster'] }}">
             </div>
             <div>
@@ -26,7 +46,7 @@ Search Results -
         </div>
     </a>
 
-    <hr>
+
     {% endfor %}
 
 
