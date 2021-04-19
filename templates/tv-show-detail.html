@@ -27,6 +27,14 @@
                 <h5>
                     {{ details["n_seasons"] }}
                 </h5>
+                {% if details["trailer"] %}
+                <a class="youtube-link px-3 py-2" href="{{ details['trailer'] }}" data-fancybox>
+
+                    <i class="fab fa-youtube text-white"></i>
+                    Trailer
+
+                </a>
+                {% endif %}
                 <p class="desktop-overview mt-5">
                     {{ details["description"] }}
                 </p>
@@ -104,5 +112,17 @@
     </div>
 
 </div>
+
+{% endblock %}
+
+
+{% block script %}
+
+<!-- JQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+
+<!-- Fancybox -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
 {% endblock %}

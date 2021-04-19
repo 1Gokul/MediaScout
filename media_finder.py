@@ -110,7 +110,7 @@ class MediaFinder:
     def get_media_detailed_info(self, media_type, id):
         """ Get detailed information about a movie or show. """
         response = requests.get(
-            f"https://api.themoviedb.org/3/{media_type}/{id}?api_key={self.api_key}&language=en-US&append_to_response=credits,similar,keywords"
+            f"https://api.themoviedb.org/3/{media_type}/{id}?api_key={self.api_key}&language=en-US&append_to_response=credits,similar,keywords,videos"
         ).json()
 
         # The simplify_response() function will help format and add the basic information of the media.
@@ -120,6 +120,14 @@ class MediaFinder:
         simplified_response["tagline"] = response["tagline"]
 
         simplified_response["description"] = response["overview"]
+        
+        # Show a trailer
+        for video in response["videos"]["results"]:
+            if video["type"] == "Trailer":
+                video_id = video["key"]
+                break
+
+        simplified_response["trailer"] = f"https://www.youtube.com/watch?v={video_id}" if video_id else None
 
         simplified_response["genres"] = ""
 
