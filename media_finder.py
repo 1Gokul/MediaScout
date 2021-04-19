@@ -203,24 +203,9 @@ class MediaFinder:
 
         simplified_response["directors"] = ", ".join(directors) or "N/A"
 
-        # Cast
-        cast = []
-        for actor in response["credits"]["cast"]:
-            actor_info = {}
-            actor_info["id"] = actor["id"]
-            actor_info["name"] = actor["name"]
-            actor_info["character"] = actor["character"]
-            actor_info["link"] = url_for("get_person_detail", id=actor["id"])
+        cast = format_cast_dict(response["credits"]["cast"])
 
-            # If there is no poster image, add the default one.
-            if actor["profile_path"] == None:
-                actor_info["image"] = url_for("static", filename="img/no_poster.png")
-            else:
-                actor_info[
-                    "image"
-                ] = f"https://image.tmdb.org/t/p/w{ACTOR_POSTER_SIZE}/{actor['profile_path']}"
-
-            cast.append(actor_info)
+        simplified_response["cast"] = cast
 
         # Similar movies/series
 
@@ -243,8 +228,6 @@ class MediaFinder:
             similar.append(similar_item)
 
         simplified_response["similar"] = similar
-
-        simplified_response["cast"] = cast
 
         # Keywords
         simplified_response["keywords"] = response["keywords"][keyword_key]
@@ -462,3 +445,25 @@ def prettify_date(date):
         new_date = f"{MONTHS[int(date_list[1]) - 1]} {date_list[2]}, {date_list[0]}"
 
     return new_date
+
+def format_cast_dict(cast_dict):
+    # Cast
+    cast = []
+    for actor in cast_dict:
+        actor_info = {}
+        actor_info["id"] = actor["id"]
+        actor_info["name"] = actor["name"]
+        actor_info["character"] = actor["character"]
+        actor_info["link"] = url_for("get_person_detail", id=actor["id"])
+
+        # If there is no poster image, add the default one.
+        if actor["profile_path"] == None:
+            actor_info["image"] = url_for("static", filename="img/no_poster.png")
+        else:
+            actor_info[
+                "image"
+            ] = f"https://image.tmdb.org/t/p/w{ACTOR_POSTER_SIZE}/{actor['profile_path']}"
+
+        cast.append(actor_info)
+
+    return cast
