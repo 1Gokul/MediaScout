@@ -110,7 +110,7 @@ class MediaFinder:
     def get_media_detailed_info(self, media_type, id):
         """ Get detailed information about a movie or show. """
         response = requests.get(
-            f"https://api.themoviedb.org/3/{media_type}/{id}?api_key={self.api_key}&language=en-US&append_to_response=credits,similar,keywords,videos"
+            f"https://api.themoviedb.org/3/{media_type}/{id}?api_key={self.api_key}&language=en-US&append_to_response=credits,similar,keywords,videos{',seasons' if media_type == 'tv' else ''}"
         ).json()
 
         # The simplify_response() function will help format and add the basic information of the media.
@@ -120,14 +120,16 @@ class MediaFinder:
         simplified_response["tagline"] = response["tagline"]
 
         simplified_response["description"] = response["overview"]
-        
+
         # Show a trailer
         for video in response["videos"]["results"]:
             if video["type"] == "Trailer":
                 video_id = video["key"]
                 break
 
-        simplified_response["trailer"] = f"https://www.youtube.com/watch?v={video_id}" if video_id else None
+        simplified_response["trailer"] = (
+            f"https://www.youtube.com/watch?v={video_id}" if video_id else None
+        )
 
         simplified_response["genres"] = ""
 
@@ -154,6 +156,30 @@ class MediaFinder:
             simplified_response[
                 "n_seasons"
             ] = f"{response['number_of_seasons']} season{'s' if response['number_of_seasons'] > 1 else ''}"
+
+            # Add the info of all the seasons
+
+            seasons = []
+            for season in response["seasons"]:
+                season_info = {
+                    "date": season["air_date"],
+                    "name": season["name"],
+                    "n_episodes": f"{season['episode_count']} episode{'s' if season['episode_count'] > 1 else ''}",
+                    "description": season["overview"],
+                    "link": url_for("get_tv_detail", id=season["id"]),
+                }
+
+                # If there is no poster image, add the default one.
+                if season["poster_path"] == None:
+                    season_info["poster"] = url_for("static", filename="img/no_poster.png")
+                else:
+                    season_info[
+                        "poster"
+                    ] = f"https://image.tmdb.org/t/p/w{POSTER_SIZE}/{season['poster_path']}"
+
+                seasons.append(season_info)
+
+            simplified_response["seasons"] = seasons
 
         # Spoken languages in the media
         simplified_response["media_status"] = response["status"]
@@ -250,24 +276,10 @@ class MediaFinder:
             ] = f"https://image.tmdb.org/t/p/w{POSTER_SIZE}/{response['images']['profiles'][-1]['file_path']}"
 
         # Date of birth
-        try:
-            date_list = response["birthday"].split("-")
-        except (KeyError, AttributeError):
-            actor_info["date_of_birth"] = "Unavailable"
-        else:
-            actor_info[
-                "date_of_birth"
-            ] = f"{MONTHS[int(date_list[1]) - 1]} {date_list[2]}, {date_list[0]}"
+        actor_info["date_of_birth"] = prettify_date(response["birthday"])
 
         # Date of death
-        try:
-            date_list = response["deathday"].split("-")
-        except (KeyError, AttributeError):
-            actor_info["date_of_death"] = "N/A"
-        else:
-            actor_info[
-                "date_of_death"
-            ] = f"{MONTHS[int(date_list[1]) - 1]} {date_list[2]}, {date_list[0]}"
+        actor_info["date_of_death"] = prettify_date(response["deathday"])
 
         # Movie Credits
         movie_credits = []
@@ -403,16 +415,7 @@ def simplify_response(response_list, media_type="all"):
                 item_data_to_add["full_title"] = media_item[media_title]
 
             # Add the release/air date
-
-            try:
-                if media_item[media_date_name] != "":
-                    date_list = media_item[media_date_name].split("-")
-            except (KeyError, AttributeError):
-                item_data_to_add["date"] = "Unavailable"
-            else:
-                item_data_to_add[
-                    "date"
-                ] = f"{MONTHS[int(date_list[1]) - 1]} {date_list[2]}, {date_list[0]}"
+            item_data_to_add["date"] = prettify_date(media_item[media_date_name])
 
             # Add the rating
             item_data_to_add["rating"] = (
@@ -447,3 +450,15 @@ def simplify_response(response_list, media_type="all"):
         simplified_response.append(item_data_to_add)
 
     return simplified_response
+
+
+def prettify_date(date):
+    try:
+        if date != "":
+            date_list = date.split("-")
+    except (KeyError, AttributeError):
+        new_date = "Unavailable"
+    else:
+        new_date = f"{MONTHS[int(date_list[1]) - 1]} {date_list[2]}, {date_list[0]}"
+
+    return new_date

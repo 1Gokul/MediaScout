@@ -336,6 +336,19 @@ main > .container {
   color: rgb(161, 161, 161);
 }
 
+.youtube-link {
+  display: inline-block;
+  color: #f7f7ff !important;
+  background: #ff0000;
+  border-radius: 10px;
+  font-size: large;
+  transition: all 0.2s linear;
+}
+
+.youtube-link:hover {
+  background: #ce0000;
+}
+
 .extra-details p {
   margin: 20px 0;
   font-size: large;
@@ -376,11 +389,13 @@ main > .container {
   max-width: 125px;
 }
 
-.search-result-container a {
+.search-result-container a,
+.seasons a {
   color: #f7f7ff;
 }
 
-.search-result-container a:hover {
+.search-result-container a:hover,
+.seasons a:hover {
   color: #c8e0fc;
 }
 
