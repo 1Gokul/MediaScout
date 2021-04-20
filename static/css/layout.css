@@ -23,15 +23,6 @@ body {
   font-style: normal;
 }
 
-.carousel-image-caption h1,
-.carousel-image-caption h2,
-.scroller-display h1,
-.carousel-small h1,
-.details-container h1,
-.search-result-box h2 {
-  font-weight: bold;
-}
-
 a {
   color: #c8e0fc;
   transition: all linear 0.2s;
@@ -244,7 +235,8 @@ main > .container {
 
 .carousel-image-caption h4,
 .carousel-image-caption h5:not(.carousel-image-overview),
-.overlay-details h5:not(.tagline) {
+.overlay-details h5:not(.tagline),
+.episode-details h6, .episode-details .h5 {
   display: inline;
   margin-right: 40px;
 }
@@ -313,12 +305,14 @@ main > .container {
 }
 
 .overlay-poster img,
-.person-banner img {
+.person-banner img,
+.season-banner img {
   border-radius: 20px;
   height: 400px;
 }
 
-.overlay-details {
+.overlay-details,
+.episode-details {
   width: 70%;
   margin: 40px;
   position: absolute;
@@ -352,6 +346,31 @@ main > .container {
 .extra-details p {
   margin: 20px 0;
   font-size: large;
+}
+
+.season-banner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 20px;
+  justify-items: start;
+  background: #16222a; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #3a6073,
+    #16222a
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #3a6073,
+    #16222a
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.original-series-link {
+  display: inline-block;
+  font-size: larger;
+  background: #232931;
+  border-radius: 10px;
 }
 
 .person-banner {
@@ -397,6 +416,20 @@ main > .container {
 .search-result-container a:hover,
 .seasons a:hover {
   color: #c8e0fc;
+}
+
+.episode-box,
+.episode-backdrop {
+  position: relative;
+  height: 400px;
+}
+
+.episode-backdrop img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  filter: brightness(40%);
+  overflow: auto;
 }
 
 .result-search-bar {
@@ -447,16 +480,23 @@ main > .container {
     margin: 0 0 20px 10px;
   }
 
-  .overlay-details h5:not(.tagline) {
+  .overlay-details h5:not(.tagline), .episode-details .h5 {
     display: block;
     margin: 20px 0;
   }
-  .search-result-box {
+
+  .episode-box, .episode-backdrop{
+      height: 600px;
+  }
+
+  .search-result-box,
+  .person-banner,
+  .season-banner {
     grid-template-columns: 1fr;
   }
 
-  .person-banner {
-    grid-template-columns: 1fr;
+  .person-banner img, .season-banner img{
+    height: 275px;
   }
 
   .flickity-page-dots,

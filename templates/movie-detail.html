@@ -1,3 +1,4 @@
+{% from "macros.html" import details_banner, cast_scroller, mini_scroller %}
 {% extends "layout.html" %}
 
 {% block title %}
@@ -6,111 +7,16 @@
 
 {% block body %}
 <div class="details-container">
-    <div class="banner mb-5">
-        <div class="banner-image">
-            <img src="{{ details['backdrop'] }}">
-        </div>
-        <div class="overlay">
-            <div class="overlay-details">
-                <h1>{{ details["full_title"] }}</h1>
-                <h5 class="mb-5 text-slightly-muted tagline">{{ details["tagline"] }}</h5>
-                <h5>{{ details["genres"] }}</h5>
-                <h5>
-                    <i class="fas fa-calendar"></i>
-                    {{ details["date"] }}
-                </h5>
-                <h5>
-                    <i class="fas fa-star-half-alt"></i>
-                    {{ details["rating"] }}
-                </h5>
-                <h5>
-                    <i class="fas fa-clock"></i>
-                    {{ details["runtime"] }}
-                </h5>
-                {% if details["trailer"] %}
-                <a class="youtube-link px-3 py-2" href="{{ details['trailer'] }}"
-                    data-fancybox>
 
-                    <i class="fab fa-youtube text-white"></i>
-                    Trailer
-
-                </a>
-                {% endif %}
-                <p class="desktop-overview mt-5">
-                    {{ details["description"] }}
-                </p>
-            </div>
-            <div class="overlay-poster">
-                <img src="{{ details['poster'] }}">
-            </div>
-        </div>
-
-    </div>
-
-
-
-    <div class="extra-details my-5">
-
-        <p class="mobile-overview">
-            {{ details["description"] }}
-        </p>
-
-        <p>
-            <strong>Status: </strong>
-            {{ details["media_status"] }}
-        </p>
-        <p>
-            <strong>Language: </strong>
-            {{ details["language"] }}
-        </p>
-        <p>
-            <strong>Directors: </strong>
-            {{ details["directors"] }}
-        </p>
-        <p>
-            <strong>Production Companies: </strong>
-            {{ details["production_companies"] }}
-        </p>
-        <p>
-            <strong>Keywords: </strong>
-            {% for keyword in details["keywords"] %}
-            <a href="{{ url_for('search', search_type='by-keywords', query=keyword['id'], media_type='movie') }}">
-                <span class="badge keyword text-dark">{{ keyword["name"] }}</span>
-            </a>
-            {% endfor %}
-        </p>
-    </div>
+    {{ details_banner(details, "movie") }}
     <hr>
-    <h1>Cast</h1>
-    <div class="scrolling-wrapper"
-        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
-        {% for actor in details["cast"] %}
-        <div class="cast-card">
-            <a href="{{ actor['link'] }}">
-                <img loading="lazy" src="{{ actor['image'] }}" />
-                <div class="actor-name">
-                    <a href="{{ actor['link'] }}"><strong>{{ actor["name"]}}</strong></a>
-                </div>
-                <div class="character-name">
-                    {{ actor["character"] }}
-                </div>
-            </a>
-        </div>
-        {% endfor %}
-    </div>
 
+    <!-- Cast -->
+    <h1 class="fw-bold">Cast</h1>
+    {{ cast_scroller(details["cast"]) }}
 
-    <h1>Similar</h1>
-    <div class="scrolling-wrapper"
-        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
-        {% for item in details["similar"] %}
-        <div class="small-poster">
-            <a href="{{ item['detail_link'] }}">
-                <img loading="lazy" src="{{ item['poster'] }}" />
-            </a>
-        </div>
-        {% endfor %}
-    </div>
+    <!-- Similar Movies -->
+    {{ mini_scroller(details["similar"], "Similar")}}
 
 </div>
 

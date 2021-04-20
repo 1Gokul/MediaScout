@@ -41,7 +41,8 @@ GENRES = {
 # Genders in the TMDB API
 TMDB_LISTED_GENDERS = ["N/A", "Female", "Male", "Non-Binary"]
 
-BACKDROP_SIZE = 1280
+LARGE_BACKDROP_SIZE = 1280
+SMALL_BACKDROP_SIZE = 780
 POSTER_SIZE = 300
 ACTOR_POSTER_SIZE = 185
 OVERVIEW_MAX_CHARS = 250
@@ -122,14 +123,13 @@ class MediaFinder:
         simplified_response["description"] = response["overview"]
 
         # Show a trailer
+        video_id = None
         for video in response["videos"]["results"]:
             if video["type"] == "Trailer":
-                video_id = video["key"]
+                video_id = f"https://www.youtube.com/watch?v={video['key']}"
                 break
 
-        simplified_response["trailer"] = (
-            f"https://www.youtube.com/watch?v={video_id}" if video_id else None
-        )
+        simplified_response["trailer"] = video_id
 
         simplified_response["genres"] = ""
 
@@ -155,23 +155,30 @@ class MediaFinder:
             keyword_key = "results"
             simplified_response[
                 "n_seasons"
-            ] = f"{response['number_of_seasons']} season{'s' if response['number_of_seasons'] > 1 else ''}"
+            ] = f"{response['number_of_seasons']} season{'s' if response['number_of_seasons'] != 1 else ''}"
 
             # Add the info of all the seasons
 
             seasons = []
             for season in response["seasons"]:
                 season_info = {
-                    "date": season["air_date"],
+                    "date": prettify_date(season["air_date"]),
                     "name": season["name"],
-                    "n_episodes": f"{season['episode_count']} episode{'s' if season['episode_count'] > 1 else ''}",
+                    "n_episodes": f"{season['episode_count']} episode{'s' if season['episode_count'] != 1 else ''}",
+                    "season_number": season["season_number"],
                     "description": season["overview"],
-                    "link": url_for("get_tv_detail", id=season["id"]),
+                    "link": url_for(
+                        "get_season_detail",
+                        tv_id=simplified_response["id"],
+                        season_number=season["season_number"],
+                    ),
                 }
 
                 # If there is no poster image, add the default one.
                 if season["poster_path"] == None:
-                    season_info["poster"] = url_for("static", filename="img/no_poster.png")
+                    season_info["poster"] = url_for(
+                        "static", filename="img/no_poster.png"
+                    )
                 else:
                     season_info[
                         "poster"
@@ -233,6 +240,73 @@ class MediaFinder:
         simplified_response["keywords"] = response["keywords"][keyword_key]
 
         return simplified_response
+
+    def get_season_detailed_info(self, tv_id, season_number):
+        """ Sends detailed info about a TV show's season. """
+
+        # Info of the TV Series this season belongs to
+        series = requests.get(
+            f"https://api.themoviedb.org/3/tv/{tv_id}?api_key={self.api_key}&language=en-US"
+        ).json()
+        tv_name = series["name"]
+        tv_link = url_for("get_tv_detail", id=series["id"])
+
+        try:
+            response = requests.get(
+                f"https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}?api_key={self.api_key}&language=en-US"
+            ).json()
+
+            # Test the response
+            test_id = response["_id"]
+
+        # If such a season doesn't exist
+        except KeyError:
+            return False, "error"
+
+        else:
+            # Basic info of the season
+            season_dict = {
+                "full_title": f"{tv_name}: {response['name']}",
+                "date": prettify_date(response["air_date"]),
+                "description": response["overview"],
+                "poster": f"https://image.tmdb.org/t/p/w{POSTER_SIZE}/{response['poster_path']}"
+                if response["poster_path"]
+                else url_for("static", filename="img/no_poster.png"),
+                "original_series_name": tv_name,
+                "original_series_link": tv_link,
+            }
+
+            # Basic info of each episode
+            episodes = []
+            for episode in response["episodes"]:
+
+                episode_info = {
+                    "full_title": episode["name"],
+                    "date": prettify_date(episode["air_date"]),
+                    "description": episode["overview"],
+                    "rating": episode["vote_average"],
+                    "backdrop": f"https://image.tmdb.org/t/p/w{SMALL_BACKDROP_SIZE}/{episode['still_path']}"
+                    if episode["still_path"]
+                    else url_for("static", filename="img/no_backdrop.png"),
+                }
+
+                # Add crew
+                writers = []
+                directors = []
+                for crew_member in episode["crew"]:
+                    if crew_member["job"] == "Writer":
+                        writers.append(crew_member["name"])
+                    elif crew_member["job"] == "Director":
+                        directors.append(crew_member["name"])
+
+                episode_info["directors"] = ", ".join(directors) or "N/A"
+                episode_info["writers"] = ", ".join(writers) or "N/A"
+
+                episodes.append(episode_info)
+
+            season_dict["episodes"] = episodes
+
+            return True, season_dict
 
     def get_person_detailed_info(self, id):
         """ Gets detailed information of a person. """
@@ -398,7 +472,10 @@ def simplify_response(response_list, media_type="all"):
                 item_data_to_add["full_title"] = media_item[media_title]
 
             # Add the release/air date
-            item_data_to_add["date"] = prettify_date(media_item[media_date_name])
+            try:
+                item_data_to_add["date"] = prettify_date(media_item[media_date_name])
+            except KeyError:
+                item_data_to_add["date"] = "N/A"
 
             # Add the rating
             item_data_to_add["rating"] = (
@@ -413,7 +490,7 @@ def simplify_response(response_list, media_type="all"):
             else:
                 item_data_to_add[
                     "backdrop"
-                ] = f"https://image.tmdb.org/t/p/w{BACKDROP_SIZE}/{media_item['backdrop_path']}"
+                ] = f"https://image.tmdb.org/t/p/w{LARGE_BACKDROP_SIZE}/{media_item['backdrop_path']}"
 
         # Add the desctiption and trim it to 250 characters (if larger).
         item_data_to_add["description"] = (
@@ -436,34 +513,35 @@ def simplify_response(response_list, media_type="all"):
 
 
 def prettify_date(date):
-    try:
-        if date != "":
-            date_list = date.split("-")
-    except (KeyError, AttributeError):
-        new_date = "Unavailable"
-    else:
+    new_date = ""
+    if date and date != "":
+        date_list = date.split("-")
         new_date = f"{MONTHS[int(date_list[1]) - 1]} {date_list[2]}, {date_list[0]}"
 
     return new_date
+
 
 def format_cast_dict(cast_dict):
     # Cast
     cast = []
     for actor in cast_dict:
-        actor_info = {}
-        actor_info["id"] = actor["id"]
-        actor_info["name"] = actor["name"]
-        actor_info["character"] = actor["character"]
-        actor_info["link"] = url_for("get_person_detail", id=actor["id"])
-
-        # If there is no poster image, add the default one.
-        if actor["profile_path"] == None:
-            actor_info["image"] = url_for("static", filename="img/no_poster.png")
+        try:
+            actor_info = {"id": actor["id"]}
+        except KeyError:
+            pass
         else:
-            actor_info[
-                "image"
-            ] = f"https://image.tmdb.org/t/p/w{ACTOR_POSTER_SIZE}/{actor['profile_path']}"
+            actor_info["name"] = actor["name"]
+            actor_info["character"] = actor["character"]
+            actor_info["link"] = url_for("get_person_detail", id=actor["id"])
 
-        cast.append(actor_info)
+            # If there is no poster image, add the default one.
+            if actor["profile_path"] == None:
+                actor_info["image"] = url_for("static", filename="img/no_poster.png")
+            else:
+                actor_info[
+                    "image"
+                ] = f"https://image.tmdb.org/t/p/w{ACTOR_POSTER_SIZE}/{actor['profile_path']}"
+
+            cast.append(actor_info)
 
     return cast

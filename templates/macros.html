@@ -2,21 +2,128 @@
 
 <!-- Smaller carousel with posters -->
 <div class="scroller-display my-5">
-  <h1>{{ carousel_title }}</h1>
-  <div
-    class="scrolling-wrapper"
-    data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'
-  >
-    {% for item in input_dict %}
+    <h1 class="fw-bold">{{ carousel_title }}</h1>
+    <div class="scrolling-wrapper"
+        data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+        {% for item in input_dict %}
 
-    <div class="card">
-      <a href="{{ item['detail_link'] }}">
-        <img loading="lazy" class="poster" src="{{ item['poster'] }}" />
-      </a>
+        <div class="card">
+            <a href="{{ item['detail_link'] }}">
+                <img loading="lazy" class="poster" src="{{ item['poster'] }}" />
+            </a>
+        </div>
+
+        {% endfor %}
     </div>
+</div>
 
+{% endmacro %}
+
+
+{% macro details_banner(input_dict, media_type) %}
+<div class="banner mb-5">
+    <div class="banner-image">
+        <img src="{{ input_dict['backdrop'] }}" />
+    </div>
+    <div class="overlay">
+        <div class="overlay-details">
+            <h1 class="fw-bold">{{ input_dict["full_title"] }}</h1>
+            <h5 class="mb-5 text-slightly-muted tagline">{{ input_dict["tagline"] }}</h5>
+            <h5>{{ input_dict["genres"] }}</h5>
+            <h5>
+                <i class="fas fa-calendar"></i>
+                {{ input_dict["date"] }}
+            </h5>
+            <h5>
+                <i class="fas fa-star-half-alt"></i>
+                {{ input_dict["rating"] }}
+            </h5>
+            {% if media_type == "tv" %}
+            <h5>{{ input_dict["n_seasons"] }}</h5>
+            {% else %}
+            <h5>
+                <i class="fas fa-clock"></i>
+                {{ input_dict["runtime"] }}
+            </h5>
+
+            {% endif %}
+
+            {% if input_dict["trailer"] %}
+            <a class="youtube-link px-3 py-2" href="{{ input_dict['trailer'] }}" data-fancybox>
+                <i class="fab fa-youtube text-white"></i>
+                Trailer
+            </a>
+            {% endif %}
+            <p class="desktop-overview mt-5">{{ input_dict["description"] }}</p>
+        </div>
+        <div class="overlay-poster">
+            <img src="{{ input_dict['poster'] }}" />
+        </div>
+    </div>
+</div>
+
+<hr />
+<div class="extra-details my-5">
+    <p class="mobile-overview">{{ input_dict["description"] }}</p>
+
+    <p>
+        <strong>Status: </strong>
+        {{ input_dict["media_status"] }}
+    </p>
+    <p>
+        <strong>Language: </strong>
+        {{ input_dict["language"] }}
+    </p>
+    <p>
+        <strong>Directors: </strong>
+        {{ input_dict["directors"] }}
+    </p>
+    <p>
+        <strong>Production Companies: </strong>
+        {{ input_dict["production_companies"] }}
+    </p>
+    <p>
+        <strong>Keywords: </strong>
+        {% for keyword in input_dict["keywords"] %}
+        <a href="{{ url_for('search', search_type='by-keywords', query=keyword['id'], media_type=media_type) }}">
+            <span class="badge keyword text-dark">{{ keyword["name"] }}</span>
+        </a>
+        {% endfor %}
+    </p>
+</div>
+
+{% endmacro %}
+
+
+{% macro cast_scroller(cast) %}
+<div class="scrolling-wrapper"
+    data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+    {% for actor in cast %}
+    <div class="cast-card">
+        <a href="{{ actor['link'] }}">
+            <img loading="lazy" src="{{ actor['image'] }}" />
+            <div class="actor-name">
+                <a href="{{ actor['link'] }}"><strong>{{ actor["name"]}}</strong></a>
+            </div>
+            <div class="character-name">{{ actor["character"] }}</div>
+        </a>
+    </div>
     {% endfor %}
-  </div>
+</div>
+
+{% endmacro %}
+
+{% macro mini_scroller(input_dict, heading) %}
+<h1 class="fw-bold">{{ heading }}</h1>
+<div class="scrolling-wrapper"
+    data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
+    {% for item in input_dict %}
+    <div class="small-poster">
+        <a href="{{ item['detail_link'] }}">
+            <img loading="lazy" src="{{ item['poster'] }}" />
+        </a>
+    </div>
+    {% endfor %}
 </div>
 
 {% endmacro %}

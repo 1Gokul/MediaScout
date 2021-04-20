@@ -1,0 +1,71 @@
+{% from "macros.html" import cast_scroller %}
+{% extends "layout.html" %}
+
+{% block title %}
+{{ details["full_title"] }}
+{% endblock %}
+
+{% block body %}
+<div class="details-container">
+    <div class="season-banner p-5 mb-5">
+
+        <div>
+            <img src="{{ details['poster'] }}">
+        </div>
+
+        <div>
+            <h1 class="my-3 fw-bold">{{ details["full_title"] }}</h1>
+            Aired:
+            <div class="px-5 mb-4">
+                <h5>{{ details["date"] }}</h5>
+            </div>
+            <h5 class="desktop-overview">
+                {{ details["description"] }}
+            </h5>
+            <a class="original-series-link mt-5 p-3 fw-bold" href="{{ details['original_series_link'] }}">
+                Part of series: {{ details["original_series_name"] }}
+            </a>
+        </div>
+
+
+    </div>
+
+
+    <div class="extra-details my-5">
+        <h5 class="mobile-overview">
+            {{ details["description"] }}
+        </h5>
+
+    </div>
+    <hr>
+    <div class="episodes">
+        {% for episode in details["episodes"] %}
+
+        <div class="episode-box">
+            <div class="episode-backdrop">
+                <img src="{{ episode['backdrop'] }}">
+            </div>
+            <div class="episode-details">
+                <h2 class="fw-bold">{{ episode["full_title"] }}</h2>
+                <div class="h5">
+                    <i class="fas fa-calendar"></i>
+                    {{ episode["date"] }}
+                </div>
+                <div class="h5">
+                    <i class="fas fa-star-half-alt"></i>
+                    {{ episode["rating"] }}
+                </div>
+                <h5 class="my-3">{{ episode["description"] }}</h5>
+
+                <h5>Directors: {{ episode["directors"] }}</h5>
+                <h5>Writers: {{ episode["writers"] }}</h5>
+            </div>
+        </div>
+
+        <hr>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

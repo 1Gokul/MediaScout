@@ -45,6 +45,18 @@ def get_tv_detail():
     return render_template("tv-show-detail.html", details=show_detail)
 
 
+# Details of a TV season
+@app.route("/<tv_id>/season/<season_number>")
+def get_season_detail(tv_id, season_number):
+    success, season_detail = media_finder.get_season_detailed_info(
+        tv_id, season_number
+    )
+    if success:
+        return render_template("tv-season-detail.html", details=season_detail)
+    else:
+        abort(404)
+
+
 # Details of a person
 @app.route("/person")
 def get_person_detail():
