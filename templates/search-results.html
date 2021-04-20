@@ -9,7 +9,7 @@ Search Results -
 
 
     {% if search_type == "all" %}
-    <form class="mb-5" action="{{ url_for('search', search_type='multi') }}" method="GET">
+    <form class="mb-5" action="{{ url_for('search', search_type='all') }}" method="GET">
         <div class="row">
             <div class="col-auto">
                 <h2>You searched for:</h2>
@@ -29,7 +29,7 @@ Search Results -
 
     {% endif %}
 
-
+    {% if success %}
 
     {% for result in search_results %}
     <hr>
@@ -48,9 +48,13 @@ Search Results -
             </div>
         </div>
     </a>
-
-
     {% endfor %}
+
+    {% else %}
+
+    <h3>Sorry, no matches were found.</h3>
+
+    {% endif %}
 
 
 </div>

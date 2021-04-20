@@ -387,7 +387,14 @@ class MediaFinder:
         response = requests.get(
             f"https://api.themoviedb.org/3/search/multi?api_key={self.api_key}&language=en-US&query={query}&page=1&include_adult=false"
         ).json()
-        return simplify_response(response["results"])
+
+        # Test the response
+        try:
+            results = response["results"]
+        except KeyError:
+            return False, "error"
+        else:
+            return True, simplify_response(response["results"])
 
     def search_by_keyword(self, keyword, media_type):
         response = requests.get(
@@ -399,7 +406,17 @@ class MediaFinder:
             f"https://api.themoviedb.org/3/keyword/{keyword}?api_key={self.api_key}"
         ).json()["name"]
 
-        return keyword_name, simplify_response(response["results"], media_type)
+        # Test the response
+        try:
+            results = response["results"]
+        except KeyError:
+            return False, keyword_name, "error"
+        else:
+            return (
+                True,
+                keyword_name,
+                simplify_response(response["results"], media_type),
+            )
 
 
 def simplify_response(response_list, media_type="all"):

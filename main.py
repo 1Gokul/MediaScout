@@ -48,9 +48,7 @@ def get_tv_detail():
 # Details of a TV season
 @app.route("/<tv_id>/season/<season_number>")
 def get_season_detail(tv_id, season_number):
-    success, season_detail = media_finder.get_season_detailed_info(
-        tv_id, season_number
-    )
+    success, season_detail = media_finder.get_season_detailed_info(tv_id, season_number)
     if success:
         return render_template("tv-season-detail.html", details=season_detail)
     else:
@@ -84,10 +82,10 @@ def update_db(code):
 def search(search_type):
     if search_type == "all":
         query = request.args.get("query")
-        search_results = media_finder.get_search_query_results(query)
+        success, search_results = media_finder.get_search_query_results(query)
 
     elif search_type == "by-keywords":
-        query, search_results = media_finder.search_by_keyword(
+        success, query, search_results = media_finder.search_by_keyword(
             request.args.get("query"), request.args.get("media_type")
         )
 
@@ -97,6 +95,7 @@ def search(search_type):
     return render_template(
         "search-results.html",
         search_results=search_results,
+        success=success,
         query=query,
         search_type=search_type,
     )
