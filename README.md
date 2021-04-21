@@ -3,6 +3,7 @@
 A movie/tv-show web app.
 
 ![Heroku Badge](https://pyheroku-badge.herokuapp.com/?app=mediascout)
+![Codacy Badge](https://app.codacy.com/project/badge/Grade/4d83f97a49834c6391d6464ffed47109)
 
 Made with Flask, HTML and CSS.
 

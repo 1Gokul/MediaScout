@@ -86,7 +86,6 @@ a:hover {
   width: 200px;
   margin: 10px 0;
   -webkit-transition: -webkit-filter linear 0.2s;
-  transition: -webkit-filter linear 0.2s;
   -o-transition: filter linear 0.2s;
   transition: filter linear 0.2s;
 }
@@ -98,7 +97,6 @@ a:hover {
   transition: -webkit-filter linear 0.2s;
   -o-transition: filter linear 0.2s;
   transition: filter linear 0.2s;
-  transition: filter linear 0.2s, -webkit-filter linear 0.2s;
 }
 
 .cast-card {
@@ -363,7 +361,7 @@ main > .container {
 .youtube-link {
   display: inline-block;
   color: #f7f7ff;
-  background: #ff0000;
+  background: #f00;
   border-radius: 10px;
   font-size: large;
   -webkit-transition: all 0.2s linear;
