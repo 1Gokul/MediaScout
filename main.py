@@ -1,13 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, abort
 from media_finder import MediaFinder
-from flask_apscheduler import APScheduler
 from datetime import datetime
 
 app = Flask(__name__)
-
-scheduler = APScheduler()
-scheduler.init_app(app)
-scheduler.start()
 
 import data_storage
 
@@ -108,10 +103,14 @@ def forbidden(error):
     return render_template("403.html"), 403
 
 
-@scheduler.task("interval", id="update_db", hours=6, misfire_grace_time=900)
-def update_db():
-    data_storage.update_all_info()
-    print(f"DB updated at {datetime.now()}")
+# Update the DB
+@app.route("/update-db/<code>")
+def update_db(code):
+    if data_storage.update_all_info(code):
+        print(f"DB updated at {datetime.now()}")
+        return redirect(url_for("index"))
+    else:
+        abort(403)
 
 
 if __name__ == "__main__":
