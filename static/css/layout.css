@@ -4,6 +4,7 @@ body {
   font-size: 16;
   font-weight: normal;
   scroll-behavior: smooth;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -25,6 +26,8 @@ body {
 
 a {
   color: #c8e0fc;
+  -webkit-transition: all linear 0.2s;
+  -o-transition: all linear 0.2s;
   transition: all linear 0.2s;
   text-decoration: none;
 }
@@ -39,7 +42,7 @@ a:hover {
 
 .navbar {
   font-size: large;
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0 0 10px 10px;
 }
 
 .navbar-dark {
@@ -52,9 +55,6 @@ a:hover {
 
 .navbar-dark .navbar-toggler {
   border-color: transparent;
-}
-
-.navbar-dark .navbar-toggler {
   padding: 0;
 }
 
@@ -71,47 +71,66 @@ a:hover {
   display: none;
 }
 
-.poster {
+.poster-card {
+  background-color: #232931;
+  margin: 0 10px;
+  display: inline-block;
+}
+
+.poster-card img {
+  border-radius: 10px;
+}
+
+.details-poster {
   height: 290px;
   width: 200px;
   margin: 10px 0;
+  -webkit-transition: -webkit-filter linear 0.2s;
+  transition: -webkit-filter linear 0.2s;
+  -o-transition: filter linear 0.2s;
   transition: filter linear 0.2s;
+  transition: filter linear 0.2s, -webkit-filter linear 0.2s;
 }
 
 .small-poster {
   height: 250px;
   margin: 10px;
+  -webkit-transition: -webkit-filter linear 0.2s;
+  transition: -webkit-filter linear 0.2s;
+  -o-transition: filter linear 0.2s;
   transition: filter linear 0.2s;
+  transition: filter linear 0.2s, -webkit-filter linear 0.2s;
 }
 
 .cast-card {
+  -webkit-box-align: top;
+  -ms-flex-align: top;
   align-items: top;
+  -webkit-box-pack: top;
+  -ms-flex-pack: top;
   justify-content: top;
   text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   height: 350px;
   width: 150px;
   margin: 10px;
-}
-.cast-card img,
-.small-poster img,
-.search-result-box img {
-  object-fit: fill;
-  border-radius: 10px;
-  width: 150px;
-  margin-bottom: 10px;
-  transition: filter linear 0.2s;
 }
 
 .cast-card * {
   display: block;
 }
 
-.poster:hover,
+.details-poster:hover,
 .cast-card img:hover,
 .small-poster img:hover,
 .search-result-container a:hover > .search-result-box img {
+  -webkit-filter: brightness(70%);
   filter: brightness(70%);
 }
 
@@ -125,16 +144,34 @@ main > .container {
   border: none;
   border-radius: 0;
   border-bottom: 2px solid #232931;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
+}
+
+.navbar-search::-webkit-input-placeholder {
+  color: #cecece;
+}
+
+.navbar-search::-moz-placeholder {
+  color: #cecece;
+}
+
+.navbar-search:-ms-input-placeholder {
+  color: #cecece;
+}
+
+.navbar-search::-ms-input-placeholder {
+  color: #cecece;
 }
 
 .navbar-search::placeholder {
   color: #cecece;
 }
 
-.search-submit {
-  box-shadow: none !important;
-  color: transparent !important;
+.search-submit,
+.search-submit:hover {
+  color: transparent;
 }
 
 .navbar-search:hover {
@@ -147,9 +184,11 @@ main > .container {
 }
 
 .navbar-search:focus + .search-submit {
-  color: #f7f7ff !important;
+  color: #f7f7ff;
   background: #232931;
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.2) !important;
+  -webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2),
+    0 4px 20px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 .carousel-large {
@@ -166,16 +205,41 @@ main > .container {
   overflow: hidden;
 }
 
+.flickity-button,
+.flickity-button:hover {
+  background: transparent;
+}
+
 /* big buttons, no circle */
 .flickity-prev-next-button {
-  width: 75px !important;
-  height: 75px !important;
-  background: transparent !important;
+  width: 75px;
+  height: 75px;
 }
 
 /* arrow color */
 .flickity-prev-next-button .arrow {
   fill: #f7f7ff;
+}
+
+.flickity-page-dots {
+  padding: 5px 0;
+}
+
+/* position dots in carousel */
+.flickity-page-dots {
+  bottom: 0;
+}
+
+/* white circles */
+.flickity-page-dots .dot {
+  width: 12px;
+  height: 12px;
+  border: 2px solid white;
+}
+
+/* fill-in selected dot */
+.flickity-page-dots .dot.is-selected {
+  background: white;
 }
 
 .gallery-cell {
@@ -186,9 +250,11 @@ main > .container {
 }
 
 .gallery-cell img {
+  -o-object-fit: fit;
   object-fit: fit;
   height: 100%;
   width: 100%;
+  -webkit-filter: brightness(60%);
   filter: brightness(60%);
 }
 
@@ -201,16 +267,6 @@ main > .container {
   margin: 10px 0;
   overflow: hidden;
   padding: 0 20px;
-}
-
-.card {
-  background-color: #232931;
-  margin: 0 10px;
-  display: inline-block;
-}
-
-.card img {
-  border-radius: 10px;
 }
 
 .top-right-notif-text {
@@ -244,29 +300,12 @@ main > .container {
 
 .keyword {
   background-color: #82bcff;
+  -webkit-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
   transition: background-color 0.2s linear;
 }
 .keyword:hover {
   background-color: #c8e0fc;
-}
-
-/* position dots in carousel */
-.flickity-page-dots {
-  bottom: 0px;
-}
-
-/* white circles */
-.flickity-page-dots .dot {
-  width: 12px;
-  height: 12px;
-  opacity: 1;
-  background: transparent;
-  border: 2px solid white;
-}
-
-/* fill-in selected dot */
-.flickity-page-dots .dot.is-selected {
-  background: white;
 }
 
 .footer ul {
@@ -293,7 +332,9 @@ main > .container {
 .banner-image img {
   height: 100%;
   width: 100%;
+  -o-object-fit: cover;
   object-fit: cover;
+  -webkit-filter: brightness(40%);
   filter: brightness(40%);
 }
 
@@ -333,10 +374,12 @@ main > .container {
 
 .youtube-link {
   display: inline-block;
-  color: #f7f7ff !important;
+  color: #f7f7ff;
   background: #ff0000;
   border-radius: 10px;
   font-size: large;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
 
@@ -350,16 +393,14 @@ main > .container {
 }
 
 .season-banner {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 20px 2fr;
   grid-template-columns: 1fr 2fr;
   grid-gap: 20px;
   justify-items: start;
-  background: #16222a; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to left,
-    #3a6073,
-    #16222a
-  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: #16222a; /* fallback for old browsers */ /* Chrome 10-25, Safari 5.1-6 */
+  background: -o-linear-gradient(right, #3a6073, #16222a);
   background: linear-gradient(
     to left,
     #3a6073,
@@ -381,17 +422,14 @@ main > .container {
 }
 
 .person-banner {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 20px 1fr;
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
   justify-items: start;
-  background: #aa4b6b; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #0e617c,
-    #6b6b83,
-    #aa4b6b
-  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: #aa4b6b; /* fallback for old browsers */ /* Chrome 10-25, Safari 5.1-6 */
+  background: -o-linear-gradient(left, #0e617c, #6b6b83, #aa4b6b);
   background: linear-gradient(
     to right,
     #0e617c,
@@ -401,8 +439,10 @@ main > .container {
 }
 
 .search-result-box {
+  display: -ms-grid;
   display: grid;
   margin: 10px 0;
+  -ms-grid-columns: 1fr 20px 5fr;
   grid-template-columns: 1fr 5fr;
   gap: 20px;
 }
@@ -434,14 +474,32 @@ main > .container {
 .episode-backdrop img {
   height: 100%;
   width: 100%;
+  -o-object-fit: cover;
   object-fit: cover;
+  -webkit-filter: brightness(40%);
   filter: brightness(40%);
   overflow: auto;
 }
 
-.result-search-bar {
-  background: #232931 !important;
-  color: #f7f7ff !important;
+.cast-card img,
+.small-poster img,
+.search-result-box img {
+  -o-object-fit: fill;
+  object-fit: fill;
+  border-radius: 10px;
+  width: 150px;
+  margin-bottom: 10px;
+  -webkit-transition: -webkit-filter linear 0.2s;
+  transition: -webkit-filter linear 0.2s;
+  -o-transition: filter linear 0.2s;
+  transition: filter linear 0.2s;
+  transition: filter linear 0.2s, -webkit-filter linear 0.2s;
+}
+
+.result-search-bar,
+.result-search-bar:focus {
+  background: transparent;
+  color: #f7f7ff;
   font-size: larger;
   border: none;
   border-radius: 0;
@@ -450,7 +508,7 @@ main > .container {
 
 .result-search-submit {
   background: #0e617c;
-  color: #f7f7ff !important;
+  color: #f7f7ff;
 }
 
 /* For mobile devices */
@@ -500,6 +558,7 @@ main > .container {
   .search-result-box,
   .person-banner,
   .season-banner {
+    -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
   }
 

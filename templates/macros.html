@@ -7,9 +7,9 @@
         data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
         {% for item in input_dict %}
 
-        <div class="card">
+        <div class="poster-card">
             <a href="{{ item['detail_link'] }}">
-                <img loading="lazy" class="poster" src="{{ item['poster'] }}" />
+                <img loading="lazy" class="details-poster" src="{{ item['poster'] }}" />
             </a>
         </div>
 
@@ -62,7 +62,6 @@
     </div>
 </div>
 
-<hr />
 <div class="extra-details my-5">
     <p class="mobile-overview">{{ input_dict["description"] }}</p>
 

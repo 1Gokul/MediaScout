@@ -1,6 +1,6 @@
 import os
 import requests
-from flask import jsonify, url_for
+from flask import url_for
 from operator import itemgetter
 
 
