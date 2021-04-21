@@ -486,8 +486,8 @@ main > .container {
 
 .details-poster:hover,
 .small-poster img:hover,
-.search-result-container a:hover > .search-result-box img,
-.cast-card img:hover {
+.cast-card img:hover,
+.search-result-container a:hover > .search-result-box img {
   -webkit-filter: brightness(70%);
   filter: brightness(70%);
 }
