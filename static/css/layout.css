@@ -89,7 +89,6 @@ a:hover {
   transition: -webkit-filter linear 0.2s;
   -o-transition: filter linear 0.2s;
   transition: filter linear 0.2s;
-  transition: filter linear 0.2s, -webkit-filter linear 0.2s;
 }
 
 .small-poster {
@@ -126,14 +125,6 @@ a:hover {
   display: block;
 }
 
-.details-poster:hover,
-.cast-card img:hover,
-.small-poster img:hover,
-.search-result-container a:hover > .search-result-box img {
-  -webkit-filter: brightness(70%);
-  filter: brightness(70%);
-}
-
 main > .container {
   padding: 100px 15px;
 }
@@ -157,11 +148,11 @@ main > .container {
   color: #cecece;
 }
 
-.navbar-search:-ms-input-placeholder {
+.navbar-search::-ms-input-placeholder {
   color: #cecece;
 }
 
-.navbar-search::-ms-input-placeholder {
+.navbar-search:-ms-input-placeholder {
   color: #cecece;
 }
 
@@ -221,12 +212,9 @@ main > .container {
   fill: #f7f7ff;
 }
 
-.flickity-page-dots {
-  padding: 5px 0;
-}
-
 /* position dots in carousel */
 .flickity-page-dots {
+  padding: 5px 0;
   bottom: 0;
 }
 
@@ -481,9 +469,9 @@ main > .container {
   overflow: auto;
 }
 
-.cast-card img,
 .small-poster img,
-.search-result-box img {
+.search-result-box img,
+.cast-card img {
   -o-object-fit: fill;
   object-fit: fill;
   border-radius: 10px;
@@ -494,6 +482,14 @@ main > .container {
   -o-transition: filter linear 0.2s;
   transition: filter linear 0.2s;
   transition: filter linear 0.2s, -webkit-filter linear 0.2s;
+}
+
+.details-poster:hover,
+.small-poster img:hover,
+.search-result-container a:hover > .search-result-box img,
+.cast-card img:hover {
+  -webkit-filter: brightness(70%);
+  filter: brightness(70%);
 }
 
 .result-search-bar,
