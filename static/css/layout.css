@@ -236,7 +236,8 @@ main > .container {
 .carousel-image-caption h4,
 .carousel-image-caption h5:not(.carousel-image-overview),
 .overlay-details h5:not(.tagline),
-.episode-details h6, .episode-details .h5 {
+.episode-details h6,
+.episode-details .h5 {
   display: inline;
   margin-right: 40px;
 }
@@ -369,8 +370,14 @@ main > .container {
 .original-series-link {
   display: inline-block;
   font-size: larger;
+  color: #f7f7ff;
   background: #232931;
   border-radius: 10px;
+}
+
+.original-series-link:hover {
+  color: white;
+  background: #127191;
 }
 
 .person-banner {
@@ -439,7 +446,6 @@ main > .container {
   border: none;
   border-radius: 0;
   border-bottom: 2px solid #f7f7ff;
-  transition: all 0.2s linear;
 }
 
 .result-search-submit {
@@ -480,13 +486,15 @@ main > .container {
     margin: 0 0 20px 10px;
   }
 
-  .overlay-details h5:not(.tagline), .episode-details .h5 {
+  .overlay-details h5:not(.tagline),
+  .episode-details .h5 {
     display: block;
     margin: 20px 0;
   }
 
-  .episode-box, .episode-backdrop{
-      height: 600px;
+  .episode-box,
+  .episode-backdrop {
+    height: 600px;
   }
 
   .search-result-box,
@@ -495,7 +503,8 @@ main > .container {
     grid-template-columns: 1fr;
   }
 
-  .person-banner img, .season-banner img{
+  .person-banner img,
+  .season-banner img {
     height: 275px;
   }
 

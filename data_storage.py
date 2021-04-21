@@ -4,6 +4,7 @@ from sqlalchemy.dialects.postgresql import JSON
 from media_finder import MediaFinder
 import os
 
+
 # URL of the database
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL").replace(
     "://", "ql://", 1
@@ -26,39 +27,38 @@ class Media(db.Model):
 media_finder = MediaFinder()
 
 
-class DataStorage:
-    def update_all_info(self, code):
-        """ Gets all required data from the TMDB API and updates the information in the database. """
+def update_all_info(code):
+    """Gets all required data from the TMDB API and updates the information in the database."""
+    # If the code supplied is correct, update the database.
+    if code == os.environ.get("UPDATE_VERIFICATION_CODE"):
 
-        # If the code supplied is correct, update the database.
-        if code == os.environ.get("UPDATE_VERIFICATION_CODE"):
+        # Clear all previous data from the data table
+        db.session.query(Media).delete()
 
-            # Clear all previous data from the data table
-            db.session.query(Media).delete()
+        # Add the data for the main homepage
+        main_home = Media(page_name="main_home", page_data=get_main_home_info())
+        db.session.add(main_home)
 
-            # Add the data for the main homepage
-            main_home = Media(page_name="main_home", page_data=get_main_home_info())
-            db.session.add(main_home)
+        # Add the data for the movie homepage
+        movie_home = Media(page_name="movie_home", page_data=get_movie_home_info())
+        db.session.add(movie_home)
 
-            # Add the data for the movie homepage
-            movie_home = Media(page_name="movie_home", page_data=get_movie_home_info())
-            db.session.add(movie_home)
+        # Add the data for the tv homepage
+        tv_home = Media(page_name="tv_home", page_data=get_tv_home_info())
+        db.session.add(tv_home)
 
-            # Add the data for the tv homepage
-            tv_home = Media(page_name="tv_home", page_data=get_tv_home_info())
-            db.session.add(tv_home)
+        db.session.commit()
 
-            db.session.commit()
+        return True
 
-            return True
+    else:
+        return False
 
-        else:
-            return False
 
-    def load_info(self, page_name):
-        """ Return required data from the DB. """
-        result = Media.query.filter_by(page_name=page_name).first()
-        return result.page_data
+def load_info(page_name):
+    """Return required data from the DB."""
+    result = Media.query.filter_by(page_name=page_name).first()
+    return result.page_data
 
 
 def get_main_home_info():

@@ -1,6 +1,6 @@
 import os
 import requests
-from flask import json, jsonify, url_for
+from flask import jsonify, url_for
 from operator import itemgetter
 
 
@@ -50,11 +50,11 @@ OVERVIEW_MAX_CHARS = 250
 
 class MediaFinder:
     def __init__(self):
+        """Searches for the required information of movies/shows/people and formats it."""
         self.api_key = os.environ.get("MOVIEDB_API_KEY")
 
     def get_general_info(self, url: str, additional_args: str = "", media_type=None):
-        """ Gets info from the api and returns a simplified dict of the data. """
-
+        """Gets info from the api and returns a simplified dict of the data."""
         response = requests.get(f"{url}?api_key={self.api_key}{additional_args}")
 
         return simplify_response(response.json()["results"], media_type)
@@ -62,8 +62,7 @@ class MediaFinder:
     def get_info_for_grid(
         self, url: str, additional_args: str = "", media_type="movie"
     ):
-        """ Gets the info required for showing in the poster grids (i.e. only the poster, media ID and link)."""
-
+        """Gets the info required for showing in the poster grids (i.e. only the poster, media ID and link)."""
         response = requests.get(
             f"{url}?api_key={self.api_key}{additional_args}"
         ).json()["results"]
@@ -92,8 +91,7 @@ class MediaFinder:
         return info_list
 
     def discover_by_genre(self, media_type, genre):
-        """ Returns the info from TMDB's discover section. """
-
+        """Returns the info from TMDB's discover section."""
         return self.get_info_for_grid(
             f"https://api.themoviedb.org/3/discover/{media_type}",
             additional_args=f"&without_keywords=158436|6593|7344|18321|195997|445|11530|190115|206574|199723&with_genres={GENRES[genre]}&sort_by=popularity.desc&include_video=false",
@@ -101,17 +99,16 @@ class MediaFinder:
         )
 
     def info_by_category(self, category_after, media_type, category_before=None):
-        """ Returns the information on media of a particular category like 'trending' or 'popular'. """
-
+        """Returns the information on media of a particular category like 'trending' or 'popular'."""
         return self.get_general_info(
             f"https://api.themoviedb.org/3{ ('/' + category_before) if category_before else ''}/{media_type}/{category_after}",
             media_type=media_type,
         )
 
-    def get_media_detailed_info(self, media_type, id):
-        """ Get detailed information about a movie or show. """
+    def get_media_detailed_info(self, media_type, media_id):
+        """Get detailed information about a movie or show."""
         response = requests.get(
-            f"https://api.themoviedb.org/3/{media_type}/{id}?api_key={self.api_key}&language=en-US&append_to_response=credits,similar,keywords,videos{',seasons' if media_type == 'tv' else ''}"
+            f"https://api.themoviedb.org/3/{media_type}/{media_id}?api_key={self.api_key}&language=en-US&append_to_response=credits,similar,keywords,videos{',seasons' if media_type == 'tv' else ''}"
         ).json()
 
         # The simplify_response() function will help format and add the basic information of the media.
@@ -234,16 +231,15 @@ class MediaFinder:
 
             similar.append(similar_item)
 
-        simplified_response["similar"] = similar
+        simplified_response["similar"] = similar if len(similar) > 0 else "N/A"
 
         # Keywords
-        simplified_response["keywords"] = response["keywords"][keyword_key]
+        simplified_response["keywords"] = response["keywords"][keyword_key] or "N/A"
 
         return simplified_response
 
     def get_season_detailed_info(self, tv_id, season_number):
-        """ Sends detailed info about a TV show's season. """
-
+        """Sends detailed info about a TV show's season."""
         # Info of the TV Series this season belongs to
         series = requests.get(
             f"https://api.themoviedb.org/3/tv/{tv_id}?api_key={self.api_key}&language=en-US"
@@ -251,19 +247,12 @@ class MediaFinder:
         tv_name = series["name"]
         tv_link = url_for("get_tv_detail", id=series["id"])
 
-        try:
-            response = requests.get(
-                f"https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}?api_key={self.api_key}&language=en-US"
-            ).json()
+        response = requests.get(
+            f"https://api.themoviedb.org/3/tv/{tv_id}/season/{season_number}?api_key={self.api_key}&language=en-US"
+        ).json()
 
-            # Test the response
-            test_id = response["_id"]
-
-        # If such a season doesn't exist
-        except KeyError:
-            return False, "error"
-
-        else:
+        # If such a season exists
+        if "id" in response:
             # Basic info of the season
             season_dict = {
                 "full_title": f"{tv_name}: {response['name']}",
@@ -308,11 +297,13 @@ class MediaFinder:
 
             return True, season_dict
 
-    def get_person_detailed_info(self, id):
-        """ Gets detailed information of a person. """
+        else:
+            return False, "error"
 
+    def get_person_detailed_info(self, person_id):
+        """Gets detailed information of a person."""
         response = requests.get(
-            f"https://api.themoviedb.org/3/person/{id}?api_key={self.api_key}&language=en-US&append_to_response=movie_credits,tv_credits,images"
+            f"https://api.themoviedb.org/3/person/{person_id}?api_key={self.api_key}&language=en-US&append_to_response=movie_credits,tv_credits,images"
         ).json()
 
         actor_info = {
@@ -348,9 +339,9 @@ class MediaFinder:
                 "role": credit["character"],
             }
 
-            try:
+            if "release_date" in credit:
                 movie_credit["year"] = credit["release_date"].split("-")[0]
-            except (KeyError, AttributeError):
+            else:
                 movie_credit["year"] = "N/A"
 
             movie_credits.append(movie_credit)
@@ -368,9 +359,9 @@ class MediaFinder:
                 "role": credit["character"],
             }
 
-            try:
+            if "first_air_date" in credit:
                 tv_credit["year"] = credit["first_air_date"].split("-")[0]
-            except (KeyError, AttributeError):
+            else:
                 tv_credit["year"] = "N/A"
 
             tv_credits.append(tv_credit)
@@ -389,12 +380,10 @@ class MediaFinder:
         ).json()
 
         # Test the response
-        try:
-            results = response["results"]
-        except KeyError:
-            return False, "error"
-        else:
+        if "results" in response:
             return True, simplify_response(response["results"])
+        else:
+            return False, "error"
 
     def search_by_keyword(self, keyword, media_type):
         response = requests.get(
@@ -407,21 +396,18 @@ class MediaFinder:
         ).json()["name"]
 
         # Test the response
-        try:
-            results = response["results"]
-        except KeyError:
-            return False, keyword_name, "error"
-        else:
+        if "results" in response:
             return (
                 True,
                 keyword_name,
                 simplify_response(response["results"], media_type),
             )
+        else:
+            return False, keyword_name, "error"
 
 
 def simplify_response(response_list, media_type="all"):
-    """ Returns a simplified version of the response with only the basic info of the movies, shows or people. """
-
+    """Returns a simplified version of the response with only the basic info of the movies, shows or people."""
     simplified_response = []
     media_title = ""
     media_date_name = ""
@@ -489,9 +475,9 @@ def simplify_response(response_list, media_type="all"):
                 item_data_to_add["full_title"] = media_item[media_title]
 
             # Add the release/air date
-            try:
+            if media_date_name in media_item:
                 item_data_to_add["date"] = prettify_date(media_item[media_date_name])
-            except KeyError:
+            else:
                 item_data_to_add["date"] = "N/A"
 
             # Add the rating
@@ -534,6 +520,8 @@ def prettify_date(date):
     if date and date != "":
         date_list = date.split("-")
         new_date = f"{MONTHS[int(date_list[1]) - 1]} {date_list[2]}, {date_list[0]}"
+    else:
+        new_date = "N/A"
 
     return new_date
 
@@ -542,11 +530,8 @@ def format_cast_dict(cast_dict):
     # Cast
     cast = []
     for actor in cast_dict:
-        try:
+        if "id" in actor:
             actor_info = {"id": actor["id"]}
-        except KeyError:
-            pass
-        else:
             actor_info["name"] = actor["name"]
             actor_info["character"] = actor["character"]
             actor_info["link"] = url_for("get_person_detail", id=actor["id"])

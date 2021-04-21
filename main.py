@@ -1,33 +1,31 @@
-from flask import Flask, render_template, jsonify, request, redirect, url_for, abort
+from flask import Flask, render_template, request, redirect, url_for, abort
 from media_finder import MediaFinder
-import os
 
 app = Flask(__name__)
 
-from data_storage import DataStorage
+import data_storage
 
-data_manager = DataStorage()
 media_finder = MediaFinder()
 
 
 # Main page
 @app.route("/")
 def index():
-    home_info = data_manager.load_info("main_home")
+    home_info = data_storage.load_info("main_home")
     return render_template("home.html", home_info=home_info)
 
 
 # Movie home page
 @app.route("/movie-home")
 def movie_home():
-    movie_info = data_manager.load_info("movie_home")
+    movie_info = data_storage.load_info("movie_home")
     return render_template("movie-home.html", movie_info=movie_info)
 
 
 # Tv home page
 @app.route("/tv-home")
 def tv_home():
-    tv_info = data_manager.load_info("tv_home")
+    tv_info = data_storage.load_info("tv_home")
     return render_template("tv-home.html", tv_info=tv_info)
 
 
@@ -71,7 +69,7 @@ def credit():
 # DB updater
 @app.route("/update-db/<code>")
 def update_db(code):
-    if data_manager.update_all_info(code):
+    if data_storage.update_all_info(code):
         return redirect(url_for("index"))
     else:
         abort(403)
@@ -114,4 +112,4 @@ def forbidden(error):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

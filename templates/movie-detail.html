@@ -8,6 +8,7 @@
 {% block body %}
 <div class="details-container">
 
+    <!-- Banner with movie details -->
     {{ details_banner(details, "movie") }}
     <hr>
 
@@ -15,8 +16,20 @@
     <h1 class="fw-bold">Cast</h1>
     {{ cast_scroller(details["cast"]) }}
 
+
+
+    <h1 class="fw-bold">Similar</h1>
+
+    {% if details["similar"] == "N/A" %}
+
+    <h5>No similar movies found. </h5>
+
+    {% else %}
+
     <!-- Similar Movies -->
-    {{ mini_scroller(details["similar"], "Similar")}}
+    {{ mini_scroller(details["similar"]) }}
+
+    {% endif %}
 
 </div>
 

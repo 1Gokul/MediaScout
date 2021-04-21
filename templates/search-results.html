@@ -7,7 +7,7 @@ Search Results -
 {% block body %}
 <div class="search-result-container">
 
-
+    <!-- Secondary search bar -->
     {% if search_type == "all" %}
     <form class="mb-5" action="{{ url_for('search', search_type='all') }}" method="GET">
         <div class="row">
@@ -24,23 +24,25 @@ Search Results -
             </div>
         </div>
     </form>
+
+    <!-- No search bar in case of search by keyword-->
     {% elif search_type == "by-keywords" %}
     <h2>Search by keyword: <strong>{{ query }}</strong> </h2>
-
     {% endif %}
 
+    <!-- If search brought results -->
     {% if success %}
 
     {% for result in search_results %}
     <hr>
     <a href="{{ result['detail_link'] }}">
-        <div class="search-result-box fw-bold">
+        <div class="search-result-box">
 
             <div class="result-image">
                 <img src="{{ result['poster'] }}">
             </div>
             <div>
-                <h2>{{ result["full_title"] }}</h2>
+                <h2 class="fw-bold">{{ result["full_title"] }}</h2>
                 {% if result["date"] %}
                 {{ result["date"] }}
                 {% endif %}
@@ -51,7 +53,6 @@ Search Results -
     {% endfor %}
 
     {% else %}
-
     <h3>Sorry, no matches were found.</h3>
 
     {% endif %}

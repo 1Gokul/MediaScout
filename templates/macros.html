@@ -84,11 +84,15 @@
     </p>
     <p>
         <strong>Keywords: </strong>
+        {% if input_dict["keywords"] == "N/A" %}
+        None found.
+        {% else %}
         {% for keyword in input_dict["keywords"] %}
         <a href="{{ url_for('search', search_type='by-keywords', query=keyword['id'], media_type=media_type) }}">
             <span class="badge keyword text-dark">{{ keyword["name"] }}</span>
         </a>
         {% endfor %}
+        {% endif %}
     </p>
 </div>
 
@@ -113,8 +117,7 @@
 
 {% endmacro %}
 
-{% macro mini_scroller(input_dict, heading) %}
-<h1 class="fw-bold">{{ heading }}</h1>
+{% macro mini_scroller(input_dict) %}
 <div class="scrolling-wrapper"
     data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
     {% for item in input_dict %}
