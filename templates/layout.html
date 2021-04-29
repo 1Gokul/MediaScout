@@ -61,8 +61,9 @@
                         </li>
                     </ul>
 
-                    <form class="d-flex navbar-search" action="{{ url_for('search', search_type='all') }}" method="GET">
-                        <input type="search" name="query" class="form-control ms-5 me-2" placeholder="Search"
+                    <form class="d-flex navbar-search mb-5 mb-lg-0" action="{{ url_for('search', search_type='all') }}"
+                        method="GET">
+                        <input type="search" name="query" class="form-control ms-4 ms-lg-5 me-2" placeholder="Search"
                             aria-label="Search" required />
                         <button type="submit" class="btn border-0 search-submit px-4 mx-2"><i
                                 class="fas fa-arrow-right"></i></button>
@@ -107,6 +108,9 @@
     <!-- Toggle the navbar-toggler-icon when clicked on -->
     <script>
         function toggle_icon() {
+
+            document.getElementsByClassName("navbar")[0].classList.toggle("extended-dark-background");
+
             let navbarToggler = document.getElementById("navbar-toggler");
             if (navbarToggler.classList.contains("collapsed")) {
                 navbarToggler.innerHTML = '<i class="fas fa-lg fa-bars">';

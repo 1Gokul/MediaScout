@@ -47,18 +47,18 @@
             </div>
             <div class="episode-details">
                 <h2 class="fw-bold">{{ episode["full_title"] }}</h2>
-                <div class="h5">
+                <div class="h5 fw-normal">
                     <i class="fas fa-calendar"></i>
                     {{ episode["date"] }}
                 </div>
-                <div class="h5">
+                <div class="h5 fw-normal">
                     <i class="fas fa-star-half-alt"></i>
                     {{ episode["rating"] }}
                 </div>
-                <h5 class="my-3 episode-description">{{ episode["description"] }}</h5>
+                <h5 class="my-3 episode-description fw-normal">{{ episode["description"] }}</h5>
 
-                <h5>Directors: {{ episode["directors"] }}</h5>
-                <h5>Writers: {{ episode["writers"] }}</h5>
+                <h5 class="fw-normal">Directors: {{ episode["directors"] }}</h5>
+                <h5 class="fw-normal">Writers: {{ episode["writers"] }}</h5>
             </div>
         </div>
 
