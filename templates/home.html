@@ -8,7 +8,8 @@ Home
 {% block body %}
 
 <!-- Large Carousel -->
-<div class="carousel-large" data-flickity='{ "wrapAround": true, "autoPlay": 5000, "lazyLoad": true }'>
+<div class="carousel-large"
+    data-flickity='{ "wrapAround": true, "autoPlay": 5000, "lazyLoad": true, "pageDots": false }'>
     {% for item in home_info["spotlight"] %}
     <div class="gallery-cell">
         <a href="{{ item['detail_link'] }}">
@@ -21,14 +22,14 @@ Home
 
             <span class="carousel-image-caption">
                 <h1 class="fw-bold">{{ item["full_title"] }}</h1>
-                <h5 class="carousel-image-overview mb-3">{{ item["description"] }}</h5>
+                <h5 class="carousel-image-overview mb-3 fw-normal">{{ item["description"] }}</h5>
                 <h4>
-                    <i class="fas fa-calendar"></i>
+                    <i class="fas fa-calendar fw-normal"></i>
                     {{ item["date"] }}
                 </h4>
 
                 <h4>
-                    <i class="fas fa-star-half-alt"></i>
+                    <i class="fas fa-star-half-alt fw-normal"></i>
                     {{ item["rating"] }}
                 </h4>
             </span>

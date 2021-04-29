@@ -35,34 +35,34 @@
 
 </head>
 
-<body class="d-flex flex-column h-100 text-white dark-bg">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top p-3">
+<body class="d-flex flex-column h-100 text-light dark-bg">
+    <header class="mb-4">
+        <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container-fluid">
                 <!-- Navbar brand -->
                 <a class="navbar-brand mx-lg-3" href="{{ url_for('index') }}">
-                    <img src="{{ url_for('static', filename='img/mediascout_white_logo.png') }}">
+                    MediaScout
                 </a>
-                <button id="navbar-toggler" class="navbar-toggler collapsed text-white" type="button"
+                <button id="navbar-toggler" class="navbar-toggler collapsed text-light" type="button"
                     data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
                     aria-expanded="false" aria-label="Toggle navigation" onclick="toggle_icon()">
-                    <i class="fas fa-bars"></i>
+                    <i class="fas fa-lg fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                         <li class="nav-item mx-4">
-                            <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a>
+                            <a class="nav-link" aria-current="page" href="{{ url_for('index') }}">Home</a>
                         </li>
                         <li class="nav-item mx-4">
-                            <a class="nav-link active" href="{{ url_for('movie_home') }}">Movies</a>
+                            <a class="nav-link" href="{{ url_for('movie_home') }}">Movies</a>
                         </li>
                         <li class="nav-item mx-4">
-                            <a class="nav-link active" href="{{ url_for('tv_home') }}">TV</a>
+                            <a class="nav-link" href="{{ url_for('tv_home') }}">TV</a>
                         </li>
                     </ul>
 
-                    <form class="d-flex" action="{{ url_for('search', search_type='all') }}" method="GET">
-                        <input type="search" name="query" class="form-control navbar-search me-2" placeholder="Search"
+                    <form class="d-flex navbar-search" action="{{ url_for('search', search_type='all') }}" method="GET">
+                        <input type="search" name="query" class="form-control ms-5 me-2" placeholder="Search"
                             aria-label="Search" required />
                         <button type="submit" class="btn border-0 search-submit px-4 mx-2"><i
                                 class="fas fa-arrow-right"></i></button>
@@ -109,9 +109,9 @@
         function toggle_icon() {
             let navbarToggler = document.getElementById("navbar-toggler");
             if (navbarToggler.classList.contains("collapsed")) {
-                navbarToggler.innerHTML = '<i class="fas fa-bars">';
+                navbarToggler.innerHTML = '<i class="fas fa-lg fa-bars">';
             } else {
-                navbarToggler.innerHTML = '<i class="fas fa-times"></i>';
+                navbarToggler.innerHTML = '<i class="fas fa-lg fa-times"></i>';
             }
         }
     </script>

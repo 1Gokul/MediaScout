@@ -45,7 +45,7 @@ def get_tv_detail():
 
 
 # Details of a TV season
-@app.route("/<tv_id>/season/<season_number>")
+@app.route("/tv-show/<tv_id>/season/<season_number>")
 def get_season_detail(tv_id, season_number):
     success, season_detail = media_finder.get_season_detailed_info(tv_id, season_number)
     if success:
@@ -81,6 +81,8 @@ def search(search_type):
 
     else:
         abort(404)
+
+    # A POST request means that the user requested for more results.
 
     return render_template(
         "search-results.html",

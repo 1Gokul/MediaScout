@@ -19,7 +19,7 @@ Search Results -
                     placeholder="It was '{{ query }}' in case you forget." aria-label="Search" required />
             </div>
             <div class="col-auto col-md-4">
-                <button type="submit" class="btn border-0 result-search-submit px-5 my-4 my-md-0"><i
+                <button type="submit" class="btn border-0 result-search-submit px-5 my-4 my-md-0 text-light"><i
                         class="fas fa-arrow-right"></i></button>
             </div>
         </div>
@@ -56,6 +56,16 @@ Search Results -
     <h3>Sorry, no matches were found.</h3>
 
     {% endif %}
+
+    <nav aria-label="search-results-pagination">
+        <ul class="pagination p-2">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>
 
 
 </div>

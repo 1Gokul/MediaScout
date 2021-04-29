@@ -3,7 +3,7 @@
 <!-- Smaller carousel with posters -->
 <div class="scroller-display my-5">
     <h1 class="fw-bold">{{ carousel_title }}</h1>
-    <div class="scrolling-wrapper"
+    <div class="scrolling-wrapper dark-bg"
         data-flickity='{"cellAlign": "left", "lazyLoad": true, "freeScroll": true, "pageDots": false}'>
         {% for item in input_dict %}
 
@@ -50,7 +50,7 @@
 
             {% if input_dict["trailer"] %}
             <a class="youtube-link px-3 py-2" href="{{ input_dict['trailer'] }}" data-fancybox>
-                <i class="fab fa-youtube text-white"></i>
+                <i class="fab fa-youtube text-light"></i>
                 Trailer
             </a>
             {% endif %}
@@ -88,7 +88,7 @@
         {% else %}
         {% for keyword in input_dict["keywords"] %}
         <a href="{{ url_for('search', search_type='by-keywords', query=keyword['id'], media_type=media_type) }}">
-            <span class="badge keyword text-dark">{{ keyword["name"] }}</span>
+            <span class="badge keyword">{{ keyword["name"] }}</span>
         </a>
         {% endfor %}
         {% endif %}
@@ -105,10 +105,11 @@
     <div class="cast-card">
         <a href="{{ actor['link'] }}">
             <img loading="lazy" src="{{ actor['image'] }}" />
-            <div class="actor-name">
+            <div class="actor">
                 <a href="{{ actor['link'] }}"><strong>{{ actor["name"]}}</strong></a>
+
+                <div class="character-name text-light">{{ actor["character"] }}</div>
             </div>
-            <div class="character-name">{{ actor["character"] }}</div>
         </a>
     </div>
     {% endfor %}
