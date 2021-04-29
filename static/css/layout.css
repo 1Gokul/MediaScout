@@ -1,635 +1,634 @@
 * {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Satoshi-Variable, sans-serif;
-    font-size: 16;
-    font-weight: normal;
-    scroll-behavior: smooth;
-  }
-  
-  @font-face {
-    font-family: "Satoshi-Variable";
-    src: url("/static/fonts/Satoshi-Variable.woff2") format("woff2"),
-      url("/static/fonts/Satoshi-Variable.woff") format("woff"),
-      url("/static/fonts/Satoshi-Variable.ttf") format("truetype");
-    font-weight: 100 900;
-    font-display: swap;
-    font-style: normal;
-  }
-  
-  @font-face {
-    font-family: "CabinetGrotesk-Variable";
-    src: url("../fonts/CabinetGrotesk-Variable.woff2") format("woff2"),
-      url("../fonts/CabinetGrotesk-Variable.woff") format("woff"),
-      url("../fonts/CabinetGrotesk-Variable.ttf") format("truetype");
-    font-weight: 100 900;
-    font-display: swap;
-    font-style: normal;
-  }
-  
-  a {
-    color: #c8e0fc;
-    -webkit-transition: all linear 0.2s;
-    -o-transition: all linear 0.2s;
-    transition: all linear 0.2s;
-    text-decoration: none;
-  }
-  
-  a:hover,
-  .navbar .navbar-nav .nav-link:hover {
-    color: #6ddccf;
-  }
-  
-  .dark-bg {
-    background-color: #03506f;
-  }
-  
-  .navbar {
-    font-size: larger;
-    font-family: Satoshi-Variable;
-    border-radius: 0 0 10px 10px;
-    padding: 0 2rem;
-    background: rgb(0, 0, 0);
-    background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(20, 20, 20, 0.779) 50%,
-      rgba(0, 0, 0, 1) 100%
-    );
-  }
-  
-  .navbar-nav > * {
-    flex: 1 1 0;
-  }
-  
-  .navbar-brand {
-    padding: 1.75rem 0.75rem;
-    font-family: CabinetGrotesk-Variable;
-    font-size: 2em;
-    font-weight: 800;
-    color: whitesmoke;
-    transition: all 0.2s linear;
-  }
-  
-  .navbar-brand:hover {
-    background: rgb(0, 115, 252);
-    background: linear-gradient(
-      90deg,
-      rgba(0, 115, 252, 1) 0%,
-      rgba(0, 199, 179, 1) 50%
-    );
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .navbar .navbar-toggler {
-    border-color: transparent;
-    padding: 0;
-  }
-  
-  .navbar .navbar-nav .nav-link {
-    color: whitesmoke;
-    padding: 1.75rem 1rem;
-  }
-  
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Satoshi-Variable, sans-serif;
+  font-size: 16;
+  font-weight: normal;
+  scroll-behavior: smooth;
+}
+
+@font-face {
+  font-family: "Satoshi-Variable";
+  src: url("/static/fonts/Satoshi-Variable.woff2") format("woff2"),
+    url("/static/fonts/Satoshi-Variable.woff") format("woff"),
+    url("/static/fonts/Satoshi-Variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CabinetGrotesk-Variable";
+  src: url("../fonts/CabinetGrotesk-Variable.woff2") format("woff2"),
+    url("../fonts/CabinetGrotesk-Variable.woff") format("woff"),
+    url("../fonts/CabinetGrotesk-Variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+a {
+  color: #c8e0fc;
+  -webkit-transition: all linear 0.2s;
+  -o-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+  text-decoration: none;
+}
+
+a:hover,
+.navbar .navbar-nav .nav-link:hover {
+  color: #6ddccf;
+}
+
+.dark-bg {
+  background-color: #03506f;
+}
+
+.navbar {
+  font-size: larger;
+  font-family: Satoshi-Variable;
+  border-radius: 0 0 10px 10px;
+  padding: 0 2rem;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(20, 20, 20, 0.779) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+.navbar-nav > * {
+  flex: 1 1 0;
+}
+
+.navbar-brand {
+  padding: 1.75rem 0.75rem;
+  font-family: CabinetGrotesk-Variable;
+  font-size: 2em;
+  font-weight: 800;
+  color: whitesmoke;
+  transition: all 0.2s linear;
+}
+
+.navbar-brand:hover {
+  background: rgb(0, 115, 252);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 115, 252, 1) 0%,
+    rgba(0, 199, 179, 1) 50%
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navbar .navbar-toggler {
+  border-color: transparent;
+  padding: 0;
+}
+
+.navbar .navbar-nav .nav-link {
+  color: whitesmoke;
+  padding: 1.75rem 1rem;
+}
+
+.mobile-backdrop,
+.mobile-overview {
+  display: none;
+}
+
+.poster-card {
+  background-color: #03506f;
+  margin: 0 10px;
+  display: inline-block;
+}
+
+.poster-card img {
+  border-radius: 10px;
+}
+
+.details-poster {
+  height: 290px;
+  width: 200px;
+  margin: 10px 0;
+  -webkit-transition: -webkit-filter linear 0.2s;
+  -o-transition: filter linear 0.2s;
+  transition: filter linear 0.2s;
+}
+
+.small-poster {
+  height: 250px;
+  margin: 10px;
+  -webkit-transition: -webkit-filter linear 0.2s;
+  transition: -webkit-filter linear 0.2s;
+  -o-transition: filter linear 0.2s;
+  transition: filter linear 0.2s;
+}
+
+.cast-card {
+  -webkit-box-align: top;
+  -ms-flex-align: top;
+  align-items: top;
+  -webkit-box-pack: top;
+  -ms-flex-pack: top;
+  justify-content: top;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 350px;
+  width: 150px;
+  margin: 10px;
+}
+
+.cast-card * {
+  display: block;
+}
+
+main > .container {
+  width: 100%;
+  padding: 100px 15px;
+}
+
+.navbar-search input {
+  background-color: transparent;
+  color: whitesmoke;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid #cecece;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+
+.navbar-search input::-webkit-input-placeholder,
+.navbar-search input::-moz-placeholder,
+.navbar-search input::-ms-input-placeholder,
+.navbar-search input:-ms-input-placeholder {
+  color: #cecece;
+}
+.navbar-search input::placeholder {
+  color: #cecece;
+}
+
+.navbar-search input:hover {
+  background-color: #03506f;
+}
+
+.navbar-search input:focus {
+  color: whitesmoke;
+  background-color: transparent;
+}
+
+.search-submit,
+.search-submit:hover {
+  color: transparent;
+}
+
+.navbar-search input:focus + .search-submit {
+  color: whitesmoke;
+  background: #34495e;
+  -webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2),
+    0 4px 20px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+.carousel-large {
+  margin: 0 auto;
+  width: 80vw;
+  height: 80vh;
+  overflow: hidden;
+}
+
+.carousel-small {
+  margin: 0 auto;
+  width: 60vw;
+  height: 60vh;
+  overflow: hidden;
+}
+
+.flickity-button,
+.flickity-button:hover {
+  background: transparent;
+}
+
+/* big buttons, no circle */
+.flickity-prev-next-button {
+  width: 75px;
+  height: 75px;
+}
+
+/* arrow color */
+.flickity-prev-next-button .arrow {
+  fill: whitesmoke;
+}
+
+/* position dots in carousel */
+.flickity-page-dots {
+  padding: 5px 0;
+  bottom: 0;
+}
+
+/* white circles */
+.flickity-page-dots .dot {
+  width: 12px;
+  height: 12px;
+  border: 2px solid white;
+}
+
+/* fill-in selected dot */
+.flickity-page-dots .dot.is-selected {
+  background: white;
+}
+
+.gallery-cell {
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-cell img {
+  -o-object-fit: fit;
+  object-fit: fit;
+  height: 100%;
+  width: 100%;
+  -webkit-filter: brightness(60%);
+  filter: brightness(60%);
+}
+
+.gallery-cell a {
+  text-decoration: none;
+  color: whitesmoke;
+}
+
+.scrolling-wrapper {
+  margin: 10px 0;
+  overflow: hidden;
+  padding: 0 20px;
+}
+
+.top-right-notif-text {
+  color: gray;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.carousel-image-caption {
+  margin: 40px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+}
+
+.carousel-image-caption i,
+.overlay-details i {
+  margin-right: 5px;
+}
+
+.carousel-image-caption h4,
+.carousel-image-caption h5:not(.carousel-image-overview),
+.overlay-details h5:not(.tagline),
+.episode-details h6,
+.episode-details .h5 {
+  display: inline;
+  margin-right: 40px;
+}
+
+.keyword,
+.original-series-link {
+  background-color: #6ddccf;
+  color: #141e30;
+  -webkit-transition: background-color 0.2s linear;
+  -o-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+}
+.keyword:hover,
+.original-series-link:hover {
+  background-color: #c8e0fc;
+  color: black;
+}
+
+.footer ul {
+  list-style-type: none;
+}
+
+.footer ul li {
+  display: inline-block;
+  margin: 0 15px;
+}
+
+.credits {
+  font-size: larger;
+}
+
+.banner,
+.banner-image {
+  position: relative;
+  height: 500px;
+  width: 100%;
+}
+
+.banner-image img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -webkit-filter: brightness(40%);
+  filter: brightness(40%);
+}
+
+.overlay-poster {
+  margin: 40px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 5;
+}
+
+.overlay-poster img,
+.person-banner img,
+.season-banner img {
+  border-radius: 20px;
+  height: 400px;
+}
+
+.overlay-details,
+.episode-details {
+  width: 70%;
+  margin: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
+
+.desktop-overview,
+.mobile-overview {
+  font-size: large;
+}
+
+.text-slightly-muted {
+  color: rgb(161, 161, 161);
+}
+
+.youtube-link {
+  display: inline-block;
+  color: whitesmoke;
+  background: #f00;
+  border-radius: 10px;
+  font-size: large;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+
+.youtube-link:hover {
+  color: whitesmoke;
+  background: #282828;
+}
+
+.extra-details p {
+  margin: 20px 0;
+  font-size: large;
+}
+
+.season-banner {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 20px 2fr;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 20px;
+  justify-items: start;
+  background: #141e30; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #243b55,
+    #141e30
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #243b55,
+    #141e30
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.original-series-link {
+  display: inline-block;
+  font-size: larger;
+  border-radius: 10px;
+}
+
+.person-banner {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 20px 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  justify-items: start;
+  background: #aa4b6b; /* fallback for old browsers */ /* Chrome 10-25, Safari 5.1-6 */
+  background: -o-linear-gradient(left, #0e617c, #6b6b83, #aa4b6b);
+  background: linear-gradient(
+    to right,
+    #0e617c,
+    #6b6b83,
+    #aa4b6b
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.search-result-box {
+  display: -ms-grid;
+  display: grid;
+  margin: 10px 0;
+  -ms-grid-columns: 1fr 20px 5fr;
+  grid-template-columns: 1fr 5fr;
+  gap: 20px;
+}
+.search-result-box div {
+  padding: 10px;
+}
+
+.search-result-box img {
+  max-height: 175px;
+  max-width: 125px;
+}
+
+.search-result-container a,
+.seasons a {
+  color: whitesmoke;
+}
+
+.search-result-container a:hover,
+.seasons a:hover {
+  color: #c8e0fc;
+}
+
+.episode-box,
+.episode-backdrop {
+  position: relative;
+  height: 400px;
+}
+
+.episode-backdrop img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -webkit-filter: brightness(40%);
+  filter: brightness(40%);
+  overflow: auto;
+}
+
+.episode-description,
+.desktop-overview {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  overflow: hidden;
+}
+
+.desktop-overview {
+  -webkit-line-clamp: 8;
+}
+
+.small-poster img,
+.search-result-box img,
+.cast-card img {
+  -o-object-fit: fill;
+  object-fit: fill;
+  border-radius: 10px;
+  width: 150px;
+  margin-bottom: 10px;
+  -webkit-transition: -webkit-filter linear 0.2s;
+  transition: -webkit-filter linear 0.2s;
+  -o-transition: filter linear 0.2s;
+  transition: filter linear 0.2s;
+  transition: filter linear 0.2s, -webkit-filter linear 0.2s;
+}
+
+.details-poster:hover,
+.small-poster img:hover,
+.cast-card img:hover,
+.search-result-container a:hover > .search-result-box img {
+  -webkit-filter: brightness(70%);
+  filter: brightness(70%);
+}
+
+.result-search-bar,
+.result-search-bar:focus {
+  background: transparent;
+  color: whitesmoke;
+  font-size: larger;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid whitesmoke;
+}
+
+.result-search-submit {
+  background: #0e617c;
+  color: whitesmoke;
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.pagination .page-link {
+  color: whitesmoke;
+  background: #0e617c;
+  padding: 10px;
+  border: none;
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 600px) {
   .mobile-backdrop,
   .mobile-overview {
-    display: none;
-  }
-  
-  .poster-card {
-    background-color: #03506f;
-    margin: 0 10px;
-    display: inline-block;
-  }
-  
-  .poster-card img {
-    border-radius: 10px;
-  }
-  
-  .details-poster {
-    height: 290px;
-    width: 200px;
-    margin: 10px 0;
-    -webkit-transition: -webkit-filter linear 0.2s;
-    -o-transition: filter linear 0.2s;
-    transition: filter linear 0.2s;
-  }
-  
-  .small-poster {
-    height: 250px;
-    margin: 10px;
-    -webkit-transition: -webkit-filter linear 0.2s;
-    transition: -webkit-filter linear 0.2s;
-    -o-transition: filter linear 0.2s;
-    transition: filter linear 0.2s;
-  }
-  
-  .cast-card {
-    -webkit-box-align: top;
-    -ms-flex-align: top;
-    align-items: top;
-    -webkit-box-pack: top;
-    -ms-flex-pack: top;
-    justify-content: top;
-    text-align: center;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    height: 350px;
-    width: 150px;
-    margin: 10px;
-  }
-  
-  .cast-card * {
     display: block;
   }
-  
-  main > .container {
-    width: 100%;
-    padding: 100px 15px;
+
+  .desktop-backdrop,
+  .desktop-overview,
+  .overlay-poster,
+  .result-image {
+    display: none;
   }
-  
-  .navbar-search input {
-    background-color: transparent;
-    color: whitesmoke;
-    border: none;
-    border-radius: 0;
-    border-bottom: 2px solid #cecece;
-    -webkit-transition: all 0.2s linear;
-    -o-transition: all 0.2s linear;
-    transition: all 0.2s linear;
-  }
-  
-  .navbar-search input::-webkit-input-placeholder,
-  .navbar-search input::-moz-placeholder,
-  .navbar-search input::-ms-input-placeholder,
-  .navbar-search input:-ms-input-placeholder {
-    color: #cecece;
-  }
-  .navbar-search input::placeholder {
-    color: #cecece;
-  }
-  
-  .navbar-search input:hover {
-    background-color: #03506f;
-  }
-  
-  .navbar-search input:focus {
-    color: whitesmoke;
-    background-color: transparent;
-  }
-  
-  .search-submit,
-  .search-submit:hover {
-    color: transparent;
-  }
-  
-  .navbar-search input:focus + .search-submit {
-    color: whitesmoke;
-    background: #34495e;
-    -webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2),
-      0 4px 20px 0 rgba(0, 0, 0, 0.2);
-    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.2);
-  }
-  
-  .carousel-large {
-    margin: 0 auto;
-    width: 80vw;
-    height: 80vh;
-    overflow: hidden;
-  }
-  
-  .carousel-small {
-    margin: 0 auto;
-    width: 60vw;
-    height: 60vh;
-    overflow: hidden;
-  }
-  
-  .flickity-button,
-  .flickity-button:hover {
-    background: transparent;
-  }
-  
-  /* big buttons, no circle */
-  .flickity-prev-next-button {
-    width: 75px;
-    height: 75px;
-  }
-  
-  /* arrow color */
-  .flickity-prev-next-button .arrow {
-    fill: whitesmoke;
-  }
-  
-  /* position dots in carousel */
-  .flickity-page-dots {
-    padding: 5px 0;
-    bottom: 0;
-  }
-  
-  /* white circles */
-  .flickity-page-dots .dot {
-    width: 12px;
-    height: 12px;
-    border: 2px solid white;
-  }
-  
-  /* fill-in selected dot */
-  .flickity-page-dots .dot.is-selected {
-    background: white;
-  }
-  
-  .gallery-cell {
-    margin: 0 auto;
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .gallery-cell img {
-    -o-object-fit: fit;
-    object-fit: fit;
-    height: 100%;
-    width: 100%;
-    -webkit-filter: brightness(60%);
-    filter: brightness(60%);
-  }
-  
-  .gallery-cell a {
-    text-decoration: none;
-    color: whitesmoke;
-  }
-  
-  .scrolling-wrapper {
-    margin: 10px 0;
-    overflow: hidden;
-    padding: 0 20px;
-  }
-  
-  .top-right-notif-text {
-    color: gray;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  
-  .carousel-image-caption {
-    margin: 40px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 5;
-  }
-  
-  .carousel-image-caption i,
-  .overlay-details i {
-    margin-right: 5px;
-  }
-  
-  .carousel-image-caption h4,
-  .carousel-image-caption h5:not(.carousel-image-overview),
-  .overlay-details h5:not(.tagline),
-  .episode-details h6,
-  .episode-details .h5 {
-    display: inline;
-    margin-right: 40px;
-  }
-  
-  .keyword,
-  .original-series-link {
-    background-color: #6ddccf;
-    color: #141e30;
-    -webkit-transition: background-color 0.2s linear;
-    -o-transition: background-color 0.2s linear;
-    transition: background-color 0.2s linear;
-  }
-  .keyword:hover,
-  .original-series-link:hover {
-    background-color: #c8e0fc;
-    color: black;
-  }
-  
-  .footer ul {
-    list-style-type: none;
-  }
-  
-  .footer ul li {
-    display: inline-block;
-    margin: 0 15px;
-  }
-  
-  .credits {
-    font-size: larger;
-  }
-  
+
   .banner,
   .banner-image {
-    position: relative;
     height: 500px;
-    width: 100%;
   }
-  
-  .banner-image img {
-    height: 100%;
-    width: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
-    -webkit-filter: brightness(40%);
-    filter: brightness(40%);
+
+  .carousel-large,
+  .carousel-small {
+    height: 60vh;
+    width: 90vw;
   }
-  
-  .overlay-poster {
-    margin: 40px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    z-index: 5;
+
+  .carousel-image-overview {
+    display: none;
   }
-  
-  .overlay-poster img,
-  .person-banner img,
-  .season-banner img {
-    border-radius: 20px;
-    height: 400px;
+
+  .carousel-image-caption {
+    margin: 0 0 20px 10px;
   }
-  
-  .overlay-details,
-  .episode-details {
-    width: 70%;
-    margin: 40px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 5;
-  }
-  
-  .desktop-overview,
-  .mobile-overview {
-    font-size: large;
-  }
-  
-  .text-slightly-muted {
-    color: rgb(161, 161, 161);
-  }
-  
-  .youtube-link {
-    display: inline-block;
-    color: whitesmoke;
-    background: #f00;
-    border-radius: 10px;
-    font-size: large;
-    -webkit-transition: all 0.2s linear;
-    -o-transition: all 0.2s linear;
-    transition: all 0.2s linear;
-  }
-  
-  .youtube-link:hover {
-    color: whitesmoke;
-    background: #282828;
-  }
-  
-  .extra-details p {
+
+  .overlay-details h5:not(.tagline),
+  .episode-details .h5 {
+    display: block;
     margin: 20px 0;
-    font-size: large;
   }
-  
+
+  .episode-box,
+  .episode-backdrop {
+    height: 600px;
+  }
+
   .season-banner {
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-columns: 1fr 20px 2fr;
-    grid-template-columns: 1fr 2fr;
-    grid-gap: 20px;
-    justify-items: start;
-    background: #141e30; /* fallback for old browsers */
     background: -webkit-linear-gradient(
-      to right,
-      #243b55,
-      #141e30
+      to bottom,
+      #03506f,
+      #282828
     ); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(
-      to right,
-      #243b55,
+      to bottom,
+      #03506f,
       #141e30
     ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
-  
-  .original-series-link {
-    display: inline-block;
-    font-size: larger;
-    border-radius: 10px;
+
+  .search-result-box,
+  .person-banner,
+  .season-banner {
+    -ms-grid-columns: 1fr;
+    grid-template-columns: 1fr;
   }
-  
-  .person-banner {
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-columns: 1fr 20px 1fr;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
-    justify-items: start;
-    background: #aa4b6b; /* fallback for old browsers */ /* Chrome 10-25, Safari 5.1-6 */
-    background: -o-linear-gradient(left, #0e617c, #6b6b83, #aa4b6b);
-    background: linear-gradient(
-      to right,
-      #0e617c,
-      #6b6b83,
-      #aa4b6b
-    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  .person-banner img,
+  .season-banner img {
+    height: 300px;
   }
-  
-  .search-result-box {
-    display: -ms-grid;
-    display: grid;
-    margin: 10px 0;
-    -ms-grid-columns: 1fr 20px 5fr;
-    grid-template-columns: 1fr 5fr;
-    gap: 20px;
+
+  .flickity-page-dots,
+  .flickity-prev-next-button {
+    display: none;
   }
-  .search-result-box div {
-    padding: 10px;
+
+  .footer ul li {
+    display: block;
+    margin: 15px 5px;
   }
-  
-  .search-result-box img {
-    max-height: 175px;
-    max-width: 125px;
-  }
-  
-  .search-result-container a,
-  .seasons a {
-    color: whitesmoke;
-  }
-  
-  .search-result-container a:hover,
-  .seasons a:hover {
-    color: #c8e0fc;
-  }
-  
-  .episode-box,
-  .episode-backdrop {
-    position: relative;
-    height: 400px;
-  }
-  
-  .episode-backdrop img {
-    height: 100%;
-    width: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
-    -webkit-filter: brightness(40%);
-    filter: brightness(40%);
-    overflow: auto;
-  }
-  
-  .episode-description,
-  .desktop-overview {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 6;
-    overflow: hidden;
-  }
-  
-  .desktop-overview {
-    -webkit-line-clamp: 8;
-  }
-  
-  .small-poster img,
-  .search-result-box img,
-  .cast-card img {
-    -o-object-fit: fill;
-    object-fit: fill;
-    border-radius: 10px;
-    width: 150px;
-    margin-bottom: 10px;
-    -webkit-transition: -webkit-filter linear 0.2s;
-    transition: -webkit-filter linear 0.2s;
-    -o-transition: filter linear 0.2s;
-    transition: filter linear 0.2s;
-    transition: filter linear 0.2s, -webkit-filter linear 0.2s;
-  }
-  
-  .details-poster:hover,
-  .small-poster img:hover,
-  .cast-card img:hover,
-  .search-result-container a:hover > .search-result-box img {
-    -webkit-filter: brightness(70%);
-    filter: brightness(70%);
-  }
-  
-  .result-search-bar,
-  .result-search-bar:focus {
-    background: transparent;
-    color: whitesmoke;
-    font-size: larger;
-    border: none;
-    border-radius: 0;
-    border-bottom: 2px solid whitesmoke;
-  }
-  
-  .result-search-submit {
-    background: #0e617c;
-    color: whitesmoke;
-  }
-  
-  .pagination {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  
-  .pagination .page-link {
-    color: whitesmoke;
-    background: #0e617c;
-    padding: 10px;
-    border: none;
-  }
-  
-  /* For mobile devices */
-  @media only screen and (max-width: 600px) {
-    .mobile-backdrop,
-    .mobile-overview {
-      display: block;
-    }
-  
-    .desktop-backdrop,
-    .desktop-overview,
-    .overlay-poster,
-    .result-image {
-      display: none;
-    }
-  
-    .banner,
-    .banner-image {
-      height: 500px;
-    }
-  
-    .carousel-large,
-    .carousel-small {
-      height: 60vh;
-      width: 90vw;
-    }
-  
-    .carousel-image-overview {
-      display: none;
-    }
-  
-    .carousel-image-caption {
-      margin: 0 0 20px 10px;
-    }
-  
-    .overlay-details h5:not(.tagline),
-    .episode-details .h5 {
-      display: block;
-      margin: 20px 0;
-    }
-  
-    .episode-box,
-    .episode-backdrop {
-      height: 600px;
-    }
-  
-    .season-banner {
-      background: -webkit-linear-gradient(
-        to bottom,
-        #03506f,
-        #282828
-      ); /* Chrome 10-25, Safari 5.1-6 */
-      background: linear-gradient(
-        to bottom,
-        #03506f,
-        #141e30
-      ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    }
-  
-    .search-result-box,
-    .person-banner,
-    .season-banner {
-      -ms-grid-columns: 1fr;
-      grid-template-columns: 1fr;
-    }
-  
-    .person-banner img,
-    .season-banner img {
-      height: 300px;
-    }
-  
-    .flickity-page-dots,
-    .flickity-prev-next-button {
-      display: none;
-    }
-  
-    .footer ul li {
-      display: block;
-      margin: 15px 5px;
-    }
-  }
-  
+}
