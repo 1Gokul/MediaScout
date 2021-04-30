@@ -1,7 +1,11 @@
 {% extends "layout.html" %}
 
 {% block title %}
-Search Results -
+{% if search_type == "all" %}
+{{ query }} - Search Results
+{% elif search_type == "by-keywords" %}
+{{ query["name"] }} - Search Results
+{% endif %}
 {% endblock %}
 
 {% block body %}
@@ -25,9 +29,15 @@ Search Results -
         </div>
     </form>
 
+    {% set search_query = query %}
+    {% set query_text = query %}
+
+
     <!-- No search bar in case of search by keyword-->
     {% elif search_type == "by-keywords" %}
-    <h2>Search by keyword: <strong>{{ query }}</strong> </h2>
+    <h2>Search by keyword: <strong>{{ query["name"] }}</strong> </h2>
+    {% set search_query = query["id"] %}
+    {% set query_text = query["name"] %}
     {% endif %}
 
     <!-- If search brought results -->
@@ -46,26 +56,32 @@ Search Results -
                 {% if result["date"] %}
                 {{ result["date"] }}
                 {% endif %}
-                <h5>{{ result["description"] }}</h5>
+                <h5 class="fw-normal">{{ result["description"] }}</h5>
             </div>
         </div>
     </a>
     {% endfor %}
 
     {% else %}
-    <h3>Sorry, no matches were found.</h3>
+    <h3 class="p-3">Sorry, no results were found.</h3>
 
     {% endif %}
 
-    <nav aria-label="search-results-pagination">
-        <ul class="pagination p-2">
-          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    <nav id="pagination" aria-label="search-result-pagination">
+        <ul class="pagination mt-3 p-2">
+            {% if page_no != 1 %}
+            <li class="page-item"><a class="page-link"
+                    href="{{ url_for('search', search_type=search_type, query=search_query, page=page_no | int - 1, media_type=media_type)}}"><i
+                        class="fas fa-lg fa-arrow-circle-left"></i></a></li>
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="#">{{ page_no }}</a></li>
+            {% if success %}
+            <li class="page-item"><a class="page-link"
+                    href="{{ url_for('search', search_type=search_type, query=search_query, page=page_no | int + 1, media_type=media_type)}}"><i
+                        class="fas fa-lg fa-arrow-circle-right"></i></a></li>
+            {% endif %}
         </ul>
-      </nav>
+    </nav>
 
 
 </div>

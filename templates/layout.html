@@ -4,11 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
+    <meta name="author" content="Gokul Viswanath">
+    <meta name="description" content="Find and discover new movies and TV shows!">
     <title>
-        MediaScout:
         {% block title %}
         {% endblock %}
+        - MediaScout
     </title>
 
     <!-- Boostrap CSS -->
@@ -61,8 +62,8 @@
                         </li>
                     </ul>
 
-                    <form class="d-flex navbar-search mb-5 mb-lg-0" action="{{ url_for('search', search_type='all') }}"
-                        method="GET">
+                    <form class="d-flex navbar-search mb-5 mb-lg-0"
+                        action="{{ url_for('search', search_type='all', page='1') }}" method="GET">
                         <input type="search" name="query" class="form-control ms-4 ms-lg-5 me-2" placeholder="Search"
                             aria-label="Search" required />
                         <button type="submit" class="btn border-0 search-submit px-4 mx-2"><i

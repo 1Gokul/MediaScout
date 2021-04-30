@@ -70,13 +70,16 @@ def credit():
 # Search
 @app.route("/search/<search_type>", methods=["GET", "POST"])
 def search(search_type):
+    page_no = request.args.get("page") or 1
+    media_type = request.args.get("media_type") or "movie"
+
     if search_type == "all":
         query = request.args.get("query")
-        success, search_results = media_finder.get_search_query_results(query)
+        success, search_results = media_finder.get_search_query_results(query, page_no)
 
     elif search_type == "by-keywords":
-        success, query, search_results = media_finder.search_by_keyword(
-            request.args.get("query"), request.args.get("media_type")
+        success, query, media_type, search_results = media_finder.search_by_keyword(
+            request.args.get("query"), media_type, page_no
         )
 
     else:
@@ -90,6 +93,8 @@ def search(search_type):
         success=success,
         query=query,
         search_type=search_type,
+        media_type=media_type,
+        page_no=page_no,
     )
 
 

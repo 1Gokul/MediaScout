@@ -43,7 +43,7 @@ TMDB_LISTED_GENDERS = ["N/A", "Female", "Male", "Non-Binary"]
 
 LARGE_BACKDROP_SIZE = 1280
 SMALL_BACKDROP_SIZE = 780
-POSTER_SIZE = 300
+POSTER_SIZE = 342
 ACTOR_POSTER_SIZE = 185
 OVERVIEW_MAX_CHARS = 250
 
@@ -374,36 +374,38 @@ class MediaFinder:
 
         return actor_info
 
-    def get_search_query_results(self, query):
+    def get_search_query_results(self, query, page=1):
         response = requests.get(
-            f"https://api.themoviedb.org/3/search/multi?api_key={self.api_key}&language=en-US&query={query}&page=1&include_adult=false"
+            f"https://api.themoviedb.org/3/search/multi?api_key={self.api_key}&language=en-US&query={query}&page={page}&include_adult=false"
         ).json()
 
         # Test the response
-        if "results" in response:
+        if len(response["results"]):
             return True, simplify_response(response["results"])
         else:
-            return False, "error"
+            return False, "N/A"
 
-    def search_by_keyword(self, keyword, media_type):
+    def search_by_keyword(self, keyword, media_type, page=1):
         response = requests.get(
-            f"https://api.themoviedb.org/3/discover/{media_type}?api_key={self.api_key}&with_keywords={keyword}"
+            f"https://api.themoviedb.org/3/discover/{media_type}?api_key={self.api_key}&with_keywords={keyword}&page={page}"
         ).json()
 
         # Get the name of the keyword
         keyword_name = requests.get(
             f"https://api.themoviedb.org/3/keyword/{keyword}?api_key={self.api_key}"
-        ).json()["name"]
+        ).json()
 
+        print(keyword, media_type, page)
         # Test the response
-        if "results" in response:
+        if len(response["results"]):
             return (
                 True,
                 keyword_name,
+                media_type,
                 simplify_response(response["results"], media_type),
             )
         else:
-            return False, keyword_name, "error"
+            return False, keyword_name, media_type, "error"
 
 
 def simplify_response(response_list, media_type="all"):
