@@ -116,8 +116,12 @@ class MediaFinder:
 
         # Adding additional info
         simplified_response["tagline"] = response["tagline"]
-
         simplified_response["description"] = response["overview"]
+        simplified_response["imdb_link"] = (
+            f"https://www.imdb.com/title/{response['imdb_id']}"
+            if "imdb_id" in response
+            else "N/A"
+        )
 
         # Show a trailer
         video_id = None

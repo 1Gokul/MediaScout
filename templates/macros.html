@@ -49,7 +49,7 @@
             {% endif %}
 
             {% if input_dict["trailer"] %}
-            <a class="youtube-link px-3 py-2 fw-bold" href="{{ input_dict['trailer'] }}" data-fancybox>
+            <a class="youtube-link px-3 py-2 my-2 fw-bold" href="{{ input_dict['trailer'] }}" data-fancybox>
                 <i class="fab fa-youtube"></i>
                 Trailer
             </a>
@@ -93,6 +93,18 @@
         {% endfor %}
         {% endif %}
     </p>
+    {% if input_dict["imdb_link"] != "N/A" %}
+    <p>
+    <h2>
+        <a href="{{ input_dict['imdb_link'] }}">
+            <span class="badge rounded-pill bg-warning text-dark">
+                Read more on IMDB
+                <i class="fas fa-external-link-alt mx-2"></i>
+            </span>
+        </a>
+    </h2>
+    </p>
+    {% endif %}
 </div>
 
 {% endmacro %}
