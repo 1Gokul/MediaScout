@@ -1,0 +1,13 @@
+name: Refresh database with updated media data
+
+on:
+  schedule:
+    # At 6 AM every day
+    - cron: '0 6 * * *'
+jobs:
+  build:
+    name: Update database
+    runs-on: ubuntu-latest
+    steps:
+      - name: cURL request to trigger update
+        run: curl --header "Content-Type: application/json" --request POST --data ${{secrets.UPDATE_TOKEN}} https://mediascout.herokuapp.com/update-db
