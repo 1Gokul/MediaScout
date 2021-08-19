@@ -11,6 +11,6 @@ jobs:
       - name: trigger-update
         run: curl \
         -X POST \
-        -H "Content-Type: "application/json" \
+        -H "Content-Type: application/json" \
         https://mediascout.herokuapp.com/update-db \
         -d ${{secrets.UPDATE_TOKEN}}
