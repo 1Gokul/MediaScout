@@ -111,13 +111,16 @@ def forbidden(error):
 
 
 # Update the DB
-@app.route("/update-db/<code>")
-def update_db(code):
-    if data_storage.update_all_info(code):
-        print(f"DB updated at {datetime.now()}")
-        return redirect(url_for("index"))
+@app.route("/update-db", methods=["POST"])
+def update_db():
+    if request.method == "POST":
+        if data_storage.update_all_info(request.args.get("auth_code")):
+            print(f"DB updated at {datetime.now()}")
+            return {"success": "DB updated successfully."}
+        else:
+            return {"error": "Error while updating database. Check your credentials and try again."}, 403
     else:
-        abort(403)
+        return {"error": "Error while updating database. Check your credentials and try again."}, 403
 
 
 if __name__ == "__main__":
