@@ -9,8 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: trigger-update
-        run: curl \
-        -X POST \
-        -H "Content-Type: application/json" \
-        https://mediascout.herokuapp.com/update-db \
-        -d ${{secrets.UPDATE_TOKEN}}
+        run: curl -d "auth_code=${{secrets.UPDATE_TOKEN}}" -X POST https://mediascout.herokuapp.com/update-db
