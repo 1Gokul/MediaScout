@@ -120,7 +120,7 @@ def update_db():
         else:
             return {"error": "Error while updating database. Check your credentials and try again."}, 403
     else:
-        return {"error": "Error while updating database. Check your credentials and try again."}, 403
+        return {"error": "Bad request."}, 400
 
 
 if __name__ == "__main__":
