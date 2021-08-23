@@ -114,9 +114,8 @@ def forbidden(error):
 @app.route("/update-db", methods=["POST"])
 def update_db():
     if request.method == "POST":
-        if data_storage.update_all_info(request.args.get("auth_code")):
-            print(f"DB updated at {datetime.now()}")
-            return {"success": "DB updated successfully."}
+        if data_storage.update_all_info(request.get_json()["auth_code"]):
+            return {"success": f"DB updated successfully at time: {datetime.now()}"}
         else:
             return {"error": "Error while updating database. Check your credentials and try again."}, 403
     else:
