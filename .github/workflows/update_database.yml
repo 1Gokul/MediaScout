@@ -2,8 +2,8 @@ name: Refresh database with updated media data
 
 on:
   schedule:
-    # At 6 AM every day
-    - cron: '0 6 * * *'
+    # At 6 AM every Wednesday
+    - cron: '0 6 * * 3'
 jobs:
   update-database:
     runs-on: ubuntu-latest
