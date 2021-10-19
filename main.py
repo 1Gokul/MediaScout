@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, abort
 from media_finder import MediaFinder
 from datetime import datetime
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='')
 
 import data_storage
 
