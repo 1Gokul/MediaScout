@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, abort
 from media_finder import MediaFinder
 from datetime import datetime
 
-app = Flask(__name__, static_folder='static', static_url_path='')
+app = Flask(__name__, static_folder="static", static_url_path="")
 
 import data_storage
 
@@ -84,9 +84,7 @@ def search(search_type):
 
     else:
         abort(404)
-
-    # A POST request means that the user requested for more results.
-
+        
     return render_template(
         "search-results.html",
         search_results=search_results,
@@ -114,10 +112,15 @@ def forbidden(error):
 @app.route("/update-db", methods=["POST"])
 def update_db():
     if request.method == "POST":
-        if data_storage.update_all_info(request.get_json()["auth_code"]):
-            return {"success": f"DB updated successfully at time: {datetime.now()}"}
+        result = data_storage.update_all_info(request.get_json()["auth_code"])
+        if result:
+            return {
+                "success": f"DB updated with {result} items successfully at time: {datetime.now()}"
+            }, 200
         else:
-            return {"error": "Error while updating database. Check your credentials and try again."}, 403
+            return {
+                "error": "Error while updating database. Check your credentials and try again."
+            }, 403
     else:
         return {"error": "Bad request."}, 400
 

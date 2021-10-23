@@ -1,28 +1,18 @@
+from typing import Collection
 from main import app
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.dialects.postgresql import JSON
-from media_finder import MediaFinder
+from pymongo import MongoClient
 import os
+from dotenv import load_dotenv
 
+from media_finder import MediaFinder
 
+# Load environment variables from either a .env file(dev) or from the environment(production)
+load_dotenv()
 
 # URL of the database
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL").replace(
-    "://", "ql://", 1
-)
-
-# Optional: But it silences the deprecation warning in the console.
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-db = SQLAlchemy(app)
-
-
-# The Data table
-class Media(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    page_name = db.Column(db.String(50), unique=True, nullable=False)
-    page_data = db.Column(JSON)
-
+client = MongoClient(os.getenv("DATABASE_URL"))
+db = client.test_media_data
+collection = db.media_data
 
 # MediaFinder Object
 media_finder = MediaFinder()
@@ -31,35 +21,40 @@ media_finder = MediaFinder()
 def update_all_info(code):
     """Gets all required data from the TMDB API and updates the information in the database."""
     # If the code supplied is correct, update the database.
-    if code == os.environ.get("UPDATE_VERIFICATION_CODE"):
+    if code == os.getenv("UPDATE_VERIFICATION_CODE"):
 
-        # Clear all previous data from the data table
-        db.session.query(Media).delete()
+        # pymongo transaction
+        with client.start_session() as session:
+            # start the transaction
+            with session.start_transaction():
+                main_home = db.media_data.update_one(
+                    {"page": "main_home"},
+                    {"$set": {"content": get_main_home_info()}},
+                    upsert=True,
+                )
+                movie_home = db.media_data.update_one(
+                    {"page": "movie_home"},
+                    {"$set": {"content": get_movie_home_info()}},
+                    upsert=True,
+                )
+                tv_home = db.media_data.update_one(
+                    {"page": "tv_home"},
+                    {"$set": {"content": get_tv_home_info()}},
+                    upsert=True,
+                )
 
-        # Add the data for the main homepage
-        main_home = Media(page_name="main_home", page_data=get_main_home_info())
-        db.session.add(main_home)
-
-        # Add the data for the movie homepage
-        movie_home = Media(page_name="movie_home", page_data=get_movie_home_info())
-        db.session.add(movie_home)
-
-        # Add the data for the tv homepage
-        tv_home = Media(page_name="tv_home", page_data=get_tv_home_info())
-        db.session.add(tv_home)
-
-        db.session.commit()
-
-        return True
+        return (
+            main_home.matched_count + movie_home.matched_count + tv_home.matched_count
+        )
 
     else:
-        return False
+        return None
 
 
 def load_info(page_name):
     """Return required data from the DB."""
-    result = Media.query.filter_by(page_name=page_name).first()
-    return result.page_data
+    result = db.media_data.find_one({"page": page_name})
+    return result["content"]
 
 
 def get_main_home_info():

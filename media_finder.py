@@ -399,7 +399,6 @@ class MediaFinder:
             f"https://api.themoviedb.org/3/keyword/{keyword}?api_key={self.api_key}"
         ).json()
 
-        print(keyword, media_type, page)
         # Test the response
         if len(response["results"]):
             return (
