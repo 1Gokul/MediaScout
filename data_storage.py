@@ -1,5 +1,3 @@
-from typing import Collection
-from main import app
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
