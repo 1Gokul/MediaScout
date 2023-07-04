@@ -42,7 +42,7 @@ os.environ["UPDATE_VERIFICATION_CODE"] = "<my_secret_code>"
 5. Send a POST request to `localhost:5000/update-db/` with the request body:
     ```
     {
-      code: "<my_secret_code>"
+      "auth_code": "<my_secret_code>"
     }
     ```
 6. The DB should be updated!
